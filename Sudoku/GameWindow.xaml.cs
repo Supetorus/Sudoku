@@ -14,19 +14,29 @@ using System.Windows.Shapes;
 
 namespace Sudoku
 {
-	/// <summary>
-	/// Interaction logic for GameWindow.xaml
-	/// </summary>
-	public partial class GameWindow : Window
-	{
-		public GameWindow()
-		{
-			InitializeComponent();
+    /// <summary>
+    /// Interaction logic for GameWindow.xaml
+    /// </summary>
+    public partial class GameWindow : Window
+    {
+        Button[,] shownButtons = new Button[9, 9];
+        public GameWindow()
+        {
+            InitializeComponent();
 
-			Board board = new Board();
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    shownButtons[i,j] = new Button();
+                    shownButtons[i, j].Content = i.ToString() +":"+ j.ToString();
+                    Grid.SetRow(shownButtons[i, j], i);
+                    Grid.SetColumn(shownButtons[i, j], j);
+                    gridView.Children.Add(shownButtons[i, j]);
+                }
 
-			board.Generate();
-			Board.Text = board.ToString();
-		}
-	}
+            }
+
+        }
+    }
 }
