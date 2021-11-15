@@ -38,5 +38,20 @@ namespace Sudoku
             }
 
         }
+
+        public void Update()
+        {
+            // Updates every part of the view that needs to be updated
+        }
+
+        public void AddNumber(Vector position)
+        {
+            //Attempts to add a number to the board, updates the display based on whether the number was right, wrong, or attempted in a place where a number already existed.
+        }
+
+        public void ErasePosition(Vector position)
+        {
+            // Calls Board.Erase(position) then updates the display
+        }
     }
 }
