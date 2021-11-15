@@ -9,7 +9,7 @@ namespace Sudoku
 	class Board
 	{
 		const int size = 9;
-
+		
 		int difficulty = 1;
 
 		int[,] solved = new int[size, size];
@@ -35,6 +35,11 @@ namespace Sudoku
 
 			CopyGrid(unsolved, current);
 		}
+
+		public int GetNum(int x, int y)
+        {
+			return current[x, y];
+        }
 
 		void ClearGrid(int[,] grid)
 		{
@@ -102,7 +107,7 @@ namespace Sudoku
 
 			return true;
 		}
-
+		
 		void RemoveNums()
 		{
 			for (int i = 0; i < difficulty * 21; ++i)
@@ -188,6 +193,16 @@ namespace Sudoku
 			}
 
 			return true;
+		}
+
+		public bool CheckNum(int x, int y, int i)
+		{
+			return CheckSafety(x, y, i, current);
+		}
+
+		public void SetNum(int x, int y, int i)
+		{
+			current[x, y] = i;
 		}
 
 		public override string ToString()
