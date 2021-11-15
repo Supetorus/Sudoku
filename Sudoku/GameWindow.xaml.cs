@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Sudoku
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for GameWindow.xaml
+	/// </summary>
+	public partial class GameWindow : Window
+	{
+		public GameWindow()
+		{
+			InitializeComponent();
+
+			Board board = new Board();
+
+			board.Generate();
+			Board.Text = board.ToString();
+		}
+	}
 }
