@@ -22,11 +22,35 @@ namespace Sudoku
         Button selectedButton = null;
 
         Board board;
+        
+        static Theme[] themes =
+        {
+            new Theme
+            (
+                new SolidColorBrush(Color.FromRgb(200, 200, 255)),
+                new SolidColorBrush(Color.FromRgb(255, 200, 200)),
+                new SolidColorBrush(Color.FromRgb(200, 200, 215)),
+                new SolidColorBrush(Color.FromRgb(200, 200, 200))
+            )
+        };
 
-        Brush selectedColor = Brushes.DarkCyan;
-        Brush unselectedColor = Brushes.Silver;
+        Theme theme = themes[0];
 
-       
+        struct Theme
+		{
+            public Brush selectedColor;
+            public Brush matchingColor;
+            public Brush areaColor;
+            public Brush unselectedColor;
+
+            public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor, Brush unselectedColor)
+			{
+                this.selectedColor = selectedColor;
+                this.matchingColor = matchingColor;
+                this.areaColor = areaColor;
+                this.unselectedColor = unselectedColor;
+			}
+        }
 
         class CellInfo
 		{
@@ -34,13 +58,11 @@ namespace Sudoku
             public int y;
             public bool correct;
 
-
             public CellInfo(int x, int y, bool correct)
             {
-            this.x = x;
-            this.y = y;
-             this.correct = correct;
-
+                this.x = x;
+                this.y = y;
+                this.correct = correct;
             }
         }
 
@@ -48,11 +70,10 @@ namespace Sudoku
         {
             InitializeComponent();
 
-        board = new Board();
+            board = new Board();
 
             board.Generate();
             
-
             for (int x = 0; x < 9; x++)
             {
                 for (int y = 0; y < 9; y++)
@@ -62,27 +83,93 @@ namespace Sudoku
                     shownButtons[x, y].Content = num == 0 ? "" : num;
                     shownButtons[x, y].Click += BoardClick;
                     shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
+                    shownButtons[x, y].Background = theme.unselectedColor;
                     Grid.SetRow(shownButtons[x, y], x);
                     Grid.SetColumn(shownButtons[x, y], y);
                     gridView.Children.Add(shownButtons[x, y]);
-         
                 }
             }
-
         }
 
         private void BoardClick(object sender, RoutedEventArgs e)
         {
+            int x, y, num;
+
             if(selectedButton != null)
             {
-                selectedButton.Background = unselectedColor;
+                selectedButton.Background = theme.unselectedColor;
+
+                for(int i = 0; i < 9; ++i)
+				{
+                    shownButtons[i, ((CellInfo)selectedButton.Tag).y].Background = theme.unselectedColor;
+                    shownButtons[((CellInfo)selectedButton.Tag).x, i].Background = theme.unselectedColor;
+                }
+
+                x = ((CellInfo)selectedButton.Tag).x;
+                y = ((CellInfo)selectedButton.Tag).y;
+
+                for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+                {
+                    for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
+                    {
+                        shownButtons[bx, by].Background = theme.unselectedColor;
+                    }
+                }
+
+                if (selectedButton.Content.ToString() != "")
+                {
+                    num = int.Parse(selectedButton.Content.ToString());
+                    for (int i = 0; i < 9; ++i)
+                    {
+                        for (int j = 0; j < 9; ++j)
+                        {
+                            if (shownButtons[i, j].Content.ToString() != "" && 
+                                int.Parse(shownButtons[i, j].Content.ToString()) == num)
+                            {
+                                shownButtons[i, j].Background = theme.unselectedColor;
+                            }
+                        }
+                    }
+                }
             }
         
             selectedButton = sender as Button;
 
+            for (int i = 0; i < 9; ++i)
+            {
+                shownButtons[i, ((CellInfo)selectedButton.Tag).y].Background = theme.areaColor;
+                shownButtons[((CellInfo)selectedButton.Tag).x, i].Background = theme.areaColor;
+            }
 
-            selectedButton.Background = selectedColor;
+            x = ((CellInfo)selectedButton.Tag).x;
+            y = ((CellInfo)selectedButton.Tag).y;
 
+            for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+            {
+                for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
+                {
+                    shownButtons[bx, by].Background = theme.areaColor;
+                }
+            }
+
+            if (selectedButton.Content.ToString() != "")
+            {
+                num = int.Parse(selectedButton.Content.ToString());
+
+                for (int i = 0; i < 9; ++i)
+                {
+                    for (int j = 0; j < 9; ++j)
+                    {
+                        if (shownButtons[i, j].Content.ToString() != "" && 
+                            int.Parse(shownButtons[i, j].Content.ToString()) == num)
+						{
+                            shownButtons[i, j].Background = theme.matchingColor;
+                        }
+                    }
+                }
+            }
+
+            selectedButton.Background = theme.selectedColor;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -92,14 +179,10 @@ namespace Sudoku
                 int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
                 selectedButton.Content = num;
 
-           
-
                 //correct num checking here
             }
         }
 
-			}
-		}
         public void Update()
         {
             // Updates every part of the view that needs to be updated
@@ -112,7 +195,6 @@ namespace Sudoku
 
         public void ErasePosition(Vector position)
         {
-            
             // Calls Board.Erase(position) then updates the display
         }
 
@@ -127,10 +209,6 @@ namespace Sudoku
                 //correct num checking here
             }
         }
-	}
-}
-
-
         
         public void ResetBoard(object sender, KeyEventArgs e)
         {
