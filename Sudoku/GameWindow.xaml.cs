@@ -114,9 +114,17 @@ namespace Sudoku
 			}
 		}
 
-		public void ResetBoard(object sender, KeyEventArgs e)
+		private void Reset_Board(object sender, RoutedEventArgs e)
 		{
-
+			board.ResetBoard();
+			for (int x = 0; x < 9; x++)
+			{
+				for (int y = 0; y < 9; y++)
+				{
+					int num = board.GetNum(x, y);
+					shownButtons[x, y].Content = num == 0 ? "" : num;
+				}
+			}
 		}
 	}
 }

@@ -146,6 +146,10 @@
                         Grid.Column="1"
                         Content="Erase" />
             </Grid>
+            <Button Width="100"
+                    Height="50"
+                    Content="Reset"
+                    Click="Reset_Board" />
         </StackPanel>
     </Grid>
 </Window>
