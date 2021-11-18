@@ -33,6 +33,7 @@ namespace Sudoku
 			)
 		};
 
+		// Set the default theme
 		Theme theme = themes[0];
 
 		struct Theme

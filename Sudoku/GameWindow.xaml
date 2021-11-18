@@ -23,8 +23,8 @@
                 Grid.Column="0"
                 HorizontalAlignment="Left"
                 Margin="10,10,0,0"
-                VerticalAlignment="Top" 
-                Click="New_Game"/>
+                VerticalAlignment="Top"
+                Click="New_Game" />
         <!-- The sudoku board -->
         <Grid Grid.Column="0"
               ShowGridLines="True"
