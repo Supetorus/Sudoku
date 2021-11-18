@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +22,34 @@ namespace Sudoku
 
 		Board board;
 
-		Brush selectedColor = Brushes.DarkCyan;
-		Brush unselectedColor = Brushes.Silver;
+		static Theme[] themes =
+		{
+			new Theme
+			(
+				new SolidColorBrush(Color.FromRgb(200, 200, 255)),
+				new SolidColorBrush(Color.FromRgb(255, 200, 200)),
+				new SolidColorBrush(Color.FromRgb(200, 200, 215)),
+				new SolidColorBrush(Color.FromRgb(200, 200, 200))
+			)
+		};
+
+		Theme theme = themes[0];
+
+		struct Theme
+		{
+			public Brush selectedColor;
+			public Brush matchingColor;
+			public Brush areaColor;
+			public Brush unselectedColor;
+
+			public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor, Brush unselectedColor)
+			{
+				this.selectedColor = selectedColor;
+				this.matchingColor = matchingColor;
+				this.areaColor = areaColor;
+				this.unselectedColor = unselectedColor;
+			}
+		}
 
 		class CellInfo
 		{
@@ -73,6 +99,7 @@ namespace Sudoku
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
+					shownButtons[x, y].Background = theme.unselectedColor;
 				}
 			}
 		}
@@ -81,12 +108,57 @@ namespace Sudoku
 		{
 			if (selectedButton != null)
 			{
-				selectedButton.Background = unselectedColor;
+				Highlight(false);
 			}
 
 			selectedButton = sender as Button;
 
-			selectedButton.Background = selectedColor;
+			Highlight(true);
+		}
+
+		private void Highlight(bool highlight)
+		{
+			Brush selectedBrush = highlight ? theme.selectedColor : theme.unselectedColor;
+			Brush areaBrush = highlight ? theme.areaColor : theme.unselectedColor;
+			Brush matchingBrush = highlight ? theme.matchingColor : theme.unselectedColor;
+
+			//Highlight row and column
+			for (int i = 0; i < 9; ++i)
+			{
+				shownButtons[i, ((CellInfo)selectedButton.Tag).y].Background = areaBrush;
+				shownButtons[((CellInfo)selectedButton.Tag).x, i].Background = areaBrush;
+			}
+
+			int x = ((CellInfo)selectedButton.Tag).x;
+			int y = ((CellInfo)selectedButton.Tag).y;
+
+			//Highlight box
+			for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+			{
+				for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
+				{
+					shownButtons[bx, by].Background = areaBrush;
+				}
+			}
+
+			//Highlight matching numbers
+			if (selectedButton.Content.ToString() != "")
+			{
+				int num = int.Parse(selectedButton.Content.ToString());
+				for (int i = 0; i < 9; ++i)
+				{
+					for (int j = 0; j < 9; ++j)
+					{
+						if (shownButtons[i, j].Content.ToString() != "" &&
+							int.Parse(shownButtons[i, j].Content.ToString()) == num)
+						{
+							shownButtons[i, j].Background = matchingBrush;
+						}
+					}
+				}
+			}
+
+			selectedButton.Background = selectedBrush;
 		}
 
 		public void Update()
@@ -101,7 +173,6 @@ namespace Sudoku
 
 		public void ErasePosition(Vector position)
 		{
-
 			// Calls Board.Erase(position) then updates the display
 		}
 
@@ -147,3 +218,4 @@ namespace Sudoku
 		}
 	}
 }
+
