@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,23 +37,23 @@ namespace Sudoku
         Theme theme = themes[0];
 
         struct Theme
-		{
+		    {
             public Brush selectedColor;
             public Brush matchingColor;
             public Brush areaColor;
             public Brush unselectedColor;
 
             public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor, Brush unselectedColor)
-			{
+			      {
                 this.selectedColor = selectedColor;
                 this.matchingColor = matchingColor;
                 this.areaColor = areaColor;
                 this.unselectedColor = unselectedColor;
-			}
+			      }
         }
 
         class CellInfo
-		{
+		    {
             public int x;
             public int y;
             public bool correct;
@@ -104,7 +104,7 @@ namespace Sudoku
         }
 
         private void Highlight(bool highlight)
-		{
+		    {
             Brush selectedBrush = highlight ? theme.selectedColor : theme.unselectedColor;
             Brush areaBrush = highlight ? theme.areaColor : theme.unselectedColor;
             Brush matchingBrush = highlight ? theme.matchingColor : theme.unselectedColor;
@@ -174,8 +174,8 @@ namespace Sudoku
             // Calls Board.Erase(position) then updates the display
         }
 
-		private void KeyPad(object sender, RoutedEventArgs e)
-		{
+		    private void KeyPad(object sender, RoutedEventArgs e)
+		    {
             int num = int.Parse((sender as Button).Content.ToString());
 
             if (selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
@@ -192,3 +192,4 @@ namespace Sudoku
         }
     }
 }
+

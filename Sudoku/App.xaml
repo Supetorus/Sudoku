@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Sudoku"
              StartupUri="GameWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

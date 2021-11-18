@@ -10,12 +10,12 @@ namespace Sudoku
 	class Board
 	{
 		const int size = 9;
-		
+
 		int difficulty = 1;
 
-		int[,] solved = new int[size, size];
-		int[,] unsolved = new int[size, size];
-		int[,] current = new int[size, size];
+		int[,] solved = new int[size, size]; // Full board with all numbers
+		int[,] unsolved = new int[size, size]; // The starting board with empty spaces
+		int[,] current = new int[size, size]; // The starting board plus numbers user has entered
 
 		int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
@@ -38,9 +38,9 @@ namespace Sudoku
 		}
 
 		public int GetNum(int x, int y)
-        {
+		{
 			return current[x, y];
-        }
+		}
 
 		void ClearGrid(int[,] grid)
 		{
@@ -108,7 +108,7 @@ namespace Sudoku
 
 			return true;
 		}
-		
+
 		void RemoveNums()
 		{
 			for (int i = 0; i < difficulty * 21; ++i)
@@ -206,7 +206,16 @@ namespace Sudoku
 			current[x, y] = i;
 		}
 
-			
+		public void ResetBoard()
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					current[i, j] = unsolved[i, j];
+				}
+			}
+		}
 
 		public override string ToString()
 		{
