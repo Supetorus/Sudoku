@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace Sudoku
 {
     public partial class GameWindow : Window
@@ -22,27 +23,35 @@ namespace Sudoku
 
         Board board;
 
+        Brush selectedColor = Brushes.DarkCyan;
+        Brush unselectedColor = Brushes.Silver;
+
+       
+
         class CellInfo
 		{
             public int x;
             public int y;
             public bool correct;
 
+
             public CellInfo(int x, int y, bool correct)
-			{
-                this.x = x;
-                this.y = y;
-                this.correct = correct;
-			}
-		}
+            {
+            this.x = x;
+            this.y = y;
+             this.correct = correct;
+
+            }
+        }
 
         public GameWindow()
         {
             InitializeComponent();
 
-            board = new Board();
+        board = new Board();
 
             board.Generate();
+            
 
             for (int x = 0; x < 9; x++)
             {
@@ -56,13 +65,24 @@ namespace Sudoku
                     Grid.SetRow(shownButtons[x, y], x);
                     Grid.SetColumn(shownButtons[x, y], y);
                     gridView.Children.Add(shownButtons[x, y]);
+         
                 }
             }
+
         }
 
         private void BoardClick(object sender, RoutedEventArgs e)
         {
+            if(selectedButton != null)
+            {
+                selectedButton.Background = unselectedColor;
+            }
+        
             selectedButton = sender as Button;
+
+
+            selectedButton.Background = selectedColor;
+
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -72,10 +92,14 @@ namespace Sudoku
                 int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
                 selectedButton.Content = num;
 
+           
+
                 //correct num checking here
             }
         }
 
+			}
+		}
         public void Update()
         {
             // Updates every part of the view that needs to be updated
@@ -88,6 +112,7 @@ namespace Sudoku
 
         public void ErasePosition(Vector position)
         {
+            
             // Calls Board.Erase(position) then updates the display
         }
 
@@ -107,3 +132,9 @@ namespace Sudoku
 
 
         
+        public void ResetBoard(object sender, KeyEventArgs e)
+        {
+           
+        }
+    }
+}

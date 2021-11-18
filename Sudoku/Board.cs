@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Sudoku
 {
@@ -204,6 +205,8 @@ namespace Sudoku
 		{
 			current[x, y] = i;
 		}
+
+			
 
 		public override string ToString()
 		{
