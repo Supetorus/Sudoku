@@ -13,9 +13,9 @@ namespace Sudoku
 
 		int difficulty = 1;
 
-		int[,] solved = new int[size, size];
-		int[,] unsolved = new int[size, size];
-		int[,] current = new int[size, size];
+		int[,] solved = new int[size, size]; // Full board with all numbers
+		int[,] unsolved = new int[size, size]; // The starting board with empty spaces
+		int[,] current = new int[size, size]; // The starting board plus numbers user has entered
 
 		int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
@@ -204,6 +204,17 @@ namespace Sudoku
 		public void SetNum(int x, int y, int i)
 		{
 			current[x, y] = i;
+		}
+
+		public void ResetBoard()
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					current[i, j] = unsolved[i, j];
+				}
+			}
 		}
 
 		public override string ToString()
