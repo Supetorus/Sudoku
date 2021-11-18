@@ -64,20 +64,16 @@ namespace Sudoku
         {
             selectedButton = sender as Button;
         }
-        
-		private void Window_KeyDown(object sender, KeyEventArgs e)
-		{
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
             if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
-			{
+            {
                 int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
                 selectedButton.Content = num;
 
                 //correct num checking here
-			}
-		}
-	}
             }
-
         }
 
         public void Update()
@@ -94,5 +90,20 @@ namespace Sudoku
         {
             // Calls Board.Erase(position) then updates the display
         }
-    }
+
+		private void KeyPad(object sender, RoutedEventArgs e)
+		{
+            int num = int.Parse((sender as Button).Content.ToString());
+
+            if (selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+            {
+                selectedButton.Content = num;
+
+                //correct num checking here
+            }
+        }
+	}
 }
+
+
+        
