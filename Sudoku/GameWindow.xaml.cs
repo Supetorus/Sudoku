@@ -43,19 +43,33 @@ namespace Sudoku
 		{
 			InitializeComponent();
 
+			GenerateButtons();
+			NewGame();
+		}
+
+		private void NewGame()
+		{
 			board = new Board();
-
 			board.Generate();
-
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
 				{
 					int num = board.GetNum(x, y);
-					shownButtons[x, y] = new Button();
 					shownButtons[x, y].Content = num == 0 ? "" : num;
 					shownButtons[x, y].Click += BoardClick;
 					shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
+				}
+			}
+		}
+
+		private void GenerateButtons()
+		{
+			for (int x = 0; x < 9; x++)
+			{
+				for (int y = 0; y < 9; y++)
+				{
+					shownButtons[x, y] = new Button();
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
@@ -75,17 +89,6 @@ namespace Sudoku
 			selectedButton.Background = selectedColor;
 		}
 
-		private void Window_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
-			{
-				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
-				selectedButton.Content = num;
-
-				//correct num checking here
-			}
-		}
-
 		public void Update()
 		{
 			// Updates every part of the view that needs to be updated
@@ -100,6 +103,17 @@ namespace Sudoku
 		{
 
 			// Calls Board.Erase(position) then updates the display
+		}
+
+		private void Window_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+			{
+				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
+				selectedButton.Content = num;
+
+				//correct num checking here
+			}
 		}
 
 		private void KeyPad(object sender, RoutedEventArgs e)
@@ -125,6 +139,11 @@ namespace Sudoku
 					shownButtons[x, y].Content = num == 0 ? "" : num;
 				}
 			}
+		}
+
+		private void New_Game(object sender, RoutedEventArgs e)
+		{
+			NewGame();
 		}
 	}
 }
