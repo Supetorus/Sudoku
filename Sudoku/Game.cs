@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Sudoku
 {
-    class Game
-    {
-        public Board board;
+	class Game
+	{
+		public Board board;
 
+		public void NewGame()
+		{
+			//Initializes a new game, resets the clock, resets wrong answers,generates a new board, etc. 
+		}
 
-
-        public void NewGame()
-        {
-            //Initializes a new game, resets the clock, resets wrong answers,generates a new board, etc. 
-        }
-
-    }
+	}
 }
