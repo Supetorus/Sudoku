@@ -116,6 +116,7 @@ namespace Sudoku
 
 		private void Reset_Board(object sender, RoutedEventArgs e)
 		{
+			// when mistakes are counted, this will need to reset that too.
 			board.ResetBoard();
 			for (int x = 0; x < 9; x++)
 			{
