@@ -148,8 +148,7 @@
             </Grid>
             <Button Width="100"
                     Height="50"
-                    Content="Reset"
-                    Click="Reset_Board" />
+                    Content="Reset" />
         </StackPanel>
     </Grid>
 </Window>
