@@ -44,18 +44,32 @@ namespace Sudoku
             public Brush unselectedColor;
 
             public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor, Brush unselectedColor)
-			      {
+			{
                 this.selectedColor = selectedColor;
                 this.matchingColor = matchingColor;
                 this.areaColor = areaColor;
                 this.unselectedColor = unselectedColor;
-			      }
+			}
         }
 
+        struct Move
+        {
+            public int x, y;
+            public int prev;
+
+            public Move(int x, int y, int prev)
+            {
+                this.x = x;
+                this.y = y;
+                this.prev = prev;
+            }
+        }
+
+        Stack<Move> moves = new Stack<Move>();
+
         class CellInfo
-		    {
-            public int x;
-            public int y;
+		{
+            public int x, y;
             public bool correct;
 
             public CellInfo(int x, int y, bool correct)
@@ -104,7 +118,7 @@ namespace Sudoku
         }
 
         private void Highlight(bool highlight)
-		    {
+		{
             Brush selectedBrush = highlight ? theme.selectedColor : theme.unselectedColor;
             Brush areaBrush = highlight ? theme.areaColor : theme.unselectedColor;
             Brush matchingBrush = highlight ? theme.matchingColor : theme.unselectedColor;
@@ -153,7 +167,9 @@ namespace Sudoku
             if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
             {
                 int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
-                selectedButton.Content = num;
+				moves.Push(new Move(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y,
+                    selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
+                AddNumber(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, num);
 
                 //correct num checking here
             }
@@ -164,32 +180,40 @@ namespace Sudoku
             // Updates every part of the view that needs to be updated
         }
 
-        public void AddNumber(Vector position)
+        public void AddNumber(int x, int y, int num)
         {
-            //Attempts to add a number to the board, updates the display based on whether the number was right, wrong, or attempted in a place where a number already existed.
+            shownButtons[x, y].Content = num > 0 ? num : "";
+            board.SetNum(x, y, num);
         }
 
         public void ErasePosition(Vector position)
         {
+            // if Not starting number
             // Calls Board.Erase(position) then updates the display
+            // Create Move: moves.p
         }
 
-		    private void KeyPad(object sender, RoutedEventArgs e)
-		    {
+		private void KeyPad(object sender, RoutedEventArgs e)
+		{
             int num = int.Parse((sender as Button).Content.ToString());
 
             if (selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
             {
-                selectedButton.Content = num;
+                moves.Push(new Move(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y,
+                    selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
+                AddNumber(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, num);
 
                 //correct num checking here
             }
         }
-        
-        public void ResetBoard(object sender, KeyEventArgs e)
-        {
-           
-        }
-    }
-}
 
+		private void Undo(object sender, RoutedEventArgs e)
+		{
+            if(moves.Count > 0)
+			{
+                Move move = moves.Pop();
+                AddNumber(move.x, move.y, move.prev);
+			}
+		}
+	}
+}

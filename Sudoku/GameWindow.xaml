@@ -23,7 +23,8 @@
               Name="gridView"
               Width="300"
               Height="300"
-              HorizontalAlignment="Center">
+              HorizontalAlignment="Center"
+			  Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -138,7 +139,8 @@
                         Margin="25"
                         Grid.Row="1"
                         Grid.Column="0"
-                        Content="Undo" />
+                        Content="Undo" 
+						Click="Undo"/>
                 <Button Width="100"
                         Height="50"
                         Margin="25"
@@ -148,8 +150,7 @@
             </Grid>
             <Button Width="100"
                     Height="50"
-                    Content="Reset"
-                    Click="Reset_Board" />
+                    Content="Reset"/>
         </StackPanel>
     </Grid>
 </Window>
