@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-
 namespace Sudoku
 {
 	public partial class GameWindow : Window
@@ -34,6 +33,7 @@ namespace Sudoku
 			)
 		};
 
+		// Set the default theme
 		Theme theme = themes[0];
 
 		struct Theme
@@ -70,23 +70,37 @@ namespace Sudoku
 		{
 			InitializeComponent();
 
+			GenerateButtons();
+			NewGame();
+		}
+
+		private void NewGame()
+		{
 			board = new Board();
-
 			board.Generate();
-
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
 				{
 					int num = board.GetNum(x, y);
-					shownButtons[x, y] = new Button();
 					shownButtons[x, y].Content = num == 0 ? "" : num;
 					shownButtons[x, y].Click += BoardClick;
 					shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
-					shownButtons[x, y].Background = theme.unselectedColor;
+				}
+			}
+		}
+
+		private void GenerateButtons()
+		{
+			for (int x = 0; x < 9; x++)
+			{
+				for (int y = 0; y < 9; y++)
+				{
+					shownButtons[x, y] = new Button();
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
+					shownButtons[x, y].Background = theme.unselectedColor;
 				}
 			}
 		}
@@ -148,23 +162,6 @@ namespace Sudoku
 			selectedButton.Background = selectedBrush;
 		}
 
-		private void Window_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
-			{
-				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
-				selectedButton.Content = num;
-				int x = ((CellInfo)selectedButton.Tag).x;
-				int y = ((CellInfo)selectedButton.Tag).y;
-				if (board.CheckNum(x, y, num))
-				{
-					selectedButton.Foreground = Brushes.Green;
-				}
-				else { selectedButton.Foreground = Brushes.Red; }
-				
-			}
-		}
-
 		public void Update()
 		{
 			// Updates every part of the view that needs to be updated
@@ -178,6 +175,17 @@ namespace Sudoku
 		public void ErasePosition(Vector position)
 		{
 			// Calls Board.Erase(position) then updates the display
+		}
+
+		private void Window_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+			{
+				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
+				selectedButton.Content = num;
+
+				//correct num checking here
+			}
 		}
 
 		private void KeyPad(object sender, RoutedEventArgs e)
@@ -194,7 +202,6 @@ namespace Sudoku
 
 		private void Reset_Board(object sender, RoutedEventArgs e)
 		{
-			// when mistakes are counted, this will need to reset that too.
 			board.ResetBoard();
 			for (int x = 0; x < 9; x++)
 			{
@@ -204,6 +211,11 @@ namespace Sudoku
 					shownButtons[x, y].Content = num == 0 ? "" : num;
 				}
 			}
+		}
+
+		private void New_Game(object sender, RoutedEventArgs e)
+		{
+			NewGame();
 		}
 	}
 }

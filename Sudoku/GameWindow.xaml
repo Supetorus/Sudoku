@@ -9,6 +9,7 @@
 		Height="500"
 		Width="800"
 		KeyDown="Window_KeyDown">
+	<!-- The main grid, left and right panes. -->
 	<Grid ShowGridLines="True">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
@@ -17,8 +18,15 @@
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		<Grid Grid.Row="0"
-			  Grid.Column="0"
+		<!-- The new game button -->
+		<Button Content="New Game"
+				Grid.Column="0"
+				HorizontalAlignment="Left"
+				Margin="10,10,0,0"
+				VerticalAlignment="Top"
+				Click="New_Game" />
+		<!-- The sudoku board -->
+		<Grid Grid.Column="0"
 			  ShowGridLines="True"
 			  Name="gridView"
 			  Width="300"
@@ -47,6 +55,7 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 		</Grid>
+		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1">
 			<Grid ShowGridLines="True"
 				  Width="200"
