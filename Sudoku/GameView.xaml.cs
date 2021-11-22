@@ -36,6 +36,7 @@ namespace Sudoku
 			GenerateButtons();
 			NewGame();
 		}
+		
 		class CellInfo
 		{
 			public int x;
@@ -49,6 +50,22 @@ namespace Sudoku
 				this.correct = correct;
 			}
 		}
+
+		struct Move
+		{
+			public int x, y;
+			public int prev;
+
+			public Move(int x, int y, int prev)
+			{
+				this.x = x;
+				this.y = y;
+				this.prev = prev;
+			}
+		}
+
+		Stack<Move> moves = new Stack<Move>();
+
 		private void NewGame()
 		{
 			board = new Board();
@@ -142,9 +159,10 @@ namespace Sudoku
 			// Updates every part of the view that needs to be updated
 		}
 
-		public void AddNumber(Vector position)
+		public void AddNumber(int x, int y, int num)
 		{
-			//Attempts to add a number to the board, updates the display based on whether the number was right, wrong, or attempted in a place where a number already existed.
+			shownButtons[x, y].Content = num > 0 ? num : "";
+			board.SetNum(x, y, num);
 		}
 
 		public void ErasePosition(Vector position)
@@ -157,21 +175,47 @@ namespace Sudoku
 			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
 			{
 				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
-				selectedButton.Content = num;
 
-				//correct num checking here
+				int x = ((CellInfo)selectedButton.Tag).x;
+				int y = ((CellInfo)selectedButton.Tag).y;
+
+				moves.Push(new Move(x, y, selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
+				AddNumber(x, y, num);
+
+				if (board.CheckNum(x, y, num))
+				{
+					selectedButton.Foreground = theme.RightColor;
+				}
+				else { selectedButton.Foreground = theme.WrongColor; }
 			}
 		}
 
 		private void KeyPad(object sender, RoutedEventArgs e)
 		{
-			int num = int.Parse((sender as Button).Content.ToString());
-
 			if (selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
 			{
-				selectedButton.Content = num;
+				int num = int.Parse((sender as Button).Content.ToString());
 
-				//correct num checking here
+				int x = ((CellInfo)selectedButton.Tag).x;
+				int y = ((CellInfo)selectedButton.Tag).y;
+
+				moves.Push(new Move(x, y, selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
+				AddNumber(x, y, num);
+
+				if (board.CheckNum(x, y, num))
+				{
+					selectedButton.Foreground = theme.RightColor;
+				}
+				else { selectedButton.Foreground = theme.WrongColor; }
+			}
+		}
+
+		private void Undo(object sender, RoutedEventArgs e)
+		{
+			if (moves.Count > 0)
+			{
+				Move move = moves.Pop();
+				AddNumber(move.x, move.y, move.prev);
 			}
 		}
 

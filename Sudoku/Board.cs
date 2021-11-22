@@ -198,7 +198,7 @@ namespace Sudoku
 
 		public bool CheckNum(int x, int y, int i)
 		{
-			return CheckSafety(x, y, i, current);
+			return i == solved[x, y];
 		}
 
 		public void SetNum(int x, int y, int i)

@@ -153,7 +153,8 @@
 						Margin="25"
 						Grid.Row="1"
 						Grid.Column="0"
-						Content="Undo" />
+						Content="Undo"
+						Click="Undo"/>
 				<Button Width="100"
 						Height="50"
 						Margin="25"
