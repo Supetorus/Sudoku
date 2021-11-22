@@ -184,7 +184,14 @@ namespace Sudoku
 				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
 				selectedButton.Content = num;
 
-				//correct num checking here
+				int x = ((CellInfo)selectedButton.Tag).x;
+				int y = ((CellInfo)selectedButton.Tag).y;
+				if (board.CheckNum(x, y, num))
+				{
+					selectedButton.Foreground = Brushes.Green;
+					board.SetNum(x, y, num);
+				}
+				else { selectedButton.Foreground = Brushes.Red; }
 			}
 		}
 
@@ -196,7 +203,14 @@ namespace Sudoku
 			{
 				selectedButton.Content = num;
 
-				//correct num checking here
+				int x = ((CellInfo)selectedButton.Tag).x;
+				int y = ((CellInfo)selectedButton.Tag).y;
+				if (board.CheckNum(x, y, num))
+				{
+					selectedButton.Foreground = Brushes.Green;
+					board.SetNum(x, y, num);
+				}
+				else { selectedButton.Foreground = Brushes.Red; }
 			}
 		}
 
