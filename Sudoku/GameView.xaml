@@ -125,7 +125,8 @@
 						Content="9"
 						FontSize="30"
 						Background="White"
-						Click="KeyPad" />
+						Click="KeyPad">
+				</Button>
 			</Grid>
 			<Grid Width="300">
 				<Grid.RowDefinitions>
@@ -141,7 +142,8 @@
 						Margin="10"
 						Grid.Row="0"
 						Grid.Column="0"
-						Content="Note" />
+						Content="Note" 
+						Click="Notes"/>
 				<Button Width="100"
 						Height="50"
 						Margin="10"
@@ -161,7 +163,8 @@
 						Margin="25"
 						Grid.Row="1"
 						Grid.Column="1"
-						Content="Erase" />
+						Content="Erase" 
+						Click="Erase"/>
 			</Grid>
 			<Button Width="100"
 					Height="50"
