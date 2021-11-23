@@ -8,5 +8,27 @@
 		Title="GameWindow"
 		Height="500"
 		Width="800">
-	<Frame Name="mainFrame" Source="GameView.xaml"/>
+	<Grid>
+		<Frame Name="mainFrame"
+			   Source="GameView.xaml" 
+			   NavigationUIVisibility="Hidden"/>
+		<StackPanel FlowDirection="LeftToRight"
+					Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Height="20"
+					VerticalAlignment="Top">
+			<Button Name="btnSettings"
+					Content="Settings"
+					Click="btnSettings_Click" />
+			<Button Name="btnHome"
+					Content="Home"
+					Click="btnHome_Click" />
+			<Button Name="btnGame"
+					Content="Game"
+					Click="btnGame_Click" />
+			<Button Name="btnNewGame"
+					Content="New Game"
+					Click="btnNewGame_Click" />
+		</StackPanel>
+	</Grid>
 </Window>
