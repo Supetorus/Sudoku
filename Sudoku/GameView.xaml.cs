@@ -15,11 +15,9 @@ using System.Windows.Shapes;
 
 namespace Sudoku
 {
-	/// <summary>
-	/// Interaction logic for GameView.xaml
-	/// </summary>
 	public partial class GameView : Page
 	{
+		Random rng = new Random();
 		
 		Button[,] shownButtons = new Button[9, 9];
 
@@ -29,6 +27,21 @@ namespace Sudoku
 
 		// Set the default theme
 		Theme theme = Theme.themes[0];
+
+		struct Vector2
+		{
+			public int x, y;
+
+			public Vector2(int x, int y)
+			{
+				this.x = x;
+				this.y = y;
+			}
+		}
+
+		List<Vector2> unsolved = new List<Vector2>();
+
+		int hintNum = 3;
 
 		public GameView()
 		{
@@ -76,6 +89,7 @@ namespace Sudoku
 				{
 					int num = board.GetNum(x, y);
 					shownButtons[x, y].Content = num == 0 ? "" : num;
+					if(num == 0) { unsolved.Add(new Vector2(x, y)); }
 					shownButtons[x, y].Click += BoardClick;
 					shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
 				}
@@ -162,7 +176,9 @@ namespace Sudoku
 		public void AddNumber(int x, int y, int num)
 		{
 			shownButtons[x, y].Content = num > 0 ? num : "";
+			((CellInfo)shownButtons[x, y].Tag).correct = true;
 			board.SetNum(x, y, num);
+			unsolved.Remove(new Vector2(x, y));
 		}
 
 		public void ErasePosition(Vector position)
@@ -216,6 +232,18 @@ namespace Sudoku
 			{
 				Move move = moves.Pop();
 				AddNumber(move.x, move.y, move.prev);
+			}
+		}
+
+		private void Hint(object sender, RoutedEventArgs e)
+		{
+			if (hintNum > 0 && unsolved.Count > 0)
+			{
+				int i = rng.Next(unsolved.Count - 1);
+				Vector2 v = unsolved[i];
+				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.ToString() != "" ? int.Parse(shownButtons[v.x, v.y].Content.ToString()) : 0));
+				AddNumber(v.x, v.y, board.GetCorrectNum(v.x, v.y));
+				--hintNum;
 			}
 		}
 
