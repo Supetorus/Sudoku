@@ -42,6 +42,11 @@ namespace Sudoku
 			return current[x, y];
 		}
 
+		public int GetCorrectNum(int x, int y)
+		{
+			return solved[x, y];
+		}
+
 		void ClearGrid(int[,] grid)
 		{
 			for (int x = 0; x < size; ++x)

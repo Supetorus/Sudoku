@@ -147,7 +147,8 @@
 						Margin="10"
 						Grid.Row="0"
 						Grid.Column="1"
-						Content="Hint" />
+						Content="Hint" 
+						Click="Hint"/>
 				<Button Width="100"
 						Height="50"
 						Margin="25"
