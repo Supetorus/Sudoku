@@ -12,38 +12,116 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace Sudoku
 {
 	public partial class GameWindow : Window
 	{
 
-		Page SettingsView = new SettingsView();
-		Page GameView = new GameView();
-		Page HomeView = new HomeView();
-		Page NewGameView = new NewGameView();
-		public GameWindow()
-		{
-			InitializeComponent();
-		}
+        Button selectedButton = null;
 
-		private void btnSettings_Click(object sender, RoutedEventArgs e)
-		{
-			mainFrame.Content = SettingsView;
-		}
+        Board board;
 
-		private void btnHome_Click(object sender, RoutedEventArgs e)
+        Brush selectedColor = Brushes.DarkCyan;
+        Brush unselectedColor = Brushes.Silver;
+
+       
+
+        class CellInfo
 		{
-			mainFrame.Content = HomeView;
-		}
+            public int x;
+            public int y;
+            public bool correct;
+
+
+            public CellInfo(int x, int y, bool correct)
+            {
+            this.x = x;
+            this.y = y;
+             this.correct = correct;
+
+            }
+        }
+
+        public GameWindow()
+        {
+            InitializeComponent();
+
+        board = new Board();
+
+            board.Generate();
+            
+
+            for (int x = 0; x < 9; x++)
+            {
+                for (int y = 0; y < 9; y++)
+                {
+                    int num = board.GetNum(x, y);
+                    shownButtons[x, y] = new Button();
+                    shownButtons[x, y].Content = num == 0 ? "" : num;
+                    shownButtons[x, y].Click += BoardClick;
+                    shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
+                    Grid.SetRow(shownButtons[x, y], x);
+                    Grid.SetColumn(shownButtons[x, y], y);
+                    gridView.Children.Add(shownButtons[x, y]);
+         
+                }
+            }
+        }
+
+        private void BoardClick(object sender, RoutedEventArgs e)
+        {
+            if(selectedButton != null)
+            {
+                selectedButton.Background = unselectedColor;
+            }
+        
+            selectedButton = sender as Button;
+
+
+            selectedButton.Background = selectedColor;
+
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+            {
+                int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
+                selectedButton.Content = num;
+
+           
+
+                //correct num checking here
+            }
+        }
 
 		private void btnGame_Click(object sender, RoutedEventArgs e)
 		{
 			mainFrame.Content = GameView;
 		}
 
-		private void btnNewGame_Click(object sender, RoutedEventArgs e)
+        public void AddNumber(Vector position)
+        {
+            //Attempts to add a number to the board, updates the display based on whether the number was right, wrong, or attempted in a place where a number already existed.
+        }
+
+        public void ErasePosition(Vector position)
+        {
+            
+            // Calls Board.Erase(position) then updates the display
+        }
+
+		private void KeyPad(object sender, RoutedEventArgs e)
 		{
-			mainFrame.Content = NewGameView;
-		}
+            int num = int.Parse((sender as Button).Content.ToString());
+
+            if (selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+            {
+                selectedButton.Content = num;
+
+                //correct num checking here
+            }
+        }
 	}
 }
