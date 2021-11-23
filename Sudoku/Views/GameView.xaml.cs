@@ -18,12 +18,12 @@ namespace Sudoku
 	public partial class GameView : Page
 	{
 		Random rng = new Random();
-		
+
 		Button[,] shownButtons = new Button[9, 9];
 
 		Button selectedButton = null;
 
-		Board board;
+		Game game;
 
 		// Set the default theme
 		Theme theme = Theme.themes[0];
@@ -47,9 +47,8 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			GenerateButtons();
-			NewGame();
 		}
-		
+
 		class CellInfo
 		{
 			public int x;
@@ -79,17 +78,18 @@ namespace Sudoku
 
 		Stack<Move> moves = new Stack<Move>();
 
-		private void NewGame()
+		public void NewGame(int difficulty)
 		{
-			board = new Board();
-			board.Generate();
+			game = new();
+			game.board = new Board(difficulty);
+			game.board.Generate();
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
 				{
-					int num = board.GetNum(x, y);
+					int num = game.board.GetNum(x, y);
 					shownButtons[x, y].Content = num == 0 ? "" : num;
-					if(num == 0) { unsolved.Add(new Vector2(x, y)); }
+					if (num == 0) { unsolved.Add(new Vector2(x, y)); }
 					shownButtons[x, y].Click += BoardClick;
 					shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
 				}
@@ -177,7 +177,7 @@ namespace Sudoku
 		{
 			shownButtons[x, y].Content = num > 0 ? num : "";
 			((CellInfo)shownButtons[x, y].Tag).correct = true;
-			board.SetNum(x, y, num);
+			game.board.SetNum(x, y, num);
 			unsolved.Remove(new Vector2(x, y));
 		}
 
@@ -198,7 +198,7 @@ namespace Sudoku
 				moves.Push(new Move(x, y, selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
 				AddNumber(x, y, num);
 
-				if (board.CheckNum(x, y, num))
+				if (game.board.CheckNum(x, y, num))
 				{
 					selectedButton.Foreground = theme.RightColor;
 				}
@@ -218,7 +218,7 @@ namespace Sudoku
 				moves.Push(new Move(x, y, selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
 				AddNumber(x, y, num);
 
-				if (board.CheckNum(x, y, num))
+				if (game.board.CheckNum(x, y, num))
 				{
 					selectedButton.Foreground = theme.RightColor;
 				}
@@ -242,28 +242,37 @@ namespace Sudoku
 				int i = rng.Next(unsolved.Count - 1);
 				Vector2 v = unsolved[i];
 				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.ToString() != "" ? int.Parse(shownButtons[v.x, v.y].Content.ToString()) : 0));
-				AddNumber(v.x, v.y, board.GetCorrectNum(v.x, v.y));
+				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
 			}
 		}
 
 		private void Reset_Board(object sender, RoutedEventArgs e)
 		{
-			board.ResetBoard();
+			game.board.ResetBoard();
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
 				{
-					int num = board.GetNum(x, y);
+					int num = game.board.GetNum(x, y);
 					shownButtons[x, y].Content = num == 0 ? "" : num;
 				}
 			}
 		}
 
-		private void New_Game(object sender, RoutedEventArgs e)
+		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)
 		{
-			NewGame();
+			ViewManager.SetView(ViewManager.HomeView);
 		}
 
+		private void cmbxiSettings_Selected(object sender, RoutedEventArgs e)
+		{
+			ViewManager.SetView(ViewManager.SettingsView);
+		}
+
+		private void cmbxiNewGame_Selected(object sender, RoutedEventArgs e)
+		{
+			ViewManager.SetView(ViewManager.NewGameView);
+		}
 	}
 }

@@ -9,11 +9,29 @@
 	  d:DesignWidth="800"
 	  Title="NewGameView">
 
-	<Grid>
+	<StackPanel>
 		<TextBlock Text="New Game"
 				   FontSize="32"
 				   HorizontalAlignment="center"
 				   VerticalAlignment="top"
-				   Margin="0 100 0 0" />
-	</Grid>
+				   Margin="50" />
+		<TextBlock Text="Select Your Difficulty!"
+				   HorizontalAlignment="Center"/>
+		<Slider x:Name="sldrDifficulty"
+				AutoToolTipPlacement="TopLeft"
+				Maximum="3"
+				Minimum="1"
+				SmallChange="1"
+				TickPlacement="TopLeft"
+				Value="1"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				Margin="10"
+				Width="300" 
+				IsSnapToTickEnabled="True"/>
+		<Button x:Name="btnNewGame"
+				Content="New Game"
+				Click="btnNewGame_Click" 
+				HorizontalAlignment="Center"/>
+	</StackPanel>
 </Page>

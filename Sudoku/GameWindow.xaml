@@ -10,8 +10,10 @@
 		Width="800">
 	<Grid>
 		<Frame Name="mainFrame"
-			   Source="GameView.xaml" 
-			   NavigationUIVisibility="Hidden"/>
+			   Source="Views/HomeView.xaml"
+			   NavigationUIVisibility="Hidden" />
+		
+		<!-- Temporary navigation buttons for quick debugging -->
 		<StackPanel FlowDirection="LeftToRight"
 					Orientation="Horizontal"
 					HorizontalAlignment="Center"

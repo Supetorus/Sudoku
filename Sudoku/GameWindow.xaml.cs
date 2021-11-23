@@ -17,33 +17,36 @@ namespace Sudoku
 	public partial class GameWindow : Window
 	{
 
-		Page SettingsView = new SettingsView();
-		Page GameView = new GameView();
-		Page HomeView = new HomeView();
-		Page NewGameView = new NewGameView();
 		public GameWindow()
 		{
 			InitializeComponent();
+			ViewManager.RegisterWindow(this);
 		}
 
+		internal void SetView(Page view)
+		{
+			mainFrame.Content = view;
+		}
+
+		//These are temporary for debugging and quickly navigating.
 		private void btnSettings_Click(object sender, RoutedEventArgs e)
 		{
-			mainFrame.Content = SettingsView;
+			mainFrame.Content = ViewManager.SettingsView;
 		}
 
 		private void btnHome_Click(object sender, RoutedEventArgs e)
 		{
-			mainFrame.Content = HomeView;
+			mainFrame.Content = ViewManager.HomeView;
 		}
 
 		private void btnGame_Click(object sender, RoutedEventArgs e)
 		{
-			mainFrame.Content = GameView;
+			mainFrame.Content = ViewManager.GameView;
 		}
 
 		private void btnNewGame_Click(object sender, RoutedEventArgs e)
 		{
-			mainFrame.Content = NewGameView;
+			mainFrame.Content = ViewManager.NewGameView;
 		}
 	}
 }

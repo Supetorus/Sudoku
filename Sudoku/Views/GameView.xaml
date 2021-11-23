@@ -20,15 +20,25 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<!-- The new game button -->
-		<Button Content="New Game"
-				Grid.Column="0"
-				HorizontalAlignment="Left"
-				Margin="10,10,0,0"
-				VerticalAlignment="Top"
-				Click="New_Game" />
+		<ComboBox x:Name="cmbxNav"
+				  HorizontalAlignment="Left"
+				  VerticalAlignment="Top"
+				  Margin="20">
+			<ComboBoxItem x:Name="cmbxiHamburger"
+						  Content="≡"/>
+			<ComboBoxItem x:Name="cmbxiHome"
+						  Content="Home" 
+						  Selected="cmbxiHome_Selected"/>
+			<ComboBoxItem x:Name="cmbxiSettings"
+						  Content="Settings" 
+						  Selected="cmbxiSettings_Selected"/>
+			<ComboBoxItem x:Name="cmbxiNewGame"
+						  Content="New Game"
+						  Selected="cmbxiNewGame_Selected"/>
+		</ComboBox>
 		<!-- The sudoku board -->
 		<Grid Grid.Column="0"
-			  ShowGridLines="True"
+			  ShowGridLines="False"
 			  Name="gridView"
 			  Width="300"
 			  Height="300"
@@ -58,7 +68,7 @@
 		</Grid>
 		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1">
-			<Grid ShowGridLines="True"
+			<Grid ShowGridLines="False"
 				  Width="200"
 				  Height="200"
 				  Margin="25">

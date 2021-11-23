@@ -21,6 +21,11 @@ namespace Sudoku
 
 		Random r = new Random();
 
+		public Board(int difficulty)
+		{
+			this.difficulty = difficulty;
+		}
+
 		public void Generate()
 		{
 			while (!FillGrid())

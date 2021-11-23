@@ -14,6 +14,5 @@ namespace Sudoku
 		{
 			//Initializes a new game, resets the clock, resets wrong answers,generates a new board, etc. 
 		}
-
 	}
 }

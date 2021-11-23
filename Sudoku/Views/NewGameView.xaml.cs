@@ -24,5 +24,11 @@ namespace Sudoku
 		{
 			InitializeComponent();
 		}
+
+		private void btnNewGame_Click(object sender, RoutedEventArgs e)
+		{
+			((GameView)ViewManager.GameView).NewGame((int)sldrDifficulty.Value);
+			ViewManager.SetView(ViewManager.GameView);
+		}
 	}
 }
