@@ -91,8 +91,7 @@ namespace Sudoku
 				for (int y = 0; y < 9; y++)
 				{
 					int num = game.board.GetNum(x, y);
-					shownButtons[x, y].Content = num == 0 ? "" : num;
-					if(num == 0) { unsolved.Add(new Vector2(x, y)); }
+					shownButtons[x, y].Tag = new CellInfo(x, y, game.board.CheckNum(x, y, num));
 					shownButtons[x, y].Click += BoardClick;
 					shownButtons[x, y].FontSize = 15;
 
