@@ -15,9 +15,10 @@ namespace Sudoku
 		public Brush unselectedColor;
 		public Brush WrongColor;
 		public Brush RightColor;
+		public Brush BorderColor;
 
-		public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor, 
-			Brush unselectedColor, Brush WrongColor, Brush RightColor)
+		public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor,
+			Brush unselectedColor, Brush WrongColor, Brush RightColor, Brush BorderColor)
 		{
 			this.selectedColor = selectedColor;
 			this.matchingColor = matchingColor;
@@ -25,6 +26,7 @@ namespace Sudoku
 			this.unselectedColor = unselectedColor;
 			this.WrongColor = WrongColor;
 			this.RightColor = RightColor;
+			this.BorderColor = BorderColor;
 		}
 		public readonly static Theme[] themes =
 		{
@@ -35,7 +37,8 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(200, 200, 215)),
 				new SolidColorBrush(Color.FromRgb(200, 200, 200)),
 				new SolidColorBrush(Color.FromRgb(255, 000, 000)),
-				new SolidColorBrush(Color.FromRgb(000, 100, 200))
+				new SolidColorBrush(Color.FromRgb(000, 100, 200)),
+				new SolidColorBrush(Color.FromRgb(000, 000, 000))
 			)
 		};
 	}

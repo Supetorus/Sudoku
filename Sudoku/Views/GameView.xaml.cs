@@ -48,7 +48,7 @@ namespace Sudoku
 		public GameView()
 		{
 			InitializeComponent();
-			GenerateButtons();
+			GenerateGrid();
 		}
 
 		class CellInfo
@@ -123,7 +123,7 @@ namespace Sudoku
 			}
 		}
 
-		private void GenerateButtons()
+		private void GenerateGrid()
 		{
 			for (int x = 0; x < 9; x++)
 			{
@@ -134,6 +134,23 @@ namespace Sudoku
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
 					shownButtons[x, y].Background = theme.unselectedColor;
+
+					double thickness = 1;
+					double left = 0;
+					double top = 0;
+					double right = 0;
+					double bottom = 0;
+
+					if ((x + 1) % 3 == 0 && x < 8) bottom = thickness;
+					if ((x) % 3 == 0 && x > 0) top = thickness;
+					if ((y + 1) % 3 == 0 && y < 8) right = thickness;
+					if (y % 3 == 0 && y > 0) left = thickness;
+					Border border = new();
+					border.BorderThickness = new Thickness(left, top, right, bottom);
+					border.BorderBrush = theme.BorderColor;
+					Grid.SetColumn(border, y);
+					Grid.SetRow(border, x);
+					gridView.Children.Add(border);
 				}
 			}
 		}

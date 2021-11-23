@@ -11,7 +11,8 @@
 	  KeyDown="Window_KeyDown">
 
 	<!-- The main grid, left and right panes. -->
-	<Grid ShowGridLines="True">
+	<Grid x:Name="mainGrid"
+		ShowGridLines="True">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
