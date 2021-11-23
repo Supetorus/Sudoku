@@ -43,6 +43,8 @@ namespace Sudoku
 
 		int hintNum = 3;
 
+		bool notes = false;
+
 		public GameView()
 		{
 			InitializeComponent();
@@ -54,6 +56,7 @@ namespace Sudoku
 			public int x;
 			public int y;
 			public bool correct;
+			public Grid grid;
 
 			public CellInfo(int x, int y, bool correct)
 			{
@@ -66,9 +69,9 @@ namespace Sudoku
 		struct Move
 		{
 			public int x, y;
-			public int prev;
+			public object prev;
 
-			public Move(int x, int y, int prev)
+			public Move(int x, int y, object prev)
 			{
 				this.x = x;
 				this.y = y;
@@ -89,9 +92,34 @@ namespace Sudoku
 				{
 					int num = game.board.GetNum(x, y);
 					shownButtons[x, y].Content = num == 0 ? "" : num;
-					if (num == 0) { unsolved.Add(new Vector2(x, y)); }
+					if(num == 0) { unsolved.Add(new Vector2(x, y)); }
 					shownButtons[x, y].Click += BoardClick;
-					shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
+					shownButtons[x, y].FontSize = 15;
+
+					if (num == 0) 
+					{
+						unsolved.Add(new Vector2(x, y));
+
+						Grid notesGrid = new Grid();
+						notesGrid.VerticalAlignment = VerticalAlignment.Center;
+						notesGrid.HorizontalAlignment = HorizontalAlignment.Center;
+						notesGrid.Width = 33.33;
+						notesGrid.Height = 33.33;
+						notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+						notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+						notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+						notesGrid.RowDefinitions.Add(new RowDefinition());
+						notesGrid.RowDefinitions.Add(new RowDefinition());
+						notesGrid.RowDefinitions.Add(new RowDefinition());
+						//notesGrid.ShowGridLines = true;
+
+						GetCellInfo(shownButtons[x, y]).grid = notesGrid;
+						shownButtons[x, y].Content = notesGrid;
+					}
+					else
+					{
+						shownButtons[x, y].Content = num;
+					}
 				}
 			}
 		}
@@ -132,12 +160,12 @@ namespace Sudoku
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
 			{
-				shownButtons[i, ((CellInfo)selectedButton.Tag).y].Background = areaBrush;
-				shownButtons[((CellInfo)selectedButton.Tag).x, i].Background = areaBrush;
+				shownButtons[i, GetCellInfo(selectedButton).y].Background = areaBrush;
+				shownButtons[GetCellInfo(selectedButton).x, i].Background = areaBrush;
 			}
 
-			int x = ((CellInfo)selectedButton.Tag).x;
-			int y = ((CellInfo)selectedButton.Tag).y;
+			int x = GetCellInfo(selectedButton).x;
+			int y = GetCellInfo(selectedButton).y;
 
 			//Highlight box
 			for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
@@ -149,15 +177,14 @@ namespace Sudoku
 			}
 
 			//Highlight matching numbers
-			if (selectedButton.Content.ToString() != "")
+			if (HasNum(selectedButton))
 			{
 				int num = int.Parse(selectedButton.Content.ToString());
 				for (int i = 0; i < 9; ++i)
 				{
 					for (int j = 0; j < 9; ++j)
 					{
-						if (shownButtons[i, j].Content.ToString() != "" &&
-							int.Parse(shownButtons[i, j].Content.ToString()) == num)
+						if (HasNum(shownButtons[i, j]) && int.Parse(shownButtons[i, j].Content.ToString()) == num)
 						{
 							shownButtons[i, j].Background = matchingBrush;
 						}
@@ -166,6 +193,21 @@ namespace Sudoku
 			}
 
 			selectedButton.Background = selectedBrush;
+		}
+
+		public bool HasNum(Button b)
+		{
+			return b.Content.GetType() != typeof(Grid) && b.Content.ToString() != "";
+		}
+
+		private CellInfo GetCellInfo(Button b)
+		{
+			return (CellInfo)b.Tag;
+		}
+
+		private Grid GetGrid(Button b)
+		{
+			return ((CellInfo)b.Tag).grid;
 		}
 
 		public void Update()
@@ -179,50 +221,144 @@ namespace Sudoku
 			((CellInfo)shownButtons[x, y].Tag).correct = true;
 			game.board.SetNum(x, y, num);
 			unsolved.Remove(new Vector2(x, y));
+
+			//remove this number from notes in area
+			for (int i = 0; i < 9; ++i)
+			{
+				if (!HasNum(shownButtons[x, i]))
+				{
+					foreach (UIElement e in GetGrid(shownButtons[x, i]).Children)
+					{
+						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						{
+							GetGrid(shownButtons[x, i]).Children.Remove(e);
+							shownButtons[x, i].Content = GetGrid(shownButtons[x, i]);
+							break;
+						}
+					}
+				}
+
+				if (!HasNum(shownButtons[i, y]))
+				{
+					foreach (UIElement e in GetGrid(shownButtons[i, y]).Children)
+					{
+						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						{
+							GetGrid(shownButtons[i, y]).Children.Remove(e);
+							shownButtons[i, y].Content = GetGrid(shownButtons[i, y]);
+							break;
+						}
+					}
+				}
+			}
+
+			for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+			{
+				for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
+				{
+					foreach (UIElement e in GetGrid(shownButtons[x, y]).Children)
+					{
+						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						{
+							GetGrid(shownButtons[x, y]).Children.Remove(e);
+							break;
+						}
+					}
+				}
+			}
 		}
 
-		public void ErasePosition(Vector position)
+		public void AddNote(int x, int y, int num)
 		{
-			// Calls Board.Erase(position) then updates the display
+			//if (board.CheckSafety(x, y, num))
+			//{
+				TextBlock txt = new TextBlock();
+				txt.Text = num.ToString();
+				txt.Foreground = theme.RightColor;
+				txt.FontSize = 10;
+				txt.VerticalAlignment = VerticalAlignment.Center;
+				txt.HorizontalAlignment = HorizontalAlignment.Center;
+				Grid.SetColumn(txt, (num - 1) % 3);
+				Grid.SetRow(txt, (num - 1) / 3);
+				GetGrid(selectedButton).Children.Add(txt);
+			//}
+		}
+
+		public void Erase(object sender, RoutedEventArgs e)
+		{
+			if(selectedButton != null && !GetCellInfo(selectedButton).correct)
+			{
+				if(selectedButton.Content.GetType() == typeof(Grid))
+				{
+					GetCellInfo(selectedButton).grid.Children.Clear();
+					selectedButton.Content = GetCellInfo(selectedButton).grid;
+				}
+				else
+				{
+					selectedButton.Content = "";
+				}
+			}
 		}
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !GetCellInfo(selectedButton).correct)
 			{
 				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
 
-				int x = ((CellInfo)selectedButton.Tag).x;
-				int y = ((CellInfo)selectedButton.Tag).y;
+				int x = GetCellInfo(selectedButton).x;
+				int y = GetCellInfo(selectedButton).y;
 
-				moves.Push(new Move(x, y, selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
-				AddNumber(x, y, num);
-
-				if (game.board.CheckNum(x, y, num))
+				if(!notes)
 				{
-					selectedButton.Foreground = theme.RightColor;
+					moves.Push(new Move(x, y, selectedButton.Content));
+
+				if (board.CheckNum(x, y, num))
+				{
+						selectedButton.Foreground = theme.RightColor;
+						AddNumber(x, y, num);
+					}
+					else 
+					{ 
+						selectedButton.Foreground = theme.WrongColor;
+						selectedButton.Content = num;
+					}
 				}
-				else { selectedButton.Foreground = theme.WrongColor; }
+				else
+				{
+					AddNote(x, y, num);
+				}
 			}
 		}
 
 		private void KeyPad(object sender, RoutedEventArgs e)
 		{
-			if (selectedButton != null && !((CellInfo)selectedButton.Tag).correct)
+			if (selectedButton != null && !GetCellInfo(selectedButton).correct)
 			{
 				int num = int.Parse((sender as Button).Content.ToString());
 
-				int x = ((CellInfo)selectedButton.Tag).x;
-				int y = ((CellInfo)selectedButton.Tag).y;
+				int x = GetCellInfo(selectedButton).x;
+				int y = GetCellInfo(selectedButton).y;
 
-				moves.Push(new Move(x, y, selectedButton.Content.ToString() != "" ? int.Parse(selectedButton.Content.ToString()) : 0));
-				AddNumber(x, y, num);
+				if (!notes)
+				{
+					moves.Push(new Move(x, y, selectedButton.Content));
 
 				if (game.board.CheckNum(x, y, num))
 				{
-					selectedButton.Foreground = theme.RightColor;
+						selectedButton.Foreground = theme.RightColor;
+						AddNumber(x, y, num);
+					}
+					else 
+					{
+						selectedButton.Foreground = theme.WrongColor;
+						selectedButton.Content = num;
+					}
 				}
-				else { selectedButton.Foreground = theme.WrongColor; }
+				else if(!HasNum(selectedButton))
+				{
+					AddNote(x, y, num);
+				}
 			}
 		}
 
@@ -231,7 +367,9 @@ namespace Sudoku
 			if (moves.Count > 0)
 			{
 				Move move = moves.Pop();
-				AddNumber(move.x, move.y, move.prev);
+				
+				shownButtons[move.x, move.y].Content = move.prev;
+				GetCellInfo(shownButtons[move.x, move.y]).correct = false;
 			}
 		}
 
@@ -245,6 +383,20 @@ namespace Sudoku
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
 			}
+		}
+
+		private void Notes(object sender, RoutedEventArgs e)
+		{
+			if(notes)
+			{
+				(sender as Button).Background = theme.unselectedColor;
+			}
+			else
+			{
+				(sender as Button).Background = theme.selectedColor;
+			}
+
+			notes = !notes;
 		}
 
 		private void Reset_Board(object sender, RoutedEventArgs e)
