@@ -313,7 +313,7 @@ namespace Sudoku
 				{
 					moves.Push(new Move(x, y, selectedButton.Content));
 
-				if (board.CheckNum(x, y, num))
+				if (game.board.CheckNum(x, y, num))
 				{
 						selectedButton.Foreground = theme.RightColor;
 						AddNumber(x, y, num);
