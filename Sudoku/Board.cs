@@ -166,7 +166,12 @@ namespace Sudoku
 			return true;
 		}
 
-		bool CheckSafety(int x, int y, int i, int[,] grid)
+		public bool CheckSafety(int x, int y, int i)
+		{
+			return CheckSafety(x, y, i, current);
+		}
+
+		private bool CheckSafety(int x, int y, int i, int[,] grid)
 		{
 			//Check Row
 			for (int gx = 0; gx < size; ++gx)

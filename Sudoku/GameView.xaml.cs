@@ -94,8 +94,9 @@ namespace Sudoku
 					int num = board.GetNum(x, y);
 					shownButtons[x, y].Tag = new CellInfo(x, y, num != 0);
 					shownButtons[x, y].Click += BoardClick;
+					shownButtons[x, y].FontSize = 15;
 
-					if(num == 0) 
+					if (num == 0) 
 					{
 						unsolved.Add(new Vector2(x, y));
 
@@ -206,7 +207,7 @@ namespace Sudoku
 
 		private Grid GetGrid(Button b)
 		{
-			return (Grid)b.Content;
+			return ((CellInfo)b.Tag).grid;
 		}
 
 		public void Update()
@@ -220,6 +221,67 @@ namespace Sudoku
 			GetCellInfo(shownButtons[x, y]).correct = true;
 			board.SetNum(x, y, num);
 			unsolved.Remove(new Vector2(x, y));
+
+			//remove this number from notes in area
+			for (int i = 0; i < 9; ++i)
+			{
+				if (!HasNum(shownButtons[x, i]))
+				{
+					foreach (UIElement e in GetGrid(shownButtons[x, i]).Children)
+					{
+						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						{
+							GetGrid(shownButtons[x, i]).Children.Remove(e);
+							shownButtons[x, i].Content = GetGrid(shownButtons[x, i]);
+							break;
+						}
+					}
+				}
+
+				if (!HasNum(shownButtons[i, y]))
+				{
+					foreach (UIElement e in GetGrid(shownButtons[i, y]).Children)
+					{
+						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						{
+							GetGrid(shownButtons[i, y]).Children.Remove(e);
+							shownButtons[i, y].Content = GetGrid(shownButtons[i, y]);
+							break;
+						}
+					}
+				}
+			}
+
+			for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+			{
+				for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
+				{
+					foreach (UIElement e in GetGrid(shownButtons[x, y]).Children)
+					{
+						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						{
+							GetGrid(shownButtons[x, y]).Children.Remove(e);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		public void AddNote(int x, int y, int num)
+		{
+			//if (board.CheckSafety(x, y, num))
+			//{
+				TextBlock txt = new TextBlock();
+				txt.Text = num.ToString();
+				txt.Foreground = theme.RightColor;
+				txt.FontSize = 10;
+				txt.VerticalAlignment = VerticalAlignment.Center;
+				txt.HorizontalAlignment = HorizontalAlignment.Center;
+				Grid.SetColumn(txt, (num - 1) % 3);
+				Grid.SetRow(txt, (num - 1) / 3);
+				GetGrid(selectedButton).Children.Add(txt);
+			//}
 		}
 
 		public void Erase(object sender, RoutedEventArgs e)
@@ -264,15 +326,7 @@ namespace Sudoku
 				}
 				else
 				{
-					TextBlock txt = new TextBlock();
-					txt.Text = num.ToString();
-					txt.Foreground = theme.RightColor;
-					txt.FontSize = 10;
-					txt.VerticalAlignment = VerticalAlignment.Center;
-					txt.HorizontalAlignment = HorizontalAlignment.Center;
-					Grid.SetColumn(txt, (num - 1) % 3);
-					Grid.SetRow(txt, (num - 1) / 3);
-					GetGrid(selectedButton).Children.Add(txt);
+					AddNote(x, y, num);
 				}
 			}
 		}
@@ -303,15 +357,7 @@ namespace Sudoku
 				}
 				else if(!HasNum(selectedButton))
 				{
-					TextBlock txt = new TextBlock();
-					txt.Foreground = theme.RightColor;
-					txt.Text = num.ToString();
-					txt.FontSize = 10;
-					txt.VerticalAlignment = VerticalAlignment.Center;
-					txt.HorizontalAlignment = HorizontalAlignment.Center;
-					Grid.SetColumn(txt, (num - 1) % 3);
-					Grid.SetRow(txt, (num - 1) / 3);
-					GetGrid(selectedButton).Children.Add(txt);
+					AddNote(x, y, num);
 				}
 			}
 		}
