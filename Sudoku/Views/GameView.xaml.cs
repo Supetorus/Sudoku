@@ -262,34 +262,16 @@ namespace Sudoku
 					//remove this number from notes in area
 					for (int i = 0; i < 3; ++i)
 					{
-						if (!HasNum(shownButtons[x, i]))
-						{
-							for (int j = 0; j < 9; ++j)
-							{
-								((TextBlock)GetGrid(shownButtons[x, i]).Children[j]).Text = "";
-							}
-						}
+						if (!HasNum(shownButtons[x, i])) { eraseNotes(x, i); }
 
-						if (!HasNum(shownButtons[i, y]))
-						{
-							for (int j = 0; j < 9; ++j)
-							{
-								((TextBlock)GetGrid(shownButtons[i, y]).Children[j]).Text = "";
-							}
-						}
+						if (!HasNum(shownButtons[i, y])) { eraseNotes(i, y); }
 					}
 
 					for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
 					{
 						for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
 						{
-							if (!HasNum(shownButtons[x, y]))
-							{
-								for (int j = 0; j < 9; ++j)
-								{
-									((TextBlock)GetGrid(shownButtons[x, y]).Children[j]).Text = "";
-								}
-							}
+							if (!HasNum(shownButtons[x, y])) { eraseNotes(x, y); }
 						}
 					}
 				}
@@ -302,6 +284,14 @@ namespace Sudoku
 			else
 			{
 				AddNote(x, y, num);
+			}
+		}
+
+		public void eraseNotes(int x, int y)
+		{
+			for (int i = 0; i < 9; ++i)
+			{
+				((TextBlock)GetGrid(shownButtons[x, y]).Children[i]).Text = "";
 			}
 		}
 
@@ -328,7 +318,7 @@ namespace Sudoku
 				}
 				else
 				{
-					selectedButton.Content = "";
+					selectedButton.Content = GetGrid(selectedButton);
 				}
 			}
 		}
@@ -401,7 +391,8 @@ namespace Sudoku
 				for (int y = 0; y < 9; y++)
 				{
 					int num = game.board.GetNum(x, y);
-					shownButtons[x, y].Content = num == 0 ? "" : num;
+					if (GetGrid(shownButtons[x, y]) != null) { eraseNotes(x, y); }
+					shownButtons[x, y].Content = num > 0 ? num.ToString() : GetGrid(shownButtons[x, y]);
 				}
 			}
 		}
