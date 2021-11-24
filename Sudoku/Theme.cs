@@ -49,7 +49,7 @@ namespace Sudoku
 			),
 			new Theme // dark theme
 			(
-				new SolidColorBrush(Color.FromRgb(255, 032, 110)),// selected color
+				new SolidColorBrush(Color.FromRgb(001, 022, 039)),// selected color
 				new SolidColorBrush(Color.FromRgb(065, 234, 200)),// matching color
 				new SolidColorBrush(Color.FromRgb(255, 255, 255)),// area color
 				new SolidColorBrush(Color.FromRgb(012, 015, 010)),// default tile color

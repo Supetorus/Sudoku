@@ -40,6 +40,7 @@ namespace Sudoku
 		List<Vector2> unsolved = new List<Vector2>();
 
 		int hintNum = 3;
+		int totalHints = 3;
 
 		bool notes = false;
 
@@ -47,7 +48,7 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			GenerateGrid();
-			txtMistakes.Text = "0 / " + Game.maxMistakes;
+			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
 			txtMistakes.Foreground = Theme.selectedTheme.WrongColor;
 			foreach (Button btn in gridKeypad.Children)
 			{
@@ -394,6 +395,7 @@ namespace Sudoku
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
 			}
+			txtHints.Text = hintNum + " Hints";
 		}
 
 		private void Notes(object sender, RoutedEventArgs e)
@@ -426,6 +428,8 @@ namespace Sudoku
 					GetCellInfo(shownButtons[x, y]).correct = num > 0;
 				}
 			}
+			hintNum = totalHints;
+			txtHints.Text = hintNum + " Hints";
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)
