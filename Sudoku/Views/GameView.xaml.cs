@@ -255,7 +255,7 @@ namespace Sudoku
 		{
 			if (!notes)
 			{
-				moves.Push(new Move(x, y, selectedButton.Content));
+				moves.Push(new Move(x, y, shownButtons[x, y].Content));
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
