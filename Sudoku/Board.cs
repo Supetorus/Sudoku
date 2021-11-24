@@ -240,16 +240,23 @@ namespace Sudoku
 			{
 				for (int x = 0; x < size; ++x)
 				{
-					sb.Append("   ");
-					sb.Append(current[x, y] == 0 ? "  " : current[x, y]);
-					sb.Append("   ");
+					sb.Append(" ");
+					sb.Append(current[x, y] == 0 ? " " : current[x, y]);
+					sb.Append(" ");
 					sb.Append(x == 8 ? "" : "|");
 				}
 
-				sb.AppendLine(y == 8 ? "" : "\n------------------------------------------------------");
+				sb.AppendLine(y == 8 ? "" : "\n-----------------------------------");
 			}
 
 			return sb.ToString();
+		}
+
+		public bool IsNumFull(int n)
+		{
+			int count = 0;
+			foreach (int num in current) if (num == n) count++;
+			return count == 9;
 		}
 	}
 }

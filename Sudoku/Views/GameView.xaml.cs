@@ -120,7 +120,7 @@ namespace Sudoku
 						GetCellInfo(shownButtons[x, y]).grid = notesGrid;
 						shownButtons[x, y].Content = notesGrid;
 
-						for(int i = 0; i < 9; ++i)
+						for (int i = 0; i < 9; ++i)
 						{
 							TextBlock txt = new TextBlock();
 							txt.Foreground = Theme.selectedTheme.RightColor;
@@ -138,6 +138,7 @@ namespace Sudoku
 					}
 				}
 			}
+			RemoveUsedUpNums();
 		}
 
 		private void GenerateGrid()
@@ -255,7 +256,7 @@ namespace Sudoku
 			{
 				moves.Push(new Move(x, y, selectedButton.Content));
 
-				if (game.board.CheckNum(x, y, num))
+				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
 					shownButtons[x, y].Foreground = Theme.selectedTheme.RightColor;
 					shownButtons[x, y].Content = num > 0 ? num : "";
@@ -266,26 +267,27 @@ namespace Sudoku
 					//remove this number from notes in area
 					for (int i = 0; i < 3; ++i)
 					{
-						if (!HasNum(shownButtons[x, i])) { eraseNotes(x, i); }
+						if (!HasNum(shownButtons[x, i])) { EraseNotes(x, i); }
 
-						if (!HasNum(shownButtons[i, y])) { eraseNotes(i, y); }
+						if (!HasNum(shownButtons[i, y])) { EraseNotes(i, y); }
 					}
 
 					for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
 					{
 						for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
 						{
-							if (!HasNum(shownButtons[x, y])) { eraseNotes(x, y); }
+							if (!HasNum(shownButtons[x, y])) { EraseNotes(x, y); }
 						}
 					}
 				}
-				else
+				else // It's the wrong number
 				{
 					selectedButton.Foreground = Theme.selectedTheme.WrongColor;
 					selectedButton.Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
 				}
+				RemoveUsedUpNums();
 			}
 			else
 			{
@@ -293,7 +295,7 @@ namespace Sudoku
 			}
 		}
 
-		public void eraseNotes(int x, int y)
+		public void EraseNotes(int x, int y)
 		{
 			for (int i = 0; i < 9; ++i)
 			{
@@ -306,15 +308,35 @@ namespace Sudoku
 			//if (board.CheckSafety(x, y, num))
 			//{
 			TextBlock txt = (TextBlock)GetGrid(shownButtons[x, y]).Children[num - 1];
-			if(txt.Text != "") { txt.Text = ""; }
+			if (txt.Text != "") { txt.Text = ""; }
 			else { txt.Text = num.ToString(); }
 			//}
+		}
+
+		public void RemoveUsedUpNums()
+		{
+			for (int i = 1; i <= 9; i++)
+			{
+				if (game.board.IsNumFull(i))
+				{
+					foreach (Button btn in gridKeypad.Children)
+					{
+						if (btn.Content.ToString() == i.ToString())
+						{
+							btn.Visibility = Visibility.Hidden;
+							break;
+						}
+						else btn.Visibility = Visibility.Visible;
+					}
+				}
+			}
 		}
 
 		public void Erase(object sender, RoutedEventArgs e)
 		{
 			if (selectedButton != null && !GetCellInfo(selectedButton).correct)
 			{
+				RemoveUsedUpNums();
 				if (selectedButton.Content.GetType() == typeof(Grid))
 				{
 					for (int i = 0; i < 9; ++i)
@@ -353,6 +375,7 @@ namespace Sudoku
 		{
 			if (moves.Count > 0)
 			{
+				RemoveUsedUpNums();
 				Move move = moves.Pop();
 
 				shownButtons[move.x, move.y].Content = move.prev;
@@ -366,7 +389,7 @@ namespace Sudoku
 			{
 				int i = rng.Next(unsolved.Count - 1);
 				Vector2 v = unsolved[i];
-				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.GetType() == typeof(Grid) ? 
+				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.GetType() == typeof(Grid) ?
 					0 : shownButtons[v.x, v.y].Content.ToString() != "" ? int.Parse(shownButtons[v.x, v.y].Content.ToString()) : 0));
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
@@ -392,12 +415,13 @@ namespace Sudoku
 			game.board.ResetBoard();
 			game.ResetMistakes();
 			txtMistakes.Text = "0 / 0 Mistakes";
+			RemoveUsedUpNums();
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
 				{
 					int num = game.board.GetNum(x, y);
-					if (GetGrid(shownButtons[x, y]) != null) { eraseNotes(x, y); }
+					if (GetGrid(shownButtons[x, y]) != null) { EraseNotes(x, y); }
 					shownButtons[x, y].Content = num > 0 ? num.ToString() : GetGrid(shownButtons[x, y]);
 				}
 			}
@@ -421,6 +445,11 @@ namespace Sudoku
 		private void cmbxNav_Selection_Changed(object sender, RoutedEventArgs e)
 		{
 			(sender as ComboBox).SelectedIndex = 0;
+		}
+
+		private void Print_Current(object sender, RoutedEventArgs e)
+		{ // This method can be hooked up to a button and will print the current board.
+			Debug.WriteLine(game.board);
 		}
 	}
 }
