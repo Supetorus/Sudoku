@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,7 +96,7 @@ namespace Sudoku
 					shownButtons[x, y].Click += BoardClick;
 					shownButtons[x, y].FontSize = 15;
 
-					if (num == 0) 
+					if (num == 0)
 					{
 						unsolved.Add(new Vector2(x, y));
 
@@ -288,23 +289,23 @@ namespace Sudoku
 		{
 			//if (board.CheckSafety(x, y, num))
 			//{
-				TextBlock txt = new TextBlock();
-				txt.Text = num.ToString();
-				txt.Foreground = theme.RightColor;
-				txt.FontSize = 10;
-				txt.VerticalAlignment = VerticalAlignment.Center;
-				txt.HorizontalAlignment = HorizontalAlignment.Center;
-				Grid.SetColumn(txt, (num - 1) % 3);
-				Grid.SetRow(txt, (num - 1) / 3);
-				GetGrid(selectedButton).Children.Add(txt);
+			TextBlock txt = new TextBlock();
+			txt.Text = num.ToString();
+			txt.Foreground = theme.RightColor;
+			txt.FontSize = 10;
+			txt.VerticalAlignment = VerticalAlignment.Center;
+			txt.HorizontalAlignment = HorizontalAlignment.Center;
+			Grid.SetColumn(txt, (num - 1) % 3);
+			Grid.SetRow(txt, (num - 1) / 3);
+			GetGrid(selectedButton).Children.Add(txt);
 			//}
 		}
 
 		public void Erase(object sender, RoutedEventArgs e)
 		{
-			if(selectedButton != null && !GetCellInfo(selectedButton).correct)
+			if (selectedButton != null && !GetCellInfo(selectedButton).correct)
 			{
-				if(selectedButton.Content.GetType() == typeof(Grid))
+				if (selectedButton.Content.GetType() == typeof(Grid))
 				{
 					GetCellInfo(selectedButton).grid.Children.Clear();
 					selectedButton.Content = GetCellInfo(selectedButton).grid;
@@ -325,17 +326,17 @@ namespace Sudoku
 				int x = GetCellInfo(selectedButton).x;
 				int y = GetCellInfo(selectedButton).y;
 
-				if(!notes)
+				if (!notes)
 				{
 					moves.Push(new Move(x, y, selectedButton.Content));
 
-				if (game.board.CheckNum(x, y, num))
-				{
+					if (game.board.CheckNum(x, y, num))
+					{
 						selectedButton.Foreground = theme.RightColor;
 						AddNumber(x, y, num);
 					}
-					else 
-					{ 
+					else
+					{
 						selectedButton.Foreground = theme.WrongColor;
 						selectedButton.Content = num;
 					}
@@ -360,18 +361,18 @@ namespace Sudoku
 				{
 					moves.Push(new Move(x, y, selectedButton.Content));
 
-				if (game.board.CheckNum(x, y, num))
-				{
+					if (game.board.CheckNum(x, y, num))
+					{
 						selectedButton.Foreground = theme.RightColor;
 						AddNumber(x, y, num);
 					}
-					else 
+					else
 					{
 						selectedButton.Foreground = theme.WrongColor;
 						selectedButton.Content = num;
 					}
 				}
-				else if(!HasNum(selectedButton))
+				else if (!HasNum(selectedButton))
 				{
 					AddNote(x, y, num);
 				}
@@ -383,7 +384,7 @@ namespace Sudoku
 			if (moves.Count > 0)
 			{
 				Move move = moves.Pop();
-				
+
 				shownButtons[move.x, move.y].Content = move.prev;
 				GetCellInfo(shownButtons[move.x, move.y]).correct = false;
 			}
@@ -403,7 +404,7 @@ namespace Sudoku
 
 		private void Notes(object sender, RoutedEventArgs e)
 		{
-			if(notes)
+			if (notes)
 			{
 				(sender as Button).Background = theme.unselectedColor;
 			}
@@ -441,6 +442,11 @@ namespace Sudoku
 		private void cmbxiNewGame_Selected(object sender, RoutedEventArgs e)
 		{
 			ViewManager.SetView(ViewManager.NewGameView);
+		}
+
+		private void cmbxNav_Selection_Changed(object sender, RoutedEventArgs e)
+		{
+			(sender as ComboBox).SelectedIndex = 0;
 		}
 	}
 }

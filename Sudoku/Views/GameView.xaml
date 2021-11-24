@@ -12,7 +12,7 @@
 
 	<!-- The main grid, left and right panes. -->
 	<Grid x:Name="mainGrid"
-		ShowGridLines="True">
+		  ShowGridLines="True">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
@@ -24,18 +24,20 @@
 		<ComboBox x:Name="cmbxNav"
 				  HorizontalAlignment="Left"
 				  VerticalAlignment="Top"
-				  Margin="20">
+				  Margin="20"
+				  SelectionChanged="cmbxNav_Selection_Changed">
 			<ComboBoxItem x:Name="cmbxiHamburger"
-						  Content="≡"/>
+						  Content="≡"
+						  IsSelected="True" />
 			<ComboBoxItem x:Name="cmbxiHome"
-						  Content="Home" 
-						  Selected="cmbxiHome_Selected"/>
+						  Content="Home"
+						  Selected="cmbxiHome_Selected" />
 			<ComboBoxItem x:Name="cmbxiSettings"
-						  Content="Settings" 
-						  Selected="cmbxiSettings_Selected"/>
+						  Content="Settings"
+						  Selected="cmbxiSettings_Selected" />
 			<ComboBoxItem x:Name="cmbxiNewGame"
 						  Content="New Game"
-						  Selected="cmbxiNewGame_Selected"/>
+						  Selected="cmbxiNewGame_Selected" />
 		</ComboBox>
 		<!-- The sudoku board -->
 		<Grid Grid.Column="0"
@@ -153,29 +155,29 @@
 						Margin="10"
 						Grid.Row="0"
 						Grid.Column="0"
-						Content="Note" 
-						Click="Notes"/>
+						Content="Note"
+						Click="Notes" />
 				<Button Width="100"
 						Height="50"
 						Margin="10"
 						Grid.Row="0"
 						Grid.Column="1"
-						Content="Hint" 
-						Click="Hint"/>
+						Content="Hint"
+						Click="Hint" />
 				<Button Width="100"
 						Height="50"
 						Margin="25"
 						Grid.Row="1"
 						Grid.Column="0"
 						Content="Undo"
-						Click="Undo"/>
+						Click="Undo" />
 				<Button Width="100"
 						Height="50"
 						Margin="25"
 						Grid.Row="1"
 						Grid.Column="1"
-						Content="Erase" 
-						Click="Erase"/>
+						Content="Erase"
+						Click="Erase" />
 			</Grid>
 			<Button Width="100"
 					Height="50"
