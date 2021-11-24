@@ -27,7 +27,7 @@ namespace Sudoku
 		Game game;
 
 		// Set the default theme
-		Theme theme = Theme.themes[0];
+		Theme theme = Theme.themes[2];
 
 		struct Vector2
 		{

@@ -39,6 +39,60 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(255, 000, 000)),
 				new SolidColorBrush(Color.FromRgb(000, 100, 200)),
 				new SolidColorBrush(Color.FromRgb(000, 000, 000))
+			),
+			//dark theme
+				new Theme
+			(
+					//selected color
+				new SolidColorBrush(Color.FromRgb(255, 32, 110)),
+				//matching color
+				new SolidColorBrush(Color.FromRgb(65, 234, 200)),
+				//area color
+				new SolidColorBrush(Color.FromRgb(255, 255, 255)),
+				// unseleted color
+				new SolidColorBrush(Color.FromRgb(12, 15, 10)),
+				//wrong color
+				new SolidColorBrush(Color.FromRgb(255, 000, 000)),
+				//right color
+				new SolidColorBrush(Color.FromRgb(251, 255, 18)),
+				//bordercolor
+				new SolidColorBrush(Color.FromRgb(65, 234, 200))
+			),
+				//cat theme
+				new Theme
+			(
+					//selected color
+				new SolidColorBrush(Color.FromRgb(117, 79, 91)),
+				//matching color
+				new SolidColorBrush(Color.FromRgb(93, 73, 84)),
+				//area color
+				new SolidColorBrush(Color.FromRgb(249, 224, 217)),
+				// unseleted color
+				new SolidColorBrush(Color.FromRgb(125, 97, 103)),
+				//wrong color
+				new SolidColorBrush(Color.FromRgb(255, 000, 000)),
+				//right color
+				new SolidColorBrush(Color.FromRgb(230, 219, 208)),
+				//border color
+				new SolidColorBrush(Color.FromRgb(93, 73, 84))
+			),
+				//the bluez theme
+				new Theme
+			(
+					//selected color
+				new SolidColorBrush(Color.FromRgb(231, 236, 239)),
+				//matching color
+				new SolidColorBrush(Color.FromRgb(139, 140, 137)),
+				//area color
+				new SolidColorBrush(Color.FromRgb(96, 150, 186)),
+				// unseleted color
+				new SolidColorBrush(Color.FromRgb(36, 76, 119)),
+				//wrong color
+				new SolidColorBrush(Color.FromRgb(255, 000, 000)),
+				//right color
+				new SolidColorBrush(Color.FromRgb(163, 206, 241)),
+				//border color
+				new SolidColorBrush(Color.FromRgb(139, 140, 137))
 			)
 		};
 	}
