@@ -399,6 +399,7 @@ namespace Sudoku
 					int num = game.board.GetNum(x, y);
 					if (GetGrid(shownButtons[x, y]) != null) { eraseNotes(x, y); }
 					shownButtons[x, y].Content = num > 0 ? num.ToString() : GetGrid(shownButtons[x, y]);
+					GetCellInfo(shownButtons[x, y]).correct = num > 0;
 				}
 			}
 		}
