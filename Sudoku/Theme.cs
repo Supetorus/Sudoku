@@ -58,7 +58,7 @@ namespace Sudoku
 				//bordercolor
 				new SolidColorBrush(Color.FromRgb(65, 234, 200))
 			),
-				//cat theme
+				//mocha theme
 				new Theme
 			(
 					//selected color
