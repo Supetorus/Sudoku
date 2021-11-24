@@ -26,9 +26,6 @@ namespace Sudoku
 
 		Game game;
 
-		// Set the default theme
-		Theme theme = Theme.themes[2];
-
 		struct Vector2
 		{
 			public int x, y;
@@ -51,6 +48,11 @@ namespace Sudoku
 			InitializeComponent();
 			GenerateGrid();
 			txtMistakes.Text = "0 / " + Game.maxMistakes;
+			foreach (Button btn in gridKeypad.Children)
+			{
+				btn.Background = Theme.selectedTheme.DefaultTileColor;
+				btn.Foreground = Theme.selectedTheme.DefaultText;
+			}
 		}
 
 		class CellInfo
@@ -135,7 +137,8 @@ namespace Sudoku
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
-					shownButtons[x, y].Background = theme.unselectedColor;
+					shownButtons[x, y].Background = Theme.selectedTheme.DefaultTileColor;
+					shownButtons[x, y].Foreground = Theme.selectedTheme.DefaultText;
 
 					double thickness = 1;
 					double left = 0;
@@ -149,7 +152,7 @@ namespace Sudoku
 					if (y % 3 == 0 && y > 0) left = thickness;
 					Border border = new();
 					border.BorderThickness = new Thickness(left, top, right, bottom);
-					border.BorderBrush = theme.BorderColor;
+					border.BorderBrush = Theme.selectedTheme.BorderColor;
 					Grid.SetColumn(border, y);
 					Grid.SetRow(border, x);
 					gridView.Children.Add(border);
@@ -171,9 +174,9 @@ namespace Sudoku
 
 		private void Highlight(bool highlight)
 		{
-			Brush selectedBrush = highlight ? theme.selectedColor : theme.unselectedColor;
-			Brush areaBrush = highlight ? theme.areaColor : theme.unselectedColor;
-			Brush matchingBrush = highlight ? theme.matchingColor : theme.unselectedColor;
+			Brush selectedBrush = highlight ? Theme.selectedTheme.selectedColor : Theme.selectedTheme.DefaultTileColor;
+			Brush areaBrush = highlight ? Theme.selectedTheme.areaColor : Theme.selectedTheme.DefaultTileColor;
+			Brush matchingBrush = highlight ? Theme.selectedTheme.matchingColor : Theme.selectedTheme.DefaultTileColor;
 
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
@@ -292,7 +295,7 @@ namespace Sudoku
 			//{
 			TextBlock txt = new TextBlock();
 			txt.Text = num.ToString();
-			txt.Foreground = theme.RightColor;
+			txt.Foreground = Theme.selectedTheme.RightColor;
 			txt.FontSize = 10;
 			txt.VerticalAlignment = VerticalAlignment.Center;
 			txt.HorizontalAlignment = HorizontalAlignment.Center;
@@ -333,12 +336,12 @@ namespace Sudoku
 
 					if (game.board.CheckNum(x, y, num))
 					{
-						selectedButton.Foreground = theme.RightColor;
+						selectedButton.Foreground = Theme.selectedTheme.RightColor;
 						AddNumber(x, y, num);
 					}
 					else
 					{
-						selectedButton.Foreground = theme.WrongColor;
+						selectedButton.Foreground = Theme.selectedTheme.WrongColor;
 						selectedButton.Content = num;
 						game.IncrementMistakes();
 						txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
@@ -366,12 +369,12 @@ namespace Sudoku
 
 					if (game.board.CheckNum(x, y, num))
 					{
-						selectedButton.Foreground = theme.RightColor;
+						selectedButton.Foreground = Theme.selectedTheme.RightColor;
 						AddNumber(x, y, num);
 					}
 					else
 					{
-						selectedButton.Foreground = theme.WrongColor;
+						selectedButton.Foreground = Theme.selectedTheme.WrongColor;
 						selectedButton.Content = num;
 						game.IncrementMistakes();
 						txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
@@ -411,11 +414,11 @@ namespace Sudoku
 		{
 			if (notes)
 			{
-				(sender as Button).Background = theme.unselectedColor;
+				(sender as Button).Background = Theme.selectedTheme.DefaultTileColor;
 			}
 			else
 			{
-				(sender as Button).Background = theme.selectedColor;
+				(sender as Button).Background = Theme.selectedTheme.selectedColor;
 			}
 
 			notes = !notes;

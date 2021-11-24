@@ -71,12 +71,13 @@
 		<TextBlock x:Name="txtMistakes"
 				   Text="0 / 0 Mistakes" 
 				   HorizontalAlignment="Center"
-				   Foreground="Red"
 				   FontSize="24"/>
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1">
-			<Grid ShowGridLines="False"
+			<!-- The keypad -->
+			<Grid x:Name="gridKeypad"
+				  ShowGridLines="False"
 				  Width="200"
 				  Height="200"
 				  Margin="25">
