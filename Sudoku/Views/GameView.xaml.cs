@@ -48,6 +48,7 @@ namespace Sudoku
 			InitializeComponent();
 			GenerateGrid();
 			txtMistakes.Text = "0 / " + Game.maxMistakes;
+			txtMistakes.Foreground = Theme.selectedTheme.WrongColor;
 			foreach (Button btn in gridKeypad.Children)
 			{
 				btn.Background = Theme.selectedTheme.DefaultTileColor;
@@ -122,7 +123,7 @@ namespace Sudoku
 						for(int i = 0; i < 9; ++i)
 						{
 							TextBlock txt = new TextBlock();
-							txt.Foreground = theme.RightColor;
+							txt.Foreground = Theme.selectedTheme.RightColor;
 							txt.FontSize = 10;
 							txt.VerticalAlignment = VerticalAlignment.Center;
 							txt.HorizontalAlignment = HorizontalAlignment.Center;
@@ -256,7 +257,7 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num))
 				{
-					shownButtons[x, y].Foreground = theme.RightColor;
+					shownButtons[x, y].Foreground = Theme.selectedTheme.RightColor;
 					shownButtons[x, y].Content = num > 0 ? num : "";
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
