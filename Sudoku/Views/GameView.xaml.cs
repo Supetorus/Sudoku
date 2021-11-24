@@ -115,6 +115,18 @@ namespace Sudoku
 
 						GetCellInfo(shownButtons[x, y]).grid = notesGrid;
 						shownButtons[x, y].Content = notesGrid;
+
+						for(int i = 0; i < 9; ++i)
+						{
+							TextBlock txt = new TextBlock();
+							txt.Foreground = theme.RightColor;
+							txt.FontSize = 10;
+							txt.VerticalAlignment = VerticalAlignment.Center;
+							txt.HorizontalAlignment = HorizontalAlignment.Center;
+							Grid.SetColumn(txt, (i) % 3);
+							Grid.SetRow(txt, (i) / 3);
+							GetGrid(shownButtons[x, y]).Children.Add(txt);
+						}
 					}
 					else
 					{
@@ -234,54 +246,61 @@ namespace Sudoku
 
 		public void AddNumber(int x, int y, int num)
 		{
-			shownButtons[x, y].Content = num > 0 ? num : "";
-			((CellInfo)shownButtons[x, y].Tag).correct = true;
-			game.board.SetNum(x, y, num);
-			unsolved.Remove(new Vector2(x, y));
-
-			//remove this number from notes in area
-			for (int i = 0; i < 9; ++i)
+			if (!notes)
 			{
-				if (!HasNum(shownButtons[x, i]))
+				moves.Push(new Move(x, y, selectedButton.Content));
+
+				if (game.board.CheckNum(x, y, num))
 				{
-					foreach (UIElement e in GetGrid(shownButtons[x, i]).Children)
+					shownButtons[x, y].Foreground = theme.RightColor;
+					shownButtons[x, y].Content = num > 0 ? num : "";
+					((CellInfo)shownButtons[x, y].Tag).correct = true;
+					game.board.SetNum(x, y, num);
+					unsolved.Remove(new Vector2(x, y));
+
+					//remove this number from notes in area
+					for (int i = 0; i < 3; ++i)
 					{
-						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
+						if (!HasNum(shownButtons[x, i]))
 						{
-							GetGrid(shownButtons[x, i]).Children.Remove(e);
-							shownButtons[x, i].Content = GetGrid(shownButtons[x, i]);
-							break;
+							for (int j = 0; j < 9; ++j)
+							{
+								((TextBlock)GetGrid(shownButtons[x, i]).Children[j]).Text = "";
+							}
+						}
+
+						if (!HasNum(shownButtons[i, y]))
+						{
+							for (int j = 0; j < 9; ++j)
+							{
+								((TextBlock)GetGrid(shownButtons[i, y]).Children[j]).Text = "";
+							}
+						}
+					}
+
+					for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+					{
+						for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
+						{
+							if (!HasNum(shownButtons[x, y]))
+							{
+								for (int j = 0; j < 9; ++j)
+								{
+									((TextBlock)GetGrid(shownButtons[x, y]).Children[j]).Text = "";
+								}
+							}
 						}
 					}
 				}
-
-				if (!HasNum(shownButtons[i, y]))
+				else
 				{
-					foreach (UIElement e in GetGrid(shownButtons[i, y]).Children)
-					{
-						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
-						{
-							GetGrid(shownButtons[i, y]).Children.Remove(e);
-							shownButtons[i, y].Content = GetGrid(shownButtons[i, y]);
-							break;
-						}
-					}
+					shownButtons[x, y].Foreground = theme.WrongColor;
+					shownButtons[x, y].Content = num;
 				}
 			}
-
-			for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
+			else
 			{
-				for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
-				{
-					foreach (UIElement e in GetGrid(shownButtons[x, y]).Children)
-					{
-						if (Grid.GetColumn(e) == (num - 1) % 3 && Grid.GetRow(e) == (num - 1) / 3)
-						{
-							GetGrid(shownButtons[x, y]).Children.Remove(e);
-							break;
-						}
-					}
-				}
+				AddNote(x, y, num);
 			}
 		}
 
@@ -289,15 +308,9 @@ namespace Sudoku
 		{
 			//if (board.CheckSafety(x, y, num))
 			//{
-			TextBlock txt = new TextBlock();
-			txt.Text = num.ToString();
-			txt.Foreground = theme.RightColor;
-			txt.FontSize = 10;
-			txt.VerticalAlignment = VerticalAlignment.Center;
-			txt.HorizontalAlignment = HorizontalAlignment.Center;
-			Grid.SetColumn(txt, (num - 1) % 3);
-			Grid.SetRow(txt, (num - 1) / 3);
-			GetGrid(selectedButton).Children.Add(txt);
+			TextBlock txt = (TextBlock)GetGrid(shownButtons[x, y]).Children[num - 1];
+			if(txt.Text != "") { txt.Text = ""; }
+			else { txt.Text = num.ToString(); }
 			//}
 		}
 
@@ -307,8 +320,10 @@ namespace Sudoku
 			{
 				if (selectedButton.Content.GetType() == typeof(Grid))
 				{
-					GetCellInfo(selectedButton).grid.Children.Clear();
-					selectedButton.Content = GetCellInfo(selectedButton).grid;
+					for (int i = 0; i < 9; ++i)
+					{
+						((TextBlock)GetGrid(selectedButton).Children[i]).Text = "";
+					}
 				}
 				else
 				{
@@ -323,28 +338,7 @@ namespace Sudoku
 			{
 				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
 
-				int x = GetCellInfo(selectedButton).x;
-				int y = GetCellInfo(selectedButton).y;
-
-				if (!notes)
-				{
-					moves.Push(new Move(x, y, selectedButton.Content));
-
-					if (game.board.CheckNum(x, y, num))
-					{
-						selectedButton.Foreground = theme.RightColor;
-						AddNumber(x, y, num);
-					}
-					else
-					{
-						selectedButton.Foreground = theme.WrongColor;
-						selectedButton.Content = num;
-					}
-				}
-				else
-				{
-					AddNote(x, y, num);
-				}
+				AddNumber(GetCellInfo(selectedButton).x, GetCellInfo(selectedButton).y, num);
 			}
 		}
 
@@ -354,28 +348,7 @@ namespace Sudoku
 			{
 				int num = int.Parse((sender as Button).Content.ToString());
 
-				int x = GetCellInfo(selectedButton).x;
-				int y = GetCellInfo(selectedButton).y;
-
-				if (!notes)
-				{
-					moves.Push(new Move(x, y, selectedButton.Content));
-
-					if (game.board.CheckNum(x, y, num))
-					{
-						selectedButton.Foreground = theme.RightColor;
-						AddNumber(x, y, num);
-					}
-					else
-					{
-						selectedButton.Foreground = theme.WrongColor;
-						selectedButton.Content = num;
-					}
-				}
-				else if (!HasNum(selectedButton))
-				{
-					AddNote(x, y, num);
-				}
+				AddNumber(GetCellInfo(selectedButton).x, GetCellInfo(selectedButton).y, num);
 			}
 		}
 
@@ -396,7 +369,8 @@ namespace Sudoku
 			{
 				int i = rng.Next(unsolved.Count - 1);
 				Vector2 v = unsolved[i];
-				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.ToString() != "" ? int.Parse(shownButtons[v.x, v.y].Content.ToString()) : 0));
+				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.GetType() == typeof(Grid) ? 
+					0 : shownButtons[v.x, v.y].Content.ToString() != "" ? int.Parse(shownButtons[v.x, v.y].Content.ToString()) : 0));
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
 			}
