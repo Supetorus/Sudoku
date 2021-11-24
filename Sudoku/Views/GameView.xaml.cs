@@ -27,7 +27,7 @@ namespace Sudoku
 		Game game;
 
 		// Set the default theme
-		Theme theme = Theme.themes[0];
+		Theme theme = Theme.themes[2];
 
 		struct Vector2
 		{
@@ -50,6 +50,7 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			GenerateGrid();
+			txtMistakes.Text = "0 / " + Game.maxMistakes;
 		}
 
 		class CellInfo
@@ -334,7 +335,7 @@ namespace Sudoku
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !GetCellInfo(selectedButton).correct)
+			if (e.Key >= Key.D1 && e.Key <= Key.D9 && selectedButton != null && !GetCellInfo(selectedButton).correct && game.Mistakes < Game.maxMistakes)
 			{
 				int num = int.Parse(e.Key.ToString().Replace('D', ' ').Trim());
 
@@ -344,7 +345,7 @@ namespace Sudoku
 
 		private void KeyPad(object sender, RoutedEventArgs e)
 		{
-			if (selectedButton != null && !GetCellInfo(selectedButton).correct)
+			if (selectedButton != null && !GetCellInfo(selectedButton).correct && game.Mistakes < Game.maxMistakes)
 			{
 				int num = int.Parse((sender as Button).Content.ToString());
 
@@ -393,6 +394,8 @@ namespace Sudoku
 		private void Reset_Board(object sender, RoutedEventArgs e)
 		{
 			game.board.ResetBoard();
+			game.ResetMistakes();
+			txtMistakes.Text = "0 / 0 Mistakes";
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
