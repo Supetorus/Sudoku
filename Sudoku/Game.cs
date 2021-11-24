@@ -10,9 +10,19 @@ namespace Sudoku
 	{
 		public Board board;
 
-		public void NewGame()
+		public int Mistakes { get; private set; }
+
+		public void IncrementMistakes()
 		{
-			//Initializes a new game, resets the clock, resets wrong answers,generates a new board, etc. 
+			Mistakes++;
 		}
+
+		public void ResetMistakes()
+		{
+			Mistakes = 0;
+		}
+
+		public const int maxMistakes = 5;
+
 	}
 }
