@@ -78,7 +78,8 @@
 					   FontSize="24" />
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
-		<StackPanel Grid.Column="1">
+		<StackPanel Grid.Column="1"
+					VerticalAlignment="Center">
 			<!-- The keypad -->
 			<Grid x:Name="gridKeypad"
 				  ShowGridLines="False"

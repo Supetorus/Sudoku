@@ -154,6 +154,7 @@ namespace Sudoku
 					gridView.Children.Add(shownButtons[x, y]);
 					shownButtons[x, y].Background = Theme.selectedTheme.DefaultTileColor;
 					shownButtons[x, y].Foreground = Theme.selectedTheme.DefaultText;
+					shownButtons[x, y].FontSize = 24;
 
 					double thickness = 1;
 					double left = 0;
@@ -327,7 +328,17 @@ namespace Sudoku
 							btn.Visibility = Visibility.Hidden;
 							break;
 						}
-						else btn.Visibility = Visibility.Visible;
+					}
+				}
+				else
+				{
+					foreach (Button btn in gridKeypad.Children)
+					{
+						if (btn.Content.ToString() == i.ToString())
+						{
+							btn.Visibility = Visibility.Visible;
+							break;
+						}
 					}
 				}
 			}
@@ -417,7 +428,6 @@ namespace Sudoku
 			game.board.ResetBoard();
 			game.ResetMistakes();
 			txtMistakes.Text = "0 / 0 Mistakes";
-			RemoveUsedUpNums();
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
@@ -428,6 +438,7 @@ namespace Sudoku
 					GetCellInfo(shownButtons[x, y]).correct = num > 0;
 				}
 			}
+			RemoveUsedUpNums();
 			hintNum = totalHints;
 			txtHints.Text = hintNum + " Hints";
 		}
