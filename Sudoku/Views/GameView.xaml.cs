@@ -40,6 +40,7 @@ namespace Sudoku
 		List<Vector2> unsolved = new List<Vector2>();
 
 		int hintNum = 3;
+		int totalHints = 3;
 
 		bool notes = false;
 		bool hint = false;
@@ -48,7 +49,7 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			GenerateGrid();
-			txtMistakes.Text = "0 / " + Game.maxMistakes;
+			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
 			txtMistakes.Foreground = Theme.selectedTheme.WrongColor;
 			foreach (Button btn in gridKeypad.Children)
 			{
@@ -99,7 +100,6 @@ namespace Sudoku
 					int num = game.board.GetNum(x, y);
 					shownButtons[x, y].Tag = new CellInfo(x, y, game.board.CheckNum(x, y, num));
 					shownButtons[x, y].Click += BoardClick;
-					shownButtons[x, y].FontSize = 15;
 
 					if (num == 0)
 					{
@@ -154,6 +154,7 @@ namespace Sudoku
 					gridView.Children.Add(shownButtons[x, y]);
 					shownButtons[x, y].Background = Theme.selectedTheme.DefaultTileColor;
 					shownButtons[x, y].Foreground = Theme.selectedTheme.DefaultText;
+					shownButtons[x, y].FontSize = 24;
 
 					double thickness = 1;
 					double left = 0;
@@ -189,9 +190,9 @@ namespace Sudoku
 
 		private void Highlight(int x, int y, bool highlight)
 		{
-			Brush selectedBrush = highlight ? Theme.selectedTheme.selectedColor : Theme.selectedTheme.DefaultTileColor;
-			Brush areaBrush = highlight ? Theme.selectedTheme.areaColor : Theme.selectedTheme.DefaultTileColor;
-			Brush matchingBrush = highlight ? Theme.selectedTheme.matchingColor : Theme.selectedTheme.DefaultTileColor;
+			Brush selectedBrush = highlight ? Theme.selectedTheme.SelectedTileColor : Theme.selectedTheme.DefaultTileColor;
+			Brush areaBrush = highlight ? Theme.selectedTheme.AreaTileColor : Theme.selectedTheme.DefaultTileColor;
+			Brush matchingBrush = highlight ? Theme.selectedTheme.MatchingTileColor : Theme.selectedTheme.DefaultTileColor;
 
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
@@ -327,7 +328,17 @@ namespace Sudoku
 							btn.Visibility = Visibility.Hidden;
 							break;
 						}
-						else btn.Visibility = Visibility.Visible;
+					}
+				}
+				else
+				{
+					foreach (Button btn in gridKeypad.Children)
+					{
+						if (btn.Content.ToString() == i.ToString())
+						{
+							btn.Visibility = Visibility.Visible;
+							break;
+						}
 					}
 				}
 			}
@@ -394,6 +405,7 @@ namespace Sudoku
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
 			}
+			txtHints.Text = hintNum + " Hints";
 		}
 
 		private void Notes(object sender, RoutedEventArgs e)
@@ -404,7 +416,7 @@ namespace Sudoku
 			}
 			else
 			{
-				(sender as Button).Background = Theme.selectedTheme.selectedColor;
+				(sender as Button).Background = Theme.selectedTheme.SelectedTileColor;
 			}
 
 			notes = !notes;
@@ -414,8 +426,7 @@ namespace Sudoku
 		{
 			game.board.ResetBoard();
 			game.ResetMistakes();
-			txtMistakes.Text = "0 / 0 Mistakes";
-			RemoveUsedUpNums();
+			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)
@@ -426,6 +437,9 @@ namespace Sudoku
 					GetCellInfo(shownButtons[x, y]).correct = num > 0;
 				}
 			}
+			RemoveUsedUpNums();
+			hintNum = totalHints;
+			txtHints.Text = hintNum + " Hints";
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)

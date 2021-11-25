@@ -40,41 +40,46 @@
 						  Selected="cmbxiNewGame_Selected" />
 		</ComboBox>
 		<StackPanel VerticalAlignment="Center">
-		<!-- The sudoku board -->
-		<Grid Name="gridView"
-			  Width="300"
-			  Height="300"
-			  HorizontalAlignment="Center">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-		</Grid>
-		<TextBlock x:Name="txtMistakes"
-				   Text="0 / 0 Mistakes" 
-				   HorizontalAlignment="Center"
-				   FontSize="24"/>
+			<TextBlock x:Name="txtHints"
+					   Text="3 Hints"
+					   HorizontalAlignment="Center"
+					   FontSize="24" />
+			<!-- The sudoku board -->
+			<Grid Name="gridView"
+				  Width="300"
+				  Height="300"
+				  HorizontalAlignment="Center">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+			</Grid>
+			<TextBlock x:Name="txtMistakes"
+					   Text="0 / 0 Mistakes"
+					   HorizontalAlignment="Center"
+					   FontSize="24" />
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
-		<StackPanel Grid.Column="1">
+		<StackPanel Grid.Column="1"
+					VerticalAlignment="Center">
 			<!-- The keypad -->
 			<Grid x:Name="gridKeypad"
 				  ShowGridLines="False"
