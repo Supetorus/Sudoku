@@ -253,7 +253,6 @@ namespace Sudoku
 		{
 			if (!notes || hint)
 			{
-				hint = false;
 				moves.Push(new Move(x, y, shownButtons[x, y].Content));
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
@@ -280,7 +279,8 @@ namespace Sudoku
 						}
 					}
 
-					Highlight(x, y, true);
+					if (!hint) { Highlight(x, y, true); }
+					hint = false;
 				}
 				else // It's the wrong number
 				{
