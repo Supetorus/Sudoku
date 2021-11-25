@@ -189,9 +189,9 @@ namespace Sudoku
 
 		private void Highlight(bool highlight)
 		{
-			Brush selectedBrush = highlight ? Theme.selectedTheme.selectedColor : Theme.selectedTheme.DefaultTileColor;
-			Brush areaBrush = highlight ? Theme.selectedTheme.areaColor : Theme.selectedTheme.DefaultTileColor;
-			Brush matchingBrush = highlight ? Theme.selectedTheme.matchingColor : Theme.selectedTheme.DefaultTileColor;
+			Brush selectedBrush = highlight ? Theme.selectedTheme.SelectedTileColor : Theme.selectedTheme.DefaultTileColor;
+			Brush areaBrush = highlight ? Theme.selectedTheme.AreaTileColor : Theme.selectedTheme.DefaultTileColor;
+			Brush matchingBrush = highlight ? Theme.selectedTheme.MatchingTileColor : Theme.selectedTheme.DefaultTileColor;
 
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
@@ -406,7 +406,7 @@ namespace Sudoku
 			}
 			else
 			{
-				(sender as Button).Background = Theme.selectedTheme.selectedColor;
+				(sender as Button).Background = Theme.selectedTheme.SelectedTileColor;
 			}
 
 			notes = !notes;

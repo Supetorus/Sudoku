@@ -9,9 +9,9 @@ namespace Sudoku
 {
 	struct Theme
 	{
-		public Brush selectedColor;
-		public Brush matchingColor;
-		public Brush areaColor;
+		public Brush SelectedTileColor;
+		public Brush MatchingTileColor;
+		public Brush AreaTileColor;
 		public Brush DefaultTileColor;
 		public Brush WrongColor;
 		public Brush RightColor;
@@ -19,12 +19,12 @@ namespace Sudoku
 		public Brush BackgroundColor;
 		public Brush DefaultText;
 
-		public Theme(Brush selectedColor, Brush matchingColor, Brush areaColor,
+		public Theme(Brush SelectedTileColor, Brush MatchingTileColor, Brush AreaTileColor,
 			Brush DefaultTileColor, Brush WrongColor, Brush RightColor, Brush BorderColor, Brush BackgroundColor, Brush DefaultText)
 		{
-			this.selectedColor = selectedColor;
-			this.matchingColor = matchingColor;
-			this.areaColor = areaColor;
+			this.SelectedTileColor = SelectedTileColor;
+			this.MatchingTileColor = MatchingTileColor;
+			this.AreaTileColor = AreaTileColor;
 			this.DefaultTileColor = DefaultTileColor;
 			this.WrongColor = WrongColor;
 			this.RightColor = RightColor;
