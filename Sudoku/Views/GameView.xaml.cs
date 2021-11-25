@@ -42,6 +42,7 @@ namespace Sudoku
 		int hintNum = 3;
 
 		bool notes = false;
+		bool hint = false;
 
 		public GameView()
 		{
@@ -178,15 +179,15 @@ namespace Sudoku
 		{
 			if (selectedButton != null)
 			{
-				Highlight(false);
+				Highlight(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, false);
 			}
 
 			selectedButton = sender as Button;
 
-			Highlight(true);
+			Highlight(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, true);
 		}
 
-		private void Highlight(bool highlight)
+		private void Highlight(int x, int y, bool highlight)
 		{
 			Brush selectedBrush = highlight ? Theme.selectedTheme.selectedColor : Theme.selectedTheme.DefaultTileColor;
 			Brush areaBrush = highlight ? Theme.selectedTheme.areaColor : Theme.selectedTheme.DefaultTileColor;
@@ -195,12 +196,9 @@ namespace Sudoku
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
 			{
-				shownButtons[i, GetCellInfo(selectedButton).y].Background = areaBrush;
-				shownButtons[GetCellInfo(selectedButton).x, i].Background = areaBrush;
+				shownButtons[i, y].Background = areaBrush;
+				shownButtons[x, i].Background = areaBrush;
 			}
-
-			int x = GetCellInfo(selectedButton).x;
-			int y = GetCellInfo(selectedButton).y;
 
 			//Highlight box
 			for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
@@ -212,9 +210,9 @@ namespace Sudoku
 			}
 
 			//Highlight matching numbers
-			if (HasNum(selectedButton))
+			if (HasNum(shownButtons[x, y]) && ((CellInfo)shownButtons[x, y].Tag).correct)
 			{
-				int num = int.Parse(selectedButton.Content.ToString());
+				int num = int.Parse(shownButtons[x, y].Content.ToString());
 				for (int i = 0; i < 9; ++i)
 				{
 					for (int j = 0; j < 9; ++j)
@@ -227,7 +225,7 @@ namespace Sudoku
 				}
 			}
 
-			selectedButton.Background = selectedBrush;
+			shownButtons[x, y].Background = selectedBrush;
 		}
 
 		public bool HasNum(Button b)
@@ -252,8 +250,9 @@ namespace Sudoku
 
 		public void AddNumber(int x, int y, int num)
 		{
-			if (!notes)
+			if (!notes || hint)
 			{
+				hint = false;
 				moves.Push(new Move(x, y, shownButtons[x, y].Content));
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
@@ -279,6 +278,8 @@ namespace Sudoku
 							if (!HasNum(shownButtons[x, y])) { EraseNotes(x, y); }
 						}
 					}
+
+					Highlight(x, y, true);
 				}
 				else // It's the wrong number
 				{
@@ -387,10 +388,9 @@ namespace Sudoku
 		{
 			if (hintNum > 0 && unsolved.Count > 0)
 			{
+				hint = true;
 				int i = rng.Next(unsolved.Count - 1);
 				Vector2 v = unsolved[i];
-				moves.Push(new Move(v.x, v.y, shownButtons[v.x, v.y].Content.GetType() == typeof(Grid) ?
-					0 : shownButtons[v.x, v.y].Content.ToString() != "" ? int.Parse(shownButtons[v.x, v.y].Content.ToString()) : 0));
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
 				--hintNum;
 			}
