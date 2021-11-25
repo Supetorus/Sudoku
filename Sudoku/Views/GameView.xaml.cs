@@ -99,7 +99,6 @@ namespace Sudoku
 					int num = game.board.GetNum(x, y);
 					shownButtons[x, y].Tag = new CellInfo(x, y, game.board.CheckNum(x, y, num));
 					shownButtons[x, y].Click += BoardClick;
-					shownButtons[x, y].FontSize = 15;
 
 					if (num == 0)
 					{
@@ -427,7 +426,7 @@ namespace Sudoku
 		{
 			game.board.ResetBoard();
 			game.ResetMistakes();
-			txtMistakes.Text = "0 / 0 Mistakes";
+			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
 			for (int x = 0; x < 9; x++)
 			{
 				for (int y = 0; y < 9; y++)

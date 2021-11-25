@@ -35,7 +35,7 @@ namespace Sudoku
 
 		public readonly static Theme[] themes =
 		{
-			new Theme // default / testing
+			new Theme // [0] default / testing
 			(
 				new SolidColorBrush(Color.FromRgb(200, 200, 255)),// selected color
 				new SolidColorBrush(Color.FromRgb(255, 200, 200)),// matching color
@@ -47,7 +47,7 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(255, 255, 255)),// background color
 				new SolidColorBrush(Color.FromRgb(000, 000, 000)) // default text color
 			),
-			new Theme // dark theme
+			new Theme // [1] dark theme
 			(
 				new SolidColorBrush(Color.FromRgb(001, 022, 039)),// selected color
 				new SolidColorBrush(Color.FromRgb(065, 234, 200)),// matching color
@@ -60,7 +60,7 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(145, 145, 145)) // default text color
 
 			),
-			new Theme // mocha theme
+			new Theme // [2] mocha theme
 			(
 				new SolidColorBrush(Color.FromRgb(117, 079, 091)),// selected color
 				new SolidColorBrush(Color.FromRgb(093, 073, 084)),// matching color
@@ -72,7 +72,7 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(102, 075, 037)),// background color
 				new SolidColorBrush(Color.FromRgb(158, 127, 084)) // default text color
 			),
-			new Theme // the bluez theme
+			new Theme // [3] the bluez theme
 			(
 				new SolidColorBrush(Color.FromRgb(231, 236, 239)),// selected color
 				new SolidColorBrush(Color.FromRgb(139, 140, 137)),// matching color
@@ -86,6 +86,6 @@ namespace Sudoku
 			)
 		};
 
-		public static Theme selectedTheme = themes[1];
+		public static Theme selectedTheme = themes[0];
 	}
 }
