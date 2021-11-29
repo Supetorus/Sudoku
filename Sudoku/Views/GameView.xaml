@@ -76,7 +76,7 @@
 					   Text="0 / 0 Mistakes"
 					   HorizontalAlignment="Center"
 					   FontSize="24"
-					   Foreground="{StaticResource brushWrong}"/>
+					   Foreground="{StaticResource brushWrongText}"/>
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1"

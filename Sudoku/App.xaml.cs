@@ -15,6 +15,6 @@ namespace Sudoku
 
 	public partial class App : Application
 	{
-		public static Skin Skin { get; set; } = Skin.Dark;
+		public static Skin Skin { get; set; } = Skin.Default;
 	}
 }

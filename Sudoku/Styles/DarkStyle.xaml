@@ -3,11 +3,13 @@
 
     <SolidColorBrush x:Key="brushBackground"
 					 Color="#333333" />
-    <SolidColorBrush x:Key="brushForeground"
+    <SolidColorBrush x:Key="brushBorder"
 					 Color="#AAAAAA" />
     <SolidColorBrush x:Key="brushText"
 					 Color="#FFFFFF" />
-    <SolidColorBrush x:Key="brushWrong"
+    <SolidColorBrush x:Key="brushWrongBackground"
+					 Color="#333333" />
+    <SolidColorBrush x:Key="brushWrongText"
 					 Color="#AA0000" />
     <SolidColorBrush x:Key="brushRight"
 					 Color="#00AA00" />
@@ -27,7 +29,7 @@
         <Setter Property="FontSize"
 				Value="24" />
         <Setter Property="BorderBrush"
-				Value="{StaticResource brushForeground}" />
+				Value="{StaticResource brushBorder}" />
         <Setter Property="Foreground"
                 Value="{StaticResource brushText}"/>
     </Style>
@@ -37,7 +39,7 @@
         <Setter Property="Background"
 				Value="{StaticResource brushBackground}" />
         <Setter Property="BorderBrush"
-				Value="{StaticResource brushForeground}" />
+				Value="{StaticResource brushBorder}" />
         <Setter Property="Foreground"
 				Value="{StaticResource brushText}" />
         <Setter Property="BorderThickness"

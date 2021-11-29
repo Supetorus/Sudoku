@@ -50,11 +50,6 @@ namespace Sudoku
 			InitializeComponent();
 			GenerateGrid();
 			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
-/*			foreach (Button btn in gridKeypad.Children)
-			{
-				btn.Background = Theme.selectedTheme.DefaultTileColor;
-				btn.Foreground = Theme.selectedTheme.DefaultText;
-			}*/
 		}
 
 		class CellInfo
@@ -123,7 +118,7 @@ namespace Sudoku
 						for (int i = 0; i < 9; ++i)
 						{
 							TextBlock txt = new TextBlock();
-							txt.Foreground = (SolidColorBrush)FindResource("brushRight");
+							txt.Foreground = (SolidColorBrush)FindResource("brushRightText");
 							txt.FontSize = 10;
 							txt.VerticalAlignment = VerticalAlignment.Center;
 							txt.HorizontalAlignment = HorizontalAlignment.Center;
@@ -151,11 +146,6 @@ namespace Sudoku
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
-					//shownButtons[x, y].Background = Theme.selectedTheme.DefaultTileColor;
-					/*					String theme = "Dark_Mode_";
-										shownButtons[x, y].Background = (SolidColorBrush)Application.Current.Resources[theme + "Background_Color"];
-										shownButtons[x, y].Foreground = Theme.selectedTheme.DefaultText;
-										shownButtons[x, y].FontSize = 24;*/
 					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquare");
 
 					double thickness = 2;
@@ -170,7 +160,7 @@ namespace Sudoku
 					if (y % 3 == 0 && y > 0) left = thickness;
 					Border border = new();
 					border.BorderThickness = new Thickness(left, top, right, bottom);
-					border.BorderBrush = (SolidColorBrush)FindResource("brushForeground");
+					border.BorderBrush = (SolidColorBrush)FindResource("brushBorder");
 					Grid.SetColumn(border, y);
 					Grid.SetRow(border, x);
 					gridView.Children.Add(border);
@@ -192,16 +182,15 @@ namespace Sudoku
 
 		private void Highlight(int x, int y, bool highlight)
 		{
-			Brush selectedBrush = highlight ? (SolidColorBrush)FindResource("brushSelected") : (SolidColorBrush)FindResource("brushBackground");
-			Brush areaBrush = highlight ? (SolidColorBrush)FindResource("brushArea") : (SolidColorBrush)FindResource("brushArea");
-			Brush matchingBrushBackground = highlight ? (SolidColorBrush)FindResource("brushMatchingBackground") : (SolidColorBrush)FindResource("brushBackground");
-			Brush matchingBrushText = highlight ? (SolidColorBrush)FindResource("brushMatchingText") : (SolidColorBrush)FindResource("brushMatchingText");
+			Style selectedStyle = highlight ? (Style)FindResource("styleSudokuSquareSelected") : (Style)FindResource("styleSudokuSquare");
+			Style areaStyle = highlight ? (Style)FindResource("styleSudokuSquareArea") : (Style)FindResource("styleSudokuSquare");
+			Style matchingStyle = highlight ? (Style)FindResource("styleSudokuSquareMatching") : (Style)FindResource("styleSudokuSquare");
 
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
 			{
-				shownButtons[i, y].Background = areaBrush;
-				shownButtons[x, i].Background = areaBrush;
+				shownButtons[i, y].Style = areaStyle;
+				shownButtons[x, i].Style = areaStyle;
 			}
 
 			//Highlight box
@@ -209,7 +198,7 @@ namespace Sudoku
 			{
 				for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
 				{
-					shownButtons[bx, by].Background = areaBrush;
+					shownButtons[bx, by].Style = areaStyle;
 				}
 			}
 
@@ -223,14 +212,13 @@ namespace Sudoku
 					{
 						if (HasNum(shownButtons[i, j]) && int.Parse(shownButtons[i, j].Content.ToString()) == num)
 						{
-							shownButtons[i, j].Background = matchingBrushBackground;
-							shownButtons[i, j].Foreground = matchingBrushText;
+							shownButtons[i, j].Style = matchingStyle;
 						}
 					}
 				}
 			}
 
-			shownButtons[x, y].Background = selectedBrush;
+			shownButtons[x, y].Style = selectedStyle;
 		}
 
 		public bool HasNum(Button b)
@@ -261,7 +249,7 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRight");
+					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRightText");
 					shownButtons[x, y].Content = num > 0 ? num : "";
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
@@ -288,7 +276,7 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrong");
+					selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
 					selectedButton.Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
@@ -420,7 +408,7 @@ namespace Sudoku
 			}
 			else
 			{
-				(sender as Button).Background = (SolidColorBrush)FindResource("brushSelected");
+				(sender as Button).Background = (SolidColorBrush)FindResource("brushSelectedText");
 			}
 
 			notes = !notes;
