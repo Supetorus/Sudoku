@@ -90,7 +90,7 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(255, 234, 208)),//matching color
 				new SolidColorBrush(Color.FromRgb(244, 91, 105)),//area color
 				new SolidColorBrush(Color.FromRgb(135, 255, 101)),// default tile color
-				new SolidColorBrush(Color.FromRgb(255, 000, 000)),//wrong color
+				new SolidColorBrush(Color.FromRgb(160, 26, 125)),//wrong color
 				new SolidColorBrush(Color.FromRgb(90, 90, 102)),//right color
 				new SolidColorBrush(Color.FromRgb(255, 234, 208)),//border color
 				new SolidColorBrush(Color.FromRgb(247, 111, 142)),// background color
@@ -102,11 +102,23 @@ namespace Sudoku
 				new SolidColorBrush(Color.FromRgb(252, 177, 149)),//selected color
 				new SolidColorBrush(Color.FromRgb(177, 182, 149)),//matching color
 				new SolidColorBrush(Color.FromRgb(83, 145, 126)),//area color
-				new SolidColorBrush(Color.FromRgb(234, 84, 111)),// unseleted color
+				new SolidColorBrush(Color.FromRgb(234, 84, 111)),// default tile color
 				new SolidColorBrush(Color.FromRgb(255, 000, 000)),//wrong color
 				new SolidColorBrush(Color.FromRgb(90, 90, 102)),//right color
 				new SolidColorBrush(Color.FromRgb(244, 91, 105)),//border color
 				new SolidColorBrush(Color.FromRgb(109, 26, 54)),// background color
+				new SolidColorBrush(Color.FromRgb(91, 114, 109)) // default text color
+			),
+					new Theme // [6] neon theme
+			(
+				new SolidColorBrush(Color.FromRgb(76, 26, 87)),//selected color
+				new SolidColorBrush(Color.FromRgb(0, 124, 119)),//matching color
+				new SolidColorBrush(Color.FromRgb(0, 229, 232)),//area color
+				new SolidColorBrush(Color.FromRgb(240, 246, 0)),// default tile color
+				new SolidColorBrush(Color.FromRgb(224, 159, 125)),//wrong color
+				new SolidColorBrush(Color.FromRgb(160, 236, 208)),//right color
+				new SolidColorBrush(Color.FromRgb(244, 91, 105)),//border color
+				new SolidColorBrush(Color.FromRgb(255, 60, 199)),// background color
 				new SolidColorBrush(Color.FromRgb(91, 114, 109)) // default text color
 			)
 		};
