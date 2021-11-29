@@ -8,10 +8,13 @@ using System.Windows;
 
 namespace Sudoku
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-    }
+	/// <summary>
+	/// Interaction logic for App.xaml
+	/// </summary>
+	public enum Skin { Default, Dark }
+
+	public partial class App : Application
+	{
+		public static Skin Skin { get; set; } = Skin.Default;
+	}
 }

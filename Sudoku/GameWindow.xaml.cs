@@ -21,7 +21,7 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			ViewManager.RegisterWindow(this);
-			Background = Theme.selectedTheme.BackgroundColor;
+			//Background = Theme.selectedTheme.BackgroundColor;
 		}
 
 		internal void SetView(Page view)

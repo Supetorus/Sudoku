@@ -11,7 +11,7 @@
 
 	<StackPanel>
 		<TextBlock Text="New Game"
-				   FontSize="32"
+				   Style="{StaticResource styleText}"
 				   HorizontalAlignment="center"
 				   VerticalAlignment="top"
 				   Margin="50" />
@@ -31,7 +31,8 @@
 				IsSnapToTickEnabled="True"/>
 		<Button x:Name="btnNewGame"
 				Content="New Game"
-				Click="btnNewGame_Click" 
-				HorizontalAlignment="Center"/>
+				Click="btnNewGame_Click"
+				HorizontalAlignment="Center"
+				Style="{StaticResource styleNormalButton}" />
 	</StackPanel>
 </Page>

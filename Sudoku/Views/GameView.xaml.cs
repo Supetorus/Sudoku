@@ -50,12 +50,11 @@ namespace Sudoku
 			InitializeComponent();
 			GenerateGrid();
 			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
-			txtMistakes.Foreground = Theme.selectedTheme.WrongColor;
-			foreach (Button btn in gridKeypad.Children)
+/*			foreach (Button btn in gridKeypad.Children)
 			{
 				btn.Background = Theme.selectedTheme.DefaultTileColor;
 				btn.Foreground = Theme.selectedTheme.DefaultText;
-			}
+			}*/
 		}
 
 		class CellInfo
@@ -124,7 +123,7 @@ namespace Sudoku
 						for (int i = 0; i < 9; ++i)
 						{
 							TextBlock txt = new TextBlock();
-							txt.Foreground = Theme.selectedTheme.RightColor;
+							txt.Foreground = (SolidColorBrush)FindResource("brushRight");
 							txt.FontSize = 10;
 							txt.VerticalAlignment = VerticalAlignment.Center;
 							txt.HorizontalAlignment = HorizontalAlignment.Center;
@@ -152,11 +151,14 @@ namespace Sudoku
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
-					shownButtons[x, y].Background = Theme.selectedTheme.DefaultTileColor;
-					shownButtons[x, y].Foreground = Theme.selectedTheme.DefaultText;
-					shownButtons[x, y].FontSize = 24;
+					//shownButtons[x, y].Background = Theme.selectedTheme.DefaultTileColor;
+					/*					String theme = "Dark_Mode_";
+										shownButtons[x, y].Background = (SolidColorBrush)Application.Current.Resources[theme + "Background_Color"];
+										shownButtons[x, y].Foreground = Theme.selectedTheme.DefaultText;
+										shownButtons[x, y].FontSize = 24;*/
+					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquare");
 
-					double thickness = 1;
+					double thickness = 2;
 					double left = 0;
 					double top = 0;
 					double right = 0;
@@ -168,7 +170,7 @@ namespace Sudoku
 					if (y % 3 == 0 && y > 0) left = thickness;
 					Border border = new();
 					border.BorderThickness = new Thickness(left, top, right, bottom);
-					border.BorderBrush = Theme.selectedTheme.BorderColor;
+					border.BorderBrush = (SolidColorBrush)FindResource("brushForeground");
 					Grid.SetColumn(border, y);
 					Grid.SetRow(border, x);
 					gridView.Children.Add(border);
@@ -190,9 +192,10 @@ namespace Sudoku
 
 		private void Highlight(int x, int y, bool highlight)
 		{
-			Brush selectedBrush = highlight ? Theme.selectedTheme.SelectedTileColor : Theme.selectedTheme.DefaultTileColor;
-			Brush areaBrush = highlight ? Theme.selectedTheme.AreaTileColor : Theme.selectedTheme.DefaultTileColor;
-			Brush matchingBrush = highlight ? Theme.selectedTheme.MatchingTileColor : Theme.selectedTheme.DefaultTileColor;
+			Brush selectedBrush = highlight ? (SolidColorBrush)FindResource("brushSelected") : (SolidColorBrush)FindResource("brushBackground");
+			Brush areaBrush = highlight ? (SolidColorBrush)FindResource("brushArea") : (SolidColorBrush)FindResource("brushArea");
+			Brush matchingBrushBackground = highlight ? (SolidColorBrush)FindResource("brushMatchingBackground") : (SolidColorBrush)FindResource("brushBackground");
+			Brush matchingBrushText = highlight ? (SolidColorBrush)FindResource("brushMatchingText") : (SolidColorBrush)FindResource("brushMatchingText");
 
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
@@ -220,7 +223,8 @@ namespace Sudoku
 					{
 						if (HasNum(shownButtons[i, j]) && int.Parse(shownButtons[i, j].Content.ToString()) == num)
 						{
-							shownButtons[i, j].Background = matchingBrush;
+							shownButtons[i, j].Background = matchingBrushBackground;
+							shownButtons[i, j].Foreground = matchingBrushText;
 						}
 					}
 				}
@@ -257,7 +261,7 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					shownButtons[x, y].Foreground = Theme.selectedTheme.RightColor;
+					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRight");
 					shownButtons[x, y].Content = num > 0 ? num : "";
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
@@ -284,7 +288,7 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					selectedButton.Foreground = Theme.selectedTheme.WrongColor;
+					selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrong");
 					selectedButton.Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
@@ -412,11 +416,11 @@ namespace Sudoku
 		{
 			if (notes)
 			{
-				(sender as Button).Background = Theme.selectedTheme.DefaultTileColor;
+				(sender as Button).Background = (SolidColorBrush)FindResource("brushBackground");
 			}
 			else
 			{
-				(sender as Button).Background = Theme.selectedTheme.SelectedTileColor;
+				(sender as Button).Background = (SolidColorBrush)FindResource("brushSelected");
 			}
 
 			notes = !notes;

@@ -43,7 +43,7 @@
 			<TextBlock x:Name="txtHints"
 					   Text="3 Hints"
 					   HorizontalAlignment="Center"
-					   FontSize="24" />
+					   Style="{StaticResource styleText}" />
 			<!-- The sudoku board -->
 			<Grid Name="gridView"
 				  Width="300"
@@ -75,7 +75,8 @@
 			<TextBlock x:Name="txtMistakes"
 					   Text="0 / 0 Mistakes"
 					   HorizontalAlignment="Center"
-					   FontSize="24" />
+					   FontSize="24"
+					   Foreground="{StaticResource brushWrong}"/>
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1"
@@ -100,55 +101,55 @@
 						Grid.Column="0"
 						Content="1"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="0"
 						Grid.Column="1"
 						Content="2"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="0"
 						Grid.Column="2"
 						Content="3"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="0"
 						Content="4"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="1"
 						Content="5"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="2"
 						Content="6"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="0"
 						Content="7"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="1"
 						Content="8"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="2"
 						Content="9"
 						FontSize="30"
-						Background="White"
+						Style="{StaticResource styleNormalButton}"
 						Click="KeyPad">
 				</Button>
 			</Grid>
@@ -167,33 +168,38 @@
 						Grid.Row="0"
 						Grid.Column="0"
 						Content="Note"
-						Click="Notes" />
+						Click="Notes"
+						Style="{StaticResource styleNormalButton}" />
 				<Button Width="100"
 						Height="50"
 						Margin="10"
 						Grid.Row="0"
 						Grid.Column="1"
 						Content="Hint"
-						Click="Hint" />
+						Click="Hint"
+						Style="{StaticResource styleNormalButton}"  />
 				<Button Width="100"
 						Height="50"
 						Margin="25"
 						Grid.Row="1"
 						Grid.Column="0"
 						Content="Undo"
-						Click="Undo" />
+						Click="Undo"
+						Style="{StaticResource styleNormalButton}" />
 				<Button Width="100"
 						Height="50"
 						Margin="25"
 						Grid.Row="1"
 						Grid.Column="1"
 						Content="Erase"
-						Click="Erase" />
+						Click="Erase"
+						Style="{StaticResource styleNormalButton}" />
 			</Grid>
 			<Button Width="100"
 					Height="50"
 					Content="Reset"
-					Click="Reset_Board" />
+					Click="Reset_Board"
+					Style="{StaticResource styleNormalButton}" />
 		</StackPanel>
 	</Grid>
 </Page>

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<SolidColorBrush x:Key="brushBackground"
-					 Color="#AA7777" />
+					 Color="#FFFFFF" />
 	<SolidColorBrush x:Key="brushForeground"
 					 Color="#666666" />
 	<SolidColorBrush x:Key="brushText"
@@ -11,10 +11,12 @@
 	<SolidColorBrush x:Key="brushRight"
 					 Color="#00FF00" />
 	<SolidColorBrush x:Key="brushSelected"
-					 Color="#555500" />
+					 Color="#AAAAAA" />
 	<SolidColorBrush x:Key="brushArea"
-					 Color="#00EEEE" />
-	<SolidColorBrush x:Key="brushMatching"
+					 Color="#EEEEEE" />
+	<SolidColorBrush x:Key="brushMatchingBackground"
+					 Color="#EEEEEE" />
+	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0000FF" />
 
 	<Style x:Key="styleSudokuSquare"

@@ -86,6 +86,6 @@ namespace Sudoku
 			)
 		};
 
-		public static Theme selectedTheme = themes[0];
+		//public static Theme selectedTheme = themes[3];
 	}
 }

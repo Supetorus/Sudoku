@@ -11,7 +11,7 @@
 
 	<Grid>
 		<TextBlock Text="Settings"
-				   FontSize="32"
+				   Style="{StaticResource styleText}"
 				   HorizontalAlignment="center"
 				   VerticalAlignment="top"
 				   Margin="0 100 0 0" />

@@ -2,8 +2,15 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:local="clr-namespace:Sudoku"
+			 xmlns:system="clr-namespace:System;assembly=System.Runtime"
 			 StartupUri="GameWindow.xaml">
 	<Application.Resources>
-
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<local:SkinResourceDictionary DefaultSource="Styles/DefaultStyle.xaml"
+											  DarkSource="Styles/DarkStyle.xaml" />
+				<ResourceDictionary Source="Styles/BaseStyle.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>
