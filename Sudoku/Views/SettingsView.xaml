@@ -12,8 +12,27 @@
 	<Grid>
 		<TextBlock Text="Settings"
 				   Style="{StaticResource styleText}"
-				   HorizontalAlignment="center"
-				   VerticalAlignment="top"
-				   Margin="0 100 0 0" />
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"
+				   Margin="0,67,0,0" 
+				   FontSize="32"/>
+		<TextBlock Text="Theme: "
+				   Style="{StaticResource styleText}"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Top"
+				   Margin="286,171,0,0" 
+				   FontSize="18"/>
+		<ComboBox HorizontalAlignment="Left" 
+				  Margin="354,172,0,0" 
+				  VerticalAlignment="Top" 
+				  Width="120" 
+				  Background="Transparent">
+			<ComboBoxItem x:Name="default"
+						  Content="Default"
+						  IsSelected="True" />
+			<ComboBoxItem x:Name="dark"
+						  Content="Dark"
+						  IsSelected="False" />
+		</ComboBox>
 	</Grid>
 </Page>
