@@ -29,10 +29,11 @@
 				  Background="Transparent">
 			<ComboBoxItem x:Name="default"
 						  Content="Default"
-						  IsSelected="True" />
+						  IsSelected="True" 
+						  Selected="default_Selected"/>
 			<ComboBoxItem x:Name="dark"
 						  Content="Dark"
-						  IsSelected="False" />
+						  Selected="dark_Selected" />
 		</ComboBox>
 	</Grid>
 </Page>

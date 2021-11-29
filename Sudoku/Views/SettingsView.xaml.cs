@@ -24,5 +24,15 @@ namespace Sudoku
 		{
 			InitializeComponent();
 		}
+
+		private void dark_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Dark);
+		}
+
+		private void default_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Default);
+		}
 	}
 }
