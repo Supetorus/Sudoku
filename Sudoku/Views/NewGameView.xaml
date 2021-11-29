@@ -16,7 +16,8 @@
 				   VerticalAlignment="top"
 				   Margin="50" />
 		<TextBlock Text="Select Your Difficulty!"
-				   HorizontalAlignment="Center"/>
+				   HorizontalAlignment="Center"
+                   Style="{StaticResource styleText}"/>
 		<Slider x:Name="sldrDifficulty"
 				AutoToolTipPlacement="TopLeft"
 				Maximum="3"
