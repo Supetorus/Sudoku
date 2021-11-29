@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<SolidColorBrush x:Key="brushBackground"
+					 Color="#AA7777" />
+	<SolidColorBrush x:Key="brushForeground"
+					 Color="#666666" />
+	<SolidColorBrush x:Key="brushText"
+					 Color="#000000" />
+	<SolidColorBrush x:Key="brushWrong"
+					 Color="#FF0000" />
+	<SolidColorBrush x:Key="brushRight"
+					 Color="#00FF00" />
+	<SolidColorBrush x:Key="brushSelected"
+					 Color="#555500" />
+	<SolidColorBrush x:Key="brushArea"
+					 Color="#00EEEE" />
+	<SolidColorBrush x:Key="brushMatching"
+					 Color="#0000FF" />
+
+	<Style x:Key="styleSudokuSquare"
+		   TargetType="Button">
+		<Setter Property="Background"
+				Value="{StaticResource brushBackground}" />
+		<Setter Property="FontSize"
+				Value="24" />
+		<Setter Property="BorderBrush"
+				Value="{StaticResource brushForeground}" />
+	</Style>
+	
+	<Style x:Key="styleNormalButton"
+		   TargetType="Button">
+		<Setter Property="Background"
+				Value="{StaticResource brushBackground}" />
+		<Setter Property="BorderBrush"
+				Value="{StaticResource brushForeground}" />
+		<Setter Property="Foreground"
+				Value="{StaticResource brushText}" />
+		<Setter Property="BorderThickness"
+				Value="1.5" />
+		<Setter Property="FontSize"
+				Value="24" />
+	</Style>
+	
+	<Style x:Key="styleText"
+		   TargetType="TextBlock">
+		<Setter Property="Foreground"
+				Value="{StaticResource brushText}" />
+		<Setter Property="FontSize"
+				Value="32" />
+	</Style>
+</ResourceDictionary>
