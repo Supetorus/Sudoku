@@ -12,7 +12,7 @@
 	<StackPanel>
 		<TextBlock Text="Sudoku!"
 				   FontSize="32"
-				   Style="{StaticResource styleText}"
+				   Style="{DynamicResource styleText}"
 				   HorizontalAlignment="Center"
 				   VerticalAlignment="Top"
 				   Margin="50"/>
@@ -21,6 +21,6 @@
 				HorizontalAlignment="Center"
 				VerticalAlignment="Top"
 				Click="btnNewGame_Click"
-				Style="{StaticResource styleNormalButton}" />
+				Style="{DynamicResource styleNormalButton}" />
 	</StackPanel>
 </Page>

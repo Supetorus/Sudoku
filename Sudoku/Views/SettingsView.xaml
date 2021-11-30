@@ -11,7 +11,7 @@
 
 	<Grid>
 		<TextBlock Text="Settings"
-				   Style="{StaticResource styleText}"
+				   Style="{DynamicResource styleText}"
 				   HorizontalAlignment="center"
 				   VerticalAlignment="top"
 				   Margin="0 100 0 0" />

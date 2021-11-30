@@ -11,10 +11,10 @@ namespace Sudoku
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public enum Skin { Default, Dark }
+	public enum Skin { Default, Dark, Neon , Mocha}
 
 	public partial class App : Application
 	{
-		public static Skin Skin { get; set; } = Skin.Default;
+		public static Skin Skin { get; set; } = Skin.Mocha;
 	}
 }
