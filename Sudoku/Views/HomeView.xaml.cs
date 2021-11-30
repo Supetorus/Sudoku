@@ -29,5 +29,10 @@ namespace Sudoku
 		{
 			ViewManager.SetView(ViewManager.NewGameView);
 		}
+
+		private void btnSettings_Click(object sender, RoutedEventArgs e)
+		{
+			ViewManager.SetView(ViewManager.SettingsView);
+		}
 	}
 }

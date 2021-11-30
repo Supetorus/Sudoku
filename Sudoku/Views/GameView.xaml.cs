@@ -249,7 +249,8 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRightText");
+					//shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRightText");
+					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareRight");
 					shownButtons[x, y].Content = num > 0 ? num : "";
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
@@ -276,7 +277,8 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
+					//selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
+					selectedButton.Style = (Style)FindResource("styleSudokuSquareWrong");
 					selectedButton.Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";

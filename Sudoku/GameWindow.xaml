@@ -8,7 +8,9 @@
 		Title="GameWindow"
 		Height="500"
 		Width="800"
-		Background="{StaticResource brushBackground}">
+		Background="{DynamicResource brushBackground}"
+		>
+
 	<Grid>
 		<Frame Name="mainFrame"
 			   Source="Views/HomeView.xaml"

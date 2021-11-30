@@ -11,13 +11,13 @@
 
 	<Grid>
 		<TextBlock Text="Settings"
-				   Style="{StaticResource styleText}"
+				   Style="{DynamicResource styleText}"
 				   HorizontalAlignment="Center"
 				   VerticalAlignment="Top"
 				   Margin="0,67,0,0" 
 				   FontSize="32"/>
 		<TextBlock Text="Theme: "
-				   Style="{StaticResource styleText}"
+				   Style="{DynamicResource styleText}"
 				   HorizontalAlignment="Left"
 				   VerticalAlignment="Top"
 				   Margin="286,171,0,0" 
