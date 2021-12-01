@@ -34,6 +34,12 @@
 			<ComboBoxItem x:Name="dark"
 						  Content="Dark"
 						  Selected="dark_Selected" />
+			<ComboBoxItem x:Name="mocha"
+						  Content="Mocha"
+						  Selected="mocha_Selected" />
+			<ComboBoxItem x:Name="neon"
+						  Content="Neon"
+						  Selected="neon_Selected" />
 		</ComboBox>
 	</Grid>
 </Page>
