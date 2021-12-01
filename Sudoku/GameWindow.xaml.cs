@@ -29,6 +29,14 @@ namespace Sudoku
 			mainFrame.Content = view;
 		}
 
+		public void Back()
+		{
+			if (mainFrame.NavigationService.CanGoBack)
+			{
+				mainFrame.NavigationService.GoBack();
+			}
+		}
+
 		//These are temporary for debugging and quickly navigating.
 		private void btnSettings_Click(object sender, RoutedEventArgs e)
 		{

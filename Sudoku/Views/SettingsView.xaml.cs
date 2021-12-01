@@ -44,5 +44,10 @@ namespace Sudoku
 		{
 			(Application.Current as App).ChangeSkin(Skin.Default);
 		}
+
+		private void Back_Click(object sender, RoutedEventArgs e)
+		{
+			ViewManager.Back();
+		}
 	}
 }
