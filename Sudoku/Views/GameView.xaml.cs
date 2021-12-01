@@ -263,7 +263,7 @@ namespace Sudoku
 				{
 					//shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRightText");
 					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareRight");
-					shownButtons[x, y].Content = num > 0 ? num : "";
+					shownButtons[x, y].Content = num;
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
 					unsolved.Remove(new Vector2(x, y));
@@ -290,10 +290,11 @@ namespace Sudoku
 				else // It's the wrong number
 				{
 					//selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
-					selectedButton.Style = (Style)FindResource("styleSudokuSquareWrong");
-					selectedButton.Content = num;
+					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareWrong");
+					shownButtons[x, y].Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
+					Highlight(x, y, true);
 				}
 				RemoveUsedUpNums();
 			}
