@@ -419,11 +419,11 @@ namespace Sudoku
 		{
 			if (notes)
 			{
-				(sender as Button).Background = (SolidColorBrush)FindResource("brushBackground");
+				(sender as Button).Style = (Style)FindResource("styleSudokuSquare");
 			}
 			else
 			{
-				(sender as Button).Background = (SolidColorBrush)FindResource("brushSelectedText");
+				(sender as Button).Style = (Style)FindResource("styleSudokuSquareSelected");
 			}
 
 			notes = !notes;

@@ -25,5 +25,10 @@ namespace Sudoku
 		{
 			gameWindow.SetView(view);
 		}
+
+		public static void Back()
+		{
+			gameWindow.Back();
+		}
 	}
 }

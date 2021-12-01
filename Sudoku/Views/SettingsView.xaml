@@ -10,6 +10,14 @@
 	  Title="SettingsView">
 
 	<Grid>
+		<Button x:Name="btnBack"
+				Content="←"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Margin="20"
+				Width="30"
+				Style="{StaticResource styleNormalButton}"
+				Click="Back_Click" />
 		<TextBlock Text="Settings"
 				   Style="{DynamicResource styleText}"
 				   HorizontalAlignment="Center"
