@@ -50,6 +50,16 @@
 				Value="24" />
 	</Style>
 
+	<Style x:Key="styleSudokuSquareRight"
+		   TargetType="Button">
+		<Setter Property="Background"
+				Value="{StaticResource brushRightBackground}" />
+		<Setter Property="Foreground"
+				Value="{StaticResource brushRightText}" />
+		<Setter Property="FontSize"
+				Value="24" />
+	</Style>
+
 	<Style x:Key="styleSudokuSquareArea"
 		   TargetType="Button">
 		<Setter Property="Background"
