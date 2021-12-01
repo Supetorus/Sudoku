@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:Sudoku"
 		mc:Ignorable="d"
 		Title="GameWindow"
-		Height="500"
+		Height="550"
 		Width="800"
 		Background="{DynamicResource brushBackground}">
 	<Grid>
