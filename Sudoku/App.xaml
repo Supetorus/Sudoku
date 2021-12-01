@@ -7,8 +7,10 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<local:SkinResourceDictionary DefaultSource="Styles/DefaultStyle.xaml"
-											  DarkSource="Styles/DarkStyle.xaml" />
+                <local:SkinResourceDictionary DefaultSource="Styles/DefaultStyle.xaml"
+											  DarkSource="Styles/DarkStyle.xaml"
+											  NeonSource="Styles/NeonStyle.xaml"
+                                              MochaSource="Styles/MochaStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

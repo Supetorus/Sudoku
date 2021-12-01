@@ -8,8 +8,7 @@
 		Title="GameWindow"
 		Height="500"
 		Width="800"
-		Background="{DynamicResource brushBackground}"
-		>
+		Background="{DynamicResource brushBackground}">
 
 	<Grid>
 		<Frame Name="mainFrame"

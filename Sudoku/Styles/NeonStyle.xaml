@@ -3,60 +3,49 @@
 
 	<!-- Brushes -->
 	<SolidColorBrush x:Key="brushBackground"
-					 Color="#FFFFFF" />
+					 Color="#f0f600" />
 	<SolidColorBrush x:Key="brushBorder"
-					 Color="#666666" />
+					 Color="#ff3cc7" />
 	<SolidColorBrush x:Key="brushText"
-					 Color="#000000" />
+					 Color="#4c1a57" />
 	<SolidColorBrush x:Key="brushWrongBackground"
-					 Color="#FFFFFF" />
+					 Color="#f0f600" />
 	<SolidColorBrush x:Key="brushWrongText"
-					 Color="#FF0000" />
+					 Color="#45050c" />
 	<SolidColorBrush x:Key="brushRightBackground"
-					 Color="#FFFFFF" />
+					 Color="#f0f600" />
 	<SolidColorBrush x:Key="brushRightText"
 					 Color="#00FF00" />
 	<SolidColorBrush x:Key="brushSelectedBackground"
-					 Color="#AAAAAA" />
+					 Color="#ee8434" />
 	<SolidColorBrush x:Key="brushSelectedText"
 					 Color="#000000" />
 	<SolidColorBrush x:Key="brushAreaBackground"
-					 Color="#EEEEEE" />
+					 Color="#00e5e8" />
 	<SolidColorBrush x:Key="brushAreaText"
 					 Color="#000000" />
 	<SolidColorBrush x:Key="brushMatchingBackground"
-					 Color="#FFFFFF" />
+					 Color="#ee8434" />
 	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0000FF" />
 
 	<!-- Sudoku Square Styles -->
-
 	<Style x:Key="styleSudokuSquare"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="{DynamicResource brushBackground}" />
+				Value="{StaticResource brushBackground}" />
 		<Setter Property="FontSize"
 				Value="24" />
 		<Setter Property="BorderBrush"
-				Value="{DynamicResource brushBorder}" />
+				Value="{StaticResource brushBorder}" />
 	</Style>
 
 	<Style x:Key="styleSudokuSquareWrong"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="{DynamicResource brushWrongBackground}" />
+				Value="{StaticResource brushWrongBackground}" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource brushWrongText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareRight"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushRightBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushRightText}" />
+				Value="{StaticResource brushWrongText}" />
 		<Setter Property="FontSize"
 				Value="24" />
 	</Style>
@@ -64,9 +53,9 @@
 	<Style x:Key="styleSudokuSquareArea"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="{DynamicResource brushAreaBackground}" />
+				Value="{StaticResource brushAreaBackground}" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource brushAreaText}" />
+				Value="{StaticResource brushAreaText}" />
 		<Setter Property="FontSize"
 				Value="24" />
 	</Style>
@@ -74,9 +63,9 @@
 	<Style x:Key="styleSudokuSquareMatching"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="{DynamicResource brushMatchingBackground}" />
+				Value="{StaticResource brushMatchingBackground}" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource brushMatchingText}" />
+				Value="{StaticResource brushMatchingText}" />
 		<Setter Property="FontSize"
 				Value="24" />
 	</Style>
@@ -84,9 +73,9 @@
 	<Style x:Key="styleSudokuSquareSelected"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="{DynamicResource brushSelectedBackground}" />
+				Value="{StaticResource brushSelectedBackground}" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource brushSelectedText}" />
+				Value="{StaticResource brushSelectedText}" />
 		<Setter Property="FontSize"
 				Value="24" />
 	</Style>
@@ -95,23 +84,22 @@
 	<Style x:Key="styleNormalButton"
 		   TargetType="Button">
 		<Setter Property="Background"
-				Value="{DynamicResource brushBackground}" />
+				Value="{StaticResource brushBackground}" />
 		<Setter Property="BorderBrush"
-				Value="{DynamicResource brushBorder}" />
+				Value="{StaticResource brushBorder}" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource brushText}" />
+				Value="{StaticResource brushText}" />
 		<Setter Property="BorderThickness"
 				Value="1.5" />
 		<Setter Property="FontSize"
 				Value="24" />
 	</Style>
 
-	<!-- Text Styles -->
-
+	<!-- Text Style -->
 	<Style x:Key="styleText"
 		   TargetType="TextBlock">
 		<Setter Property="Foreground"
-				Value="{DynamicResource brushText}" />
+				Value="{StaticResource brushText}" />
 		<Setter Property="FontSize"
 				Value="32" />
 	</Style>
@@ -122,7 +110,7 @@
 		<!--
 		<Setter Property="FontSize"
 				Value="10" />
-	-->
+		-->
 		<Setter Property="HorizontalAlignment"
 				Value="Center" />
 		<Setter Property="VerticalAlignment"

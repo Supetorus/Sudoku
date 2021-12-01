@@ -43,7 +43,7 @@
 			<TextBlock x:Name="txtHints"
 					   Text="3 Hints"
 					   HorizontalAlignment="Center"
-					   Style="{StaticResource styleText}" />
+					   Style="{DynamicResource styleText}" />
 			<!-- The sudoku board -->
 			<Grid Name="gridView"
 				  Width="300"
@@ -76,7 +76,7 @@
 					   Text="0 / 0 Mistakes"
 					   HorizontalAlignment="Center"
 					   FontSize="24"
-					   Foreground="{StaticResource brushWrongText}"/>
+					   Foreground="{DynamicResource brushWrongText}"/>
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1"
@@ -101,55 +101,55 @@
 						Grid.Column="0"
 						Content="1"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="0"
 						Grid.Column="1"
 						Content="2"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="0"
 						Grid.Column="2"
 						Content="3"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="0"
 						Content="4"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="1"
 						Content="5"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="2"
 						Content="6"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="0"
 						Content="7"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="1"
 						Content="8"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="2"
 						Content="9"
 						FontSize="30"
-						Style="{StaticResource styleNormalButton}"
+						Style="{DynamicResource styleNormalButton}"
 						Click="KeyPad">
 				</Button>
 			</Grid>
@@ -169,7 +169,7 @@
 						Grid.Column="0"
 						Content="Note"
 						Click="Notes"
-						Style="{StaticResource styleNormalButton}" />
+						Style="{DynamicResource styleNormalButton}" />
 				<Button Width="100"
 						Height="50"
 						Margin="10"
@@ -177,7 +177,7 @@
 						Grid.Column="1"
 						Content="Hint"
 						Click="Hint"
-						Style="{StaticResource styleNormalButton}"  />
+						Style="{DynamicResource styleNormalButton}"  />
 				<Button Width="100"
 						Height="50"
 						Margin="25"
@@ -185,7 +185,7 @@
 						Grid.Column="0"
 						Content="Undo"
 						Click="Undo"
-						Style="{StaticResource styleNormalButton}" />
+						Style="{DynamicResource styleNormalButton}" />
 				<Button Width="100"
 						Height="50"
 						Margin="25"
@@ -193,13 +193,13 @@
 						Grid.Column="1"
 						Content="Erase"
 						Click="Erase"
-						Style="{StaticResource styleNormalButton}" />
+						Style="{DynamicResource styleNormalButton}" />
 			</Grid>
 			<Button Width="100"
 					Height="50"
 					Content="Reset"
 					Click="Reset_Board"
-					Style="{StaticResource styleNormalButton}" />
+					Style="{DynamicResource styleNormalButton}" />
 		</StackPanel>
 	</Grid>
 </Page>
