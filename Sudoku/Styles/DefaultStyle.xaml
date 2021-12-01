@@ -61,16 +61,6 @@
 				Value="24" />
 	</Style>
 
-	<Style x:Key="styleSudokuSquareRight"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushRightBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushRightText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
 	<Style x:Key="styleSudokuSquareArea"
 		   TargetType="Button">
 		<Setter Property="Background"
