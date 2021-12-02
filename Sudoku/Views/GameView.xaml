@@ -207,7 +207,7 @@
 				   HorizontalAlignment="Center" 
 				   Margin="0,450,0,0" 
 				   TextWrapping="Wrap" 
-				   Text="0:0" 
+				   Text="00:00" 
 				   VerticalAlignment="Top"
 				   Style="{DynamicResource styleText}"/>
 	</Grid>

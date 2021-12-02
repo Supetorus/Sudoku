@@ -29,67 +29,6 @@
 	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0088AA" />
 
-	<!-- Sudoku Square Styles -->
-	<Style x:Key="styleSudokuSquare"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushBackground}" />
-		<Setter Property="FontSize"
-				Value="24" />
-		<Setter Property="BorderBrush"
-				Value="{DynamicResource brushBorder}" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareRight"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushRightBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushRightText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareWrong"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushWrongBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushWrongText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareArea"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushAreaBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushAreaText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareMatching"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushMatchingBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushMatchingText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareSelected"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushSelectedBackground}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushSelectedText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
 	<!-- Normal Button Style -->
 	<Style x:Key="styleNormalButton"
 		   TargetType="Button">

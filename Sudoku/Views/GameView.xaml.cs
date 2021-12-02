@@ -125,7 +125,7 @@ namespace Sudoku
 						for (int i = 0; i < 9; ++i)
 						{
 							TextBlock txt = new TextBlock();
-							txt.Foreground = (SolidColorBrush)FindResource("brushRightText");
+							txt.SetResourceReference(Control.ForegroundProperty, "brushRightText");
 							txt.FontSize = 10;
 							txt.VerticalAlignment = VerticalAlignment.Center;
 							txt.HorizontalAlignment = HorizontalAlignment.Center;
@@ -158,8 +158,8 @@ namespace Sudoku
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
-					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushText");
-					shownButtons[x, y].Background = (SolidColorBrush)FindResource("brushBackground");
+					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushText");
+					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushBackground");
 					shownButtons[x, y].FontSize = 24;
 
 					double thickness = 2;
@@ -174,7 +174,7 @@ namespace Sudoku
 					if (y % 3 == 0 && y > 0) left = thickness;
 					Border border = new();
 					border.BorderThickness = new Thickness(left, top, right, bottom);
-					border.BorderBrush = (SolidColorBrush)FindResource("brushBorder");
+					border.SetResourceReference(Control.BorderBrushProperty, "brushBorder");
 					Grid.SetColumn(border, y);
 					Grid.SetRow(border, x);
 					gridView.Children.Add(border);

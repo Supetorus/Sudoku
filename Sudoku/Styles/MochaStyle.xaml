@@ -29,67 +29,6 @@
 	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0000FF" />
 
-	<!-- Sudoku Square Styles -->
-	<Style x:Key="styleSudokuSquare"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{StaticResource brushBackground}" />
-		<Setter Property="FontSize"
-				Value="24" />
-		<Setter Property="BorderBrush"
-				Value="{StaticResource brushBorder}" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareRight"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{StaticResource brushRightBackground}" />
-		<Setter Property="Foreground"
-				Value="{StaticResource brushRightText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareWrong"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{StaticResource brushWrongBackground}" />
-		<Setter Property="Foreground"
-				Value="{StaticResource brushWrongText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareArea"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{StaticResource brushAreaBackground}" />
-		<Setter Property="Foreground"
-				Value="{StaticResource brushAreaText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareMatching"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{StaticResource brushMatchingBackground}" />
-		<Setter Property="Foreground"
-				Value="{StaticResource brushMatchingText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<Style x:Key="styleSudokuSquareSelected"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{StaticResource brushSelectedBackground}" />
-		<Setter Property="Foreground"
-				Value="{StaticResource brushSelectedText}" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
 	<!-- Normal Button Style -->
 	<Style x:Key="styleNormalButton"
 		   TargetType="Button">
@@ -97,8 +36,6 @@
 				Value="{StaticResource brushBackground}" />
 		<Setter Property="BorderBrush"
 				Value="{StaticResource brushBorder}" />
-		<Setter Property="Foreground"
-				Value="{StaticResource brushText}" />
 		<Setter Property="BorderThickness"
 				Value="1.5" />
 		<Setter Property="FontSize"
