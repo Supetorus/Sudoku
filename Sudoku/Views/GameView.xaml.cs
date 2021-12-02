@@ -144,7 +144,7 @@ namespace Sudoku
 
 			started = true;
 			time = 0;
-			Timer.Text = "0:0";
+			Timer.Text = "00:00";
 			dispatcherTimer.Start();
 		}
 
@@ -451,7 +451,7 @@ namespace Sudoku
 			txtHints.Text = hintNum + " Hints";
 
 			time = 0;
-			Timer.Text = "0:0";
+			Timer.Text = "00:00";
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)
@@ -482,7 +482,7 @@ namespace Sudoku
 		private void dispatcherTimer_Tick(object sender, EventArgs e)
 		{
 			++time;
-			Timer.Text = time / 60 + ":" + time % 60;
+			Timer.Text = (time / 60 < 10 ? "0" : "") + time / 60 + ":" + (time < 10 ? "0" : "") + time % 60;
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
