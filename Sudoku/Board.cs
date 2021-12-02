@@ -63,6 +63,7 @@ namespace Sudoku
 			}
 		}
 
+		// Returns true if the given grids are identical.
 		bool CompareGrids(int[,] g1, int[,] g2)
 		{
 			for (int x = 0; x < size; ++x)
@@ -252,6 +253,12 @@ namespace Sudoku
 			return sb.ToString();
 		}
 
+		public bool IsGameWon()
+		{
+			return CompareGrids(current, solved);
+		}
+		// Checks if the given number has been used up.
+		// ie if the board has all nine of the given number placed.
 		public bool IsNumFull(int n)
 		{
 			int count = 0;

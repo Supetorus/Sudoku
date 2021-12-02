@@ -18,14 +18,6 @@ namespace Sudoku
 {
 	public partial class GameView : Page
 	{
-		Random rng = new Random();
-
-		Button[,] shownButtons = new Button[9, 9];
-
-		Button selectedButton = null;
-
-		Game game;
-
 		struct Vector2
 		{
 			public int x, y;
@@ -37,19 +29,17 @@ namespace Sudoku
 			}
 		}
 
-		List<Vector2> unsolved = new List<Vector2>();
-
-		int hintNum = 3;
-		int totalHints = 3;
-
-		bool notes = false;
-		bool hint = false;
-
-		public GameView()
+		struct Move
 		{
-			InitializeComponent();
-			GenerateGrid();
-			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
+			public int x, y;
+			public object prev;
+
+			public Move(int x, int y, object prev)
+			{
+				this.x = x;
+				this.y = y;
+				this.prev = prev;
+			}
 		}
 
 		class CellInfo
@@ -67,20 +57,37 @@ namespace Sudoku
 			}
 		}
 
-		struct Move
-		{
-			public int x, y;
-			public object prev;
+		Random rng = new Random();
 
-			public Move(int x, int y, object prev)
-			{
-				this.x = x;
-				this.y = y;
-				this.prev = prev;
-			}
-		}
+		Button[,] shownButtons = new Button[9, 9];
+		Button selectedButton = null;
+
+		Game game;
+
+		System.Windows.Threading.DispatcherTimer dispatcherTimer;
+		int time = 0;
+
+		List<Vector2> unsolved = new List<Vector2>();
+
+		int hintNum = 3;
+		int totalHints = 3;
+
+		bool notes = false;
+		bool hint = false;
+		bool started = false;
 
 		Stack<Move> moves = new Stack<Move>();
+
+		public GameView()
+		{
+			InitializeComponent();
+			GenerateGrid();
+			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
+
+			dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+			dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+		}
 
 		public void NewGame(int difficulty)
 		{
@@ -134,6 +141,11 @@ namespace Sudoku
 				}
 			}
 			RemoveUsedUpNums();
+
+			started = true;
+			time = 0;
+			Timer.Text = "0:0";
+			dispatcherTimer.Start();
 		}
 
 		private void GenerateGrid()
@@ -250,8 +262,8 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRightText");
-					shownButtons[x, y].Content = num > 0 ? num : "";
+					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareRight");
+					shownButtons[x, y].Content = num;
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
 					unsolved.Remove(new Vector2(x, y));
@@ -277,10 +289,12 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
-					selectedButton.Content = num;
+					//selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
+					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareWrong");
+					shownButtons[x, y].Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
+					Highlight(x, y, true);
 				}
 				RemoveUsedUpNums();
 			}
@@ -288,6 +302,7 @@ namespace Sudoku
 			{
 				AddNote(x, y, num);
 			}
+			if (game.board.IsGameWon()) MessageBox.Show("Congratulations, you win!");
 		}
 
 		public void EraseNotes(int x, int y)
@@ -405,11 +420,11 @@ namespace Sudoku
 		{
 			if (notes)
 			{
-				(sender as Button).Background = (SolidColorBrush)FindResource("brushBackground");
+				(sender as Button).Style = (Style)FindResource("styleSudokuSquare");
 			}
 			else
 			{
-				(sender as Button).Background = (SolidColorBrush)FindResource("brushSelectedText");
+				(sender as Button).Style = (Style)FindResource("styleSudokuSquareSelected");
 			}
 
 			notes = !notes;
@@ -433,6 +448,9 @@ namespace Sudoku
 			RemoveUsedUpNums();
 			hintNum = totalHints;
 			txtHints.Text = hintNum + " Hints";
+
+			time = 0;
+			Timer.Text = "0:0";
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)
@@ -458,6 +476,25 @@ namespace Sudoku
 		private void Print_Current(object sender, RoutedEventArgs e)
 		{ // This method can be hooked up to a button and will print the current board.
 			Debug.WriteLine(game.board);
+		}
+
+		private void dispatcherTimer_Tick(object sender, EventArgs e)
+		{
+			++time;
+			Timer.Text = time / 60 + ":" + time % 60;
+		}
+
+		private void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (started)
+			{
+				dispatcherTimer.Start();
+			}
+		}
+
+		private void Page_Unloaded(object sender, RoutedEventArgs e)
+		{
+			dispatcherTimer.Stop();
 		}
 	}
 }

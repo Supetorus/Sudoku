@@ -10,10 +10,44 @@
 	  Title="SettingsView">
 
 	<Grid>
+		<Button x:Name="btnBack"
+				Content="←"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Margin="20"
+				Width="30"
+				Style="{StaticResource styleNormalButton}"
+				Click="Back_Click" />
 		<TextBlock Text="Settings"
 				   Style="{DynamicResource styleText}"
-				   HorizontalAlignment="center"
-				   VerticalAlignment="top"
-				   Margin="0 100 0 0" />
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"
+				   Margin="0,67,0,0" 
+				   FontSize="32"/>
+		<TextBlock Text="Theme: "
+				   Style="{DynamicResource styleText}"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Top"
+				   Margin="286,171,0,0" 
+				   FontSize="18"/>
+		<ComboBox HorizontalAlignment="Left" 
+				  Margin="354,172,0,0" 
+				  VerticalAlignment="Top" 
+				  Width="120" 
+				  Background="Transparent">
+			<ComboBoxItem x:Name="default"
+						  Content="Default"
+						  IsSelected="True" 
+						  Selected="default_Selected"/>
+			<ComboBoxItem x:Name="dark"
+						  Content="Dark"
+						  Selected="dark_Selected" />
+			<ComboBoxItem x:Name="mocha"
+						  Content="Mocha"
+						  Selected="mocha_Selected" />
+			<ComboBoxItem x:Name="neon"
+						  Content="Neon"
+						  Selected="neon_Selected" />
+		</ComboBox>
 	</Grid>
 </Page>

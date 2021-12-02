@@ -6,9 +6,11 @@
 		xmlns:local="clr-namespace:Sudoku"
 		mc:Ignorable="d"
 		Title="GameWindow"
-		Height="500"
+		Height="550"
 		Width="800"
-		Background="{DynamicResource brushBackground}">
+		Background="{DynamicResource brushBackground}"
+		WindowStartupLocation="CenterScreen">
+
 	<Grid>
 		<Frame Name="mainFrame"
 			   Source="Views/HomeView.xaml"

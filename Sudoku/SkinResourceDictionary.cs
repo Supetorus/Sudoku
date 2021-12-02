@@ -62,7 +62,7 @@ namespace Sudoku
             }
         }
 
-        private void UpdateSource()
+        public void UpdateSource()
         {
             Uri val;
             switch (App.Skin)
@@ -87,7 +87,7 @@ namespace Sudoku
                     break;
             }
             if (val != null && base.Source != val)
-                base.Source = val;
+				Source = val;
         }
     }
 }

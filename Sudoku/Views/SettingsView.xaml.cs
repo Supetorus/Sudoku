@@ -24,5 +24,30 @@ namespace Sudoku
 		{
 			InitializeComponent();
 		}
+
+		private void neon_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Neon);
+		}
+
+		private void mocha_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Mocha);
+		}
+
+		private void dark_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Dark);
+		}
+
+		private void default_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Default);
+		}
+
+		private void Back_Click(object sender, RoutedEventArgs e)
+		{
+			ViewManager.Back();
+		}
 	}
 }
