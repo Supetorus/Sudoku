@@ -14,6 +14,7 @@ namespace Sudoku
         private Uri _neonSource;
         private Uri _mochaSource;
         private Uri _dreamSource;
+        private Uri _coralSource;
 
         public Uri DefaultSource
         {
@@ -61,6 +62,15 @@ namespace Sudoku
                 UpdateSource();
             }
         }
+        public Uri CoralSource
+        {
+            get { return _coralSource; }
+            set
+            {
+                _coralSource = value;
+                UpdateSource();
+            }
+        }
 
         public void UpdateSource()
         {
@@ -81,6 +91,9 @@ namespace Sudoku
                     break;
                 case Skin.Dream:
                     val = DreamSource;
+                    break;
+                case Skin.Coral:
+                    val = CoralSource;
                     break;
                 default:
                     val = DefaultSource;

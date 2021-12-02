@@ -17,12 +17,13 @@ namespace Sudoku
 		Dark,
 		Neon,
 		Mocha,
-		Dream
+		Dream,
+		Coral
 	}
 
 	public partial class App : Application
 	{
-		public static Skin Skin { get; set; } = Skin.Dream;
+		public static Skin Skin { get; set; } = Skin.Coral;
 
 		public void ChangeSkin(Skin newSkin)
 		{

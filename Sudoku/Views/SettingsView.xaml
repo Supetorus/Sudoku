@@ -48,6 +48,12 @@
 			<ComboBoxItem x:Name="neon"
 						  Content="Neon"
 						  Selected="neon_Selected" />
+			<ComboBoxItem x:Name="dream"
+						  Content="Dream"
+						  Selected="dream_Selected" />
+            <ComboBoxItem x:Name="coral"
+						  Content="Coral"
+						  Selected="coral_Selected" />
 		</ComboBox>
 	</Grid>
 </Page>

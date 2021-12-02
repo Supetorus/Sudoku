@@ -12,6 +12,7 @@
 											  NeonSource="Styles/NeonStyle.xaml"
                                               MochaSource="Styles/MochaStyle.xaml"
                                               DreamSource="Styles/DreamStyle.xaml"
+                                              CoralSource="Styles/CoralStyle.xaml"
                                               />
             </ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>

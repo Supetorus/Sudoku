@@ -45,6 +45,15 @@ namespace Sudoku
 			(Application.Current as App).ChangeSkin(Skin.Default);
 		}
 
+		private void dream_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Dream);
+		}
+		private void coral_Selected(object sender, RoutedEventArgs e)
+		{
+			(Application.Current as App).ChangeSkin(Skin.Coral);
+		}
+
 		private void Back_Click(object sender, RoutedEventArgs e)
 		{
 			ViewManager.Back();
