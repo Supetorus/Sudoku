@@ -14,7 +14,7 @@
 
 	<!-- The main grid, left and right panes. -->
 	<Grid x:Name="mainGrid"
-		  ShowGridLines="True">
+		  ShowGridLines="False">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
