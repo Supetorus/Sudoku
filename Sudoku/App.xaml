@@ -13,6 +13,8 @@
                                               MochaSource="Styles/MochaStyle.xaml"
                                               DreamSource="Styles/DreamStyle.xaml"
                                               CoralSource="Styles/CoralStyle.xaml"
+                                              MintSource="Styles/MintStyle.xaml"
+                                              PhoniexSource="Styles/PhoniexStyle.xaml"
                                               />
             </ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>

@@ -2,31 +2,31 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="brushBackground"
-					 Color="#EA546F" />
+					 Color="#D8F3DC" />
     <SolidColorBrush x:Key="brushBorder"
-					 Color="#9fa0c3" />
+					 Color="#B7E4C7 " />
     <SolidColorBrush x:Key="brushText"
-					 Color="#91e5f6" />
+					 Color="#95D5B2" />
     <SolidColorBrush x:Key="brushWrongBackground"
-					 Color="{Binding Source={StaticResource brushBackground}}" />
+					 Color="#6a6b83" />
     <SolidColorBrush x:Key="brushWrongText"
-					 Color="#e69597" />
+					 Color="#b2c9ab" />
     <SolidColorBrush x:Key="brushRightBackground"
-					 Color="{Binding Source={StaticResource brushBackground}}" />
+					 Color="#d8d8d8" />
     <SolidColorBrush x:Key="brushRightText"
-					 Color="#40798c" />
+					 Color="#ffffea" />
     <SolidColorBrush x:Key="brushSelectedBackground"
-					 Color="#b5d6d6" />
+					 Color="#b0d0d3" />
     <SolidColorBrush x:Key="brushSelectedText"
-					 Color="#aed9e0" />
+					 Color="#52B788" />
     <SolidColorBrush x:Key="brushAreaBackground"
 					 Color="#9fffcb" />
     <SolidColorBrush x:Key="brushAreaText"
-					 Color="#ffdde1" />
+					 Color="#b0d0d3" />
     <SolidColorBrush x:Key="brushMatchingBackground"
-					 Color="#cac4ce" />
+					 Color="#86bbbd" />
     <SolidColorBrush x:Key="brushMatchingText"
-					 Color="#b9faf8 " />
+					 Color="#b8e0d2" />
 
     <!-- Sudoku Square Styles -->
     <Style x:Key="styleSudokuSquare"
@@ -38,7 +38,7 @@
         <Setter Property="BorderBrush"
 				Value="{StaticResource brushBorder}" />
     </Style>
-
+    
     <Style x:Key="styleSudokuSquareRight"
 		   TargetType="Button">
         <Setter Property="Background"

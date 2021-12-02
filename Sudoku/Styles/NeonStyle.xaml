@@ -3,31 +3,31 @@
 
 	<!-- Brushes -->
 	<SolidColorBrush x:Key="brushBackground"
-					 Color="#f0f600" />
+					 Color="#0C0F0A" />
 	<SolidColorBrush x:Key="brushBorder"
-					 Color="#ff3cc7" />
+					 Color="#FBFF12" />
 	<SolidColorBrush x:Key="brushText"
-					 Color="#4c1a57" />
+					 Color="#41EAD4" />
 	<SolidColorBrush x:Key="brushWrongBackground"
-					 Color="#f0f600" />
+					 Color="#d80032" />
 	<SolidColorBrush x:Key="brushWrongText"
-					 Color="#45050c" />
+					 Color="#ffcad4" />
 	<SolidColorBrush x:Key="brushRightBackground"
-					 Color="#f0f600" />
+					 Color="#00a5cf" />
 	<SolidColorBrush x:Key="brushRightText"
-					 Color="#00FF00" />
+					 Color="#ffed66" />
 	<SolidColorBrush x:Key="brushSelectedBackground"
-					 Color="#ee8434" />
+					 Color="#FFFFFF" />
 	<SolidColorBrush x:Key="brushSelectedText"
-					 Color="#000000" />
-	<SolidColorBrush x:Key="brushAreaBackground"
-					 Color="#00e5e8" />
-	<SolidColorBrush x:Key="brushAreaText"
-					 Color="#000000" />
-	<SolidColorBrush x:Key="brushMatchingBackground"
-					 Color="#ee8434" />
-	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0000FF" />
+	<SolidColorBrush x:Key="brushAreaBackground"
+					 Color="#d81159" />
+	<SolidColorBrush x:Key="brushAreaText"
+					 Color="#FFBA08" />
+	<SolidColorBrush x:Key="brushMatchingBackground"
+					 Color="#ff6700" />
+	<SolidColorBrush x:Key="brushMatchingText"
+					 Color="#432371" />
 
 	<!-- Sudoku Square Styles -->
 	<Style x:Key="styleSudokuSquare"

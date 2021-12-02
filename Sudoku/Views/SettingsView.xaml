@@ -54,6 +54,12 @@
             <ComboBoxItem x:Name="coral"
 						  Content="Coral"
 						  Selected="coral_Selected" />
-		</ComboBox>
+            <ComboBoxItem x:Name="mint"
+						  Content="Mint"
+						  Selected="mint_Selected" />
+            <ComboBoxItem x:Name="phoniex"
+						  Content="Phoniex"
+						  Selected="phoniex_Selected" />
+        </ComboBox>
 	</Grid>
 </Page>
