@@ -261,7 +261,6 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					//shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushRightText");
 					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareRight");
 					shownButtons[x, y].Content = num > 0 ? num : "";
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
@@ -301,6 +300,7 @@ namespace Sudoku
 			{
 				AddNote(x, y, num);
 			}
+			if (game.board.IsGameWon()) MessageBox.Show("Congratulations, you win!");
 		}
 
 		public void EraseNotes(int x, int y)
