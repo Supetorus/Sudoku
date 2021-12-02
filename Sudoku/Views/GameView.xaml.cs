@@ -32,7 +32,7 @@ namespace Sudoku
 		struct Move
 		{
 			public int x, y;
-			public object prev;
+			public object prev; // Whatever was previously in the square, whether it was a notes grid or a number.
 
 			public Move(int x, int y, object prev)
 			{
@@ -395,11 +395,12 @@ namespace Sudoku
 		{
 			if (moves.Count > 0)
 			{
-				RemoveUsedUpNums();
 				Move move = moves.Pop();
 
 				shownButtons[move.x, move.y].Content = move.prev;
+				game.board.SetNum(move.x, move.y, move.prev.GetType() == typeof(int) ? (int)move.prev : 0);
 				GetCellInfo(shownButtons[move.x, move.y]).correct = false;
+				RemoveUsedUpNums();
 			}
 		}
 
