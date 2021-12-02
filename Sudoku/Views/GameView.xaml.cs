@@ -186,6 +186,7 @@ namespace Sudoku
 			Style areaStyle = highlight ? (Style)FindResource("styleSudokuSquareArea") : (Style)FindResource("styleSudokuSquare");
 			Style matchingStyle = highlight ? (Style)FindResource("styleSudokuSquareMatching") : (Style)FindResource("styleSudokuSquare");
 
+
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
 			{
