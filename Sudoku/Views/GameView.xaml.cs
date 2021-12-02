@@ -144,7 +144,7 @@ namespace Sudoku
 
 			started = true;
 			time = 0;
-			Timer.Text = "0:0";
+			Timer.Text = "00:00";
 			dispatcherTimer.Start();
 		}
 
@@ -158,7 +158,9 @@ namespace Sudoku
 					Grid.SetRow(shownButtons[x, y], x);
 					Grid.SetColumn(shownButtons[x, y], y);
 					gridView.Children.Add(shownButtons[x, y]);
-					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquare");
+					shownButtons[x, y].Foreground = (SolidColorBrush)FindResource("brushText");
+					shownButtons[x, y].Background = (SolidColorBrush)FindResource("brushBackground");
+					shownButtons[x, y].FontSize = 24;
 
 					double thickness = 2;
 					double left = 0;
@@ -194,15 +196,15 @@ namespace Sudoku
 
 		private void Highlight(int x, int y, bool highlight)
 		{
-			Style selectedStyle = highlight ? (Style)FindResource("styleSudokuSquareSelected") : (Style)FindResource("styleSudokuSquare");
-			Style areaStyle = highlight ? (Style)FindResource("styleSudokuSquareArea") : (Style)FindResource("styleSudokuSquare");
-			Style matchingStyle = highlight ? (Style)FindResource("styleSudokuSquareMatching") : (Style)FindResource("styleSudokuSquare");
+			string selected = highlight ? "brushSelectedBackground" : "brushBackground";
+			string area = highlight ? "brushAreaBackground" : "brushBackground";
+			string matching = highlight ? "brushMatchingBackground" : "brushBackground";
 
 			//Highlight row and column
 			for (int i = 0; i < 9; ++i)
 			{
-				shownButtons[i, y].Style = areaStyle;
-				shownButtons[x, i].Style = areaStyle;
+				shownButtons[i, y].SetResourceReference(Control.BackgroundProperty, area);
+				shownButtons[x, i].SetResourceReference(Control.BackgroundProperty, area);
 			}
 
 			//Highlight box
@@ -210,7 +212,7 @@ namespace Sudoku
 			{
 				for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
 				{
-					shownButtons[bx, by].Style = areaStyle;
+					shownButtons[bx, by].SetResourceReference(Control.BackgroundProperty, area);
 				}
 			}
 
@@ -222,15 +224,15 @@ namespace Sudoku
 				{
 					for (int j = 0; j < 9; ++j)
 					{
-						if (HasNum(shownButtons[i, j]) && int.Parse(shownButtons[i, j].Content.ToString()) == num)
+						if (HasNum(shownButtons[i, j]) && int.Parse(shownButtons[i, j].Content.ToString()) == num && GetCellInfo(shownButtons[i, j]).correct)
 						{
-							shownButtons[i, j].Style = matchingStyle;
+							shownButtons[i, j].SetResourceReference(Control.BackgroundProperty, matching);
 						}
 					}
 				}
 			}
 
-			shownButtons[x, y].Style = selectedStyle;
+			shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, selected);
 		}
 
 		public bool HasNum(Button b)
@@ -261,7 +263,8 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareRight");
+					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
+					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
 					shownButtons[x, y].Content = num;
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					game.board.SetNum(x, y, num);
@@ -288,8 +291,8 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					//selectedButton.Foreground = (SolidColorBrush)FindResource("brushWrongText");
-					shownButtons[x, y].Style = (Style)FindResource("styleSudokuSquareWrong");
+					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
+					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushWrongBackground");
 					shownButtons[x, y].Content = num;
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
@@ -419,11 +422,15 @@ namespace Sudoku
 		{
 			if (notes)
 			{
-				(sender as Button).Style = (Style)FindResource("styleSudokuSquare");
+				(sender as Button).SetResourceReference(Control.ForegroundProperty, "brushText");
+				(sender as Button).SetResourceReference(Control.BackgroundProperty, "brushBackground");
+				(sender as Button).SetResourceReference(Control.BorderBrushProperty, "brushBorder");
 			}
 			else
 			{
-				(sender as Button).Style = (Style)FindResource("styleSudokuSquareSelected");
+				(sender as Button).SetResourceReference(Control.ForegroundProperty, "brushText");
+				(sender as Button).SetResourceReference(Control.BackgroundProperty, "brushSelectedBackground");
+				(sender as Button).SetResourceReference(Control.BorderBrushProperty, "brushBorder");
 			}
 
 			notes = !notes;
@@ -449,7 +456,7 @@ namespace Sudoku
 			txtHints.Text = hintNum + " Hints";
 
 			time = 0;
-			Timer.Text = "0:0";
+			Timer.Text = "00:00";
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)
@@ -480,7 +487,7 @@ namespace Sudoku
 		private void dispatcherTimer_Tick(object sender, EventArgs e)
 		{
 			++time;
-			Timer.Text = time / 60 + ":" + time % 60;
+			Timer.Text = (time / 60 < 10 ? "0" : "") + time / 60 + ":" + (time < 10 ? "0" : "") + time % 60;
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
