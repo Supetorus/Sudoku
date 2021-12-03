@@ -11,13 +11,15 @@
 
 	<StackPanel>
 		<TextBlock Text="New Game"
-				   Style="{DynamicResource styleText}"
+				   Foreground="{DynamicResource brushText}"
+				   FontSize="32"
 				   HorizontalAlignment="center"
 				   VerticalAlignment="top"
 				   Margin="50" />
 		<TextBlock Text="Select Your Difficulty!"
 				   HorizontalAlignment="Center"
-                   Style="{DynamicResource styleText}"/>
+                   Foreground="{DynamicResource brushText}"
+				   FontSize="32"/>
 		<Slider x:Name="sldrDifficulty"
 				AutoToolTipPlacement="TopLeft"
 				Maximum="3"
@@ -34,6 +36,10 @@
 				Content="New Game"
 				Click="btnNewGame_Click"
 				HorizontalAlignment="Center"
-				Style="{DynamicResource styleNormalButton}" />
+				Background="{DynamicResource brushBackground}" 
+				BorderBrush="{DynamicResource brushBorder}"
+				Foreground="{DynamicResource brushText}"
+				BorderThickness="1.5"
+				FontSize="24"/>
 	</StackPanel>
 </Page>
