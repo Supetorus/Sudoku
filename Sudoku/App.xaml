@@ -10,8 +10,13 @@
                 <local:SkinResourceDictionary DefaultSource="Styles/DefaultStyle.xaml"
 											  DarkSource="Styles/DarkStyle.xaml"
 											  NeonSource="Styles/NeonStyle.xaml"
-                                              MochaSource="Styles/MochaStyle.xaml" />
-			</ResourceDictionary.MergedDictionaries>
+                                              MochaSource="Styles/MochaStyle.xaml"
+                                              DreamSource="Styles/DreamStyle.xaml"
+                                              CoralSource="Styles/CoralStyle.xaml"
+                                              MintSource="Styles/MintStyle.xaml"
+                                              PhoniexSource="Styles/PhoniexStyle.xaml"
+                                              />
+            </ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

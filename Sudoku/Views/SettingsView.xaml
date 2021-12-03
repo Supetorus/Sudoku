@@ -52,6 +52,18 @@
 			<ComboBoxItem x:Name="neon"
 						  Content="Neon"
 						  Selected="neon_Selected" />
-		</ComboBox>
+			<ComboBoxItem x:Name="dream"
+						  Content="Dream"
+						  Selected="dream_Selected" />
+            <ComboBoxItem x:Name="coral"
+						  Content="Coral"
+						  Selected="coral_Selected" />
+            <ComboBoxItem x:Name="mint"
+						  Content="Mint"
+						  Selected="mint_Selected" />
+            <ComboBoxItem x:Name="phoniex"
+						  Content="Phoniex"
+						  Selected="phoniex_Selected" />
+        </ComboBox>
 	</Grid>
 </Page>

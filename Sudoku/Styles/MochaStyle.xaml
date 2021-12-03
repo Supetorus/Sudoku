@@ -27,5 +27,9 @@
 	<SolidColorBrush x:Key="brushMatchingBackground"
 					 Color="#754F5B" />
 	<SolidColorBrush x:Key="brushMatchingText"
-					 Color="#0000FF" />
+					 Color="#0000FF" />=======
+    <SolidColorBrush x:Key="brushMatchingBackground"
+					 Color="{Binding Source={StaticResource brushSelectedBackground}}" />
+    <SolidColorBrush x:Key="brushMatchingText"
+					 Color="#ee92c2" />
 </ResourceDictionary>

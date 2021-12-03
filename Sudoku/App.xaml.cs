@@ -16,12 +16,16 @@ namespace Sudoku
 		Default = 0,
 		Dark,
 		Neon,
-		Mocha
+		Mocha,
+		Dream,
+		Coral,
+		Mint,
+		Phoniex
 	}
 
 	public partial class App : Application
 	{
-		public static Skin Skin { get; set; } = Skin.Default;
+		public static Skin Skin { get; set; } = Skin.Mint;
 
 		public void ChangeSkin(Skin newSkin)
 		{

@@ -257,6 +257,7 @@ namespace Sudoku
 		{
 			return CompareGrids(current, solved);
 		}
+
 		// Checks if the given number has been used up.
 		// ie if the board has all nine of the given number placed.
 		public bool IsNumFull(int n)
