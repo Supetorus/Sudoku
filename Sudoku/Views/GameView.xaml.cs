@@ -101,6 +101,8 @@ namespace Sudoku
 					int num = game.board.GetNum(x, y);
 					shownButtons[x, y].Tag = new CellInfo(x, y, game.board.CheckNum(x, y, num));
 					shownButtons[x, y].Click += BoardClick;
+					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushText");
+					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushBackground");
 
 					if (num == 0)
 					{
@@ -422,15 +424,11 @@ namespace Sudoku
 		{
 			if (notes)
 			{
-				(sender as Button).SetResourceReference(Control.ForegroundProperty, "brushText");
 				(sender as Button).SetResourceReference(Control.BackgroundProperty, "brushBackground");
-				(sender as Button).SetResourceReference(Control.BorderBrushProperty, "brushBorder");
 			}
 			else
 			{
-				(sender as Button).SetResourceReference(Control.ForegroundProperty, "brushText");
 				(sender as Button).SetResourceReference(Control.BackgroundProperty, "brushSelectedBackground");
-				(sender as Button).SetResourceReference(Control.BorderBrushProperty, "brushBorder");
 			}
 
 			notes = !notes;
@@ -438,6 +436,7 @@ namespace Sudoku
 
 		private void Reset_Board(object sender, RoutedEventArgs e)
 		{
+			selectedButton = null;
 			game.board.ResetBoard();
 			game.ResetMistakes();
 			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
@@ -448,6 +447,8 @@ namespace Sudoku
 					int num = game.board.GetNum(x, y);
 					if (GetGrid(shownButtons[x, y]) != null) { EraseNotes(x, y); }
 					shownButtons[x, y].Content = num > 0 ? num.ToString() : GetGrid(shownButtons[x, y]);
+					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushText");
+					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushBackground");
 					GetCellInfo(shownButtons[x, y]).correct = num > 0;
 				}
 			}

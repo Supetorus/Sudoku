@@ -28,42 +28,4 @@
 					 Color="#FFFFFF" />
 	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0000FF" />
-
-	<!-- Normal Button Style -->
-	<Style x:Key="styleNormalButton"
-		   TargetType="Button">
-		<Setter Property="Background"
-				Value="{DynamicResource brushBackground}" />
-		<Setter Property="BorderBrush"
-				Value="{DynamicResource brushBorder}" />
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushText}" />
-		<Setter Property="BorderThickness"
-				Value="1.5" />
-		<Setter Property="FontSize"
-				Value="24" />
-	</Style>
-
-	<!-- Text Styles -->
-
-	<Style x:Key="styleText"
-		   TargetType="TextBlock">
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushText}" />
-		<Setter Property="FontSize"
-				Value="32" />
-	</Style>
-	<Style x:Name="styleNoteText"
-		   TargetType="TextBlock">
-		<Setter Property="Foreground"
-				Value="{DynamicResource brushText}" />
-		<!--
-		<Setter Property="FontSize"
-				Value="10" />
-	-->
-		<Setter Property="HorizontalAlignment"
-				Value="Center" />
-		<Setter Property="VerticalAlignment"
-				Value="Center" />
-	</Style>
 </ResourceDictionary>
