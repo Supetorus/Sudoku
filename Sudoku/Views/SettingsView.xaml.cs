@@ -49,14 +49,17 @@ namespace Sudoku
 		{
 			(Application.Current as App).ChangeSkin(Skin.Dream);
 		}
+
 		private void coral_Selected(object sender, RoutedEventArgs e)
 		{
 			(Application.Current as App).ChangeSkin(Skin.Coral);
 		}
+
 		private void mint_Selected(object sender, RoutedEventArgs e)
 		{
 			(Application.Current as App).ChangeSkin(Skin.Mint);
 		}
+
 		private void phoniex_Selected(object sender, RoutedEventArgs e)
 		{
 			(Application.Current as App).ChangeSkin(Skin.Phoniex);
@@ -65,6 +68,21 @@ namespace Sudoku
 		private void Back_Click(object sender, RoutedEventArgs e)
 		{
 			ViewManager.Back();
+		}
+
+		private void numbers_Selected(object sender, RoutedEventArgs e)
+		{
+			GameView.symbol = 0;
+		}
+
+		private void letters_Selected(object sender, RoutedEventArgs e)
+		{
+			GameView.symbol = 1;
+		}
+
+		private void shapes_Selected(object sender, RoutedEventArgs e)
+		{
+			GameView.symbol = 2;
 		}
 	}
 }
