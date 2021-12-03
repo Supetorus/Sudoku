@@ -77,9 +77,9 @@
             <ComboBoxItem x:Name="mint"
 						  Content="Mint"
 						  Selected="mint_Selected"/>
-            <ComboBoxItem x:Name="phoniex"
-						  Content="Phoniex"
-						  Selected="phoniex_Selected"/>
+            <ComboBoxItem x:Name="phoenix"
+						  Content="Phoenix"
+						  Selected="phoenix_Selected"/>
         </ComboBox>
 		<TextBlock Text="Symbols: "
 				   Foreground="{DynamicResource brushText}"
@@ -88,7 +88,7 @@
 				   Margin="286,200,0,0" 
 				   FontSize="18"/>
 		<ComboBox HorizontalAlignment="Left" 
-				  Margin="354,200,0,0" 
+				  Margin="365,200,0,0" 
 				  VerticalAlignment="Top" 
 				  Width="120" 
 				  Background="{DynamicResource brushBackground}"

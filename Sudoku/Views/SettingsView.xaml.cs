@@ -60,9 +60,9 @@ namespace Sudoku
 			(Application.Current as App).ChangeSkin(Skin.Mint);
 		}
 
-		private void phoniex_Selected(object sender, RoutedEventArgs e)
+		private void phoenix_Selected(object sender, RoutedEventArgs e)
 		{
-			(Application.Current as App).ChangeSkin(Skin.Phoniex);
+			(Application.Current as App).ChangeSkin(Skin.Phoenix);
 		}
 
 		private void Back_Click(object sender, RoutedEventArgs e)

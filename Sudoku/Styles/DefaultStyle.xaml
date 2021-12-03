@@ -25,7 +25,7 @@
 	<SolidColorBrush x:Key="brushAreaText"
 					 Color="#000000" />
 	<SolidColorBrush x:Key="brushMatchingBackground"
-					 Color="#FFFFFF" />
+					 Color="#DDDDDD" />
 	<SolidColorBrush x:Key="brushMatchingText"
 					 Color="#0000FF" />
 </ResourceDictionary>

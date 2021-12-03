@@ -119,7 +119,7 @@ namespace Sudoku
                 case Skin.Mint:
                     val = MintSource;
                     break;
-                case Skin.Phoniex:
+                case Skin.Phoenix:
                     val = PhoniexSource;
                     break;
                 default:

@@ -20,7 +20,7 @@ namespace Sudoku
 		Dream,
 		Coral,
 		Mint,
-		Phoniex
+		Phoenix
 	}
 
 	public partial class App : Application
