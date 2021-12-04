@@ -93,7 +93,6 @@ namespace Sudoku
 			dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
 
-			game = FileIO.Load<Game>("Game.bin");
 		}
 
 		public void NewGame(int difficulty)
@@ -156,7 +155,7 @@ namespace Sudoku
 			Timer.Text = "00:00";
 			dispatcherTimer.Start();
 			game.ResetMistakes();
-			txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
+			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
 			txtHints.Text = game.HintNum.ToString();
 		}
 
@@ -230,7 +229,6 @@ namespace Sudoku
 			}
 			RemoveUsedUpNums();
 
-			txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
 			started = true;
 			Timer.Text = (game.Time / 60 < 10 ? "0" : "") + game.Time / 60 + ":" + (game.Time < 10 ? "0" : "") + game.Time % 60;
 			dispatcherTimer.Start();
