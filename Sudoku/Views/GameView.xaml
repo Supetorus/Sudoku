@@ -27,7 +27,24 @@
 				  HorizontalAlignment="Left"
 				  VerticalAlignment="Top"
 				  Margin="20"
-				  SelectionChanged="cmbxNav_Selection_Changed">
+				  SelectionChanged="cmbxNav_Selection_Changed"
+				  Background="{DynamicResource brushBackground}"
+				  BorderBrush="{DynamicResource brushBorder}"
+				  Foreground="{DynamicResource brushText}">
+			<ComboBox.ItemContainerStyle>
+				<Style TargetType="ComboBoxItem">
+					<Setter Property="BorderBrush" Value="{DynamicResource brushBackground}"/>
+					<Setter Property="Foreground" Value="{DynamicResource brushText}"/>
+					<Style.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="{DynamicResource brushSelectedBackground}" />
+						</Trigger>
+						<Trigger Property="IsSelected" Value="False">
+							<Setter Property="Background" Value="{DynamicResource brushBackground}" />
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ComboBox.ItemContainerStyle>
 			<ComboBoxItem x:Name="cmbxiHamburger"
 						  Content="≡"
 						  IsSelected="True" />
@@ -102,6 +119,7 @@
 				</Grid.ColumnDefinitions>
 				<Button Grid.Row="0"
 						Grid.Column="0"
+						Name="Keypad1"
 						Content="1"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -111,6 +129,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="0"
 						Grid.Column="1"
+						Name="Keypad2"
 						Content="2"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -120,6 +139,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="0"
 						Grid.Column="2"
+						Name="Keypad3"
 						Content="3"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -129,6 +149,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="0"
+						Name="Keypad4"
 						Content="4"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -138,6 +159,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="1"
+						Name="Keypad5"
 						Content="5"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -147,6 +169,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="1"
 						Grid.Column="2"
+						Name="Keypad6"
 						Content="6"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -156,6 +179,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="0"
+						Name="Keypad7"
 						Content="7"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -165,6 +189,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="1"
+						Name="Keypad8"
 						Content="8"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
@@ -174,6 +199,7 @@
 						Click="KeyPad" />
 				<Button Grid.Row="2"
 						Grid.Column="2"
+						Name="Keypad9"
 						Content="9"
 						FontSize="30"
 						Background="{DynamicResource brushBackground}" 
