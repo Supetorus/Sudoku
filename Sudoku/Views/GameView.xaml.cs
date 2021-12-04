@@ -74,6 +74,15 @@ namespace Sudoku
 
 		Stack<Move> moves = new Stack<Move>();
 
+		public static int symbol = 0;
+
+		string[][] symbols =
+		{
+			new string[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9" }, //Numbers
+			new string[] { "", "A", "B", "C", "D", "E", "F", "G", "H", "I" }, //Letters
+			new string[] { "", "■", "▲", "◆", "⬤", "⬟", "⬣", "🞧", "🞮", "⯊" }  //Shapes
+		};
+
 		public GameView()
 		{
 			InitializeComponent();
@@ -83,7 +92,6 @@ namespace Sudoku
 			dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
 			dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-
 
 			game = FileIO.Load<Game>("Game.bin");
 		}
@@ -137,7 +145,7 @@ namespace Sudoku
 					}
 					else
 					{
-						shownButtons[x, y].Content = num;
+						shownButtons[x, y].Content = symbols[symbol][num];
 					}
 				}
 			}
@@ -147,6 +155,8 @@ namespace Sudoku
 			game.Time = 0;
 			Timer.Text = "00:00";
 			dispatcherTimer.Start();
+			game.ResetMistakes();
+			txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
 			txtHints.Text = game.HintNum.ToString();
 		}
 
@@ -220,6 +230,7 @@ namespace Sudoku
 			}
 			RemoveUsedUpNums();
 
+			txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
 			started = true;
 			Timer.Text = (game.Time / 60 < 10 ? "0" : "") + game.Time / 60 + ":" + (game.Time < 10 ? "0" : "") + game.Time % 60;
 			dispatcherTimer.Start();
@@ -298,12 +309,12 @@ namespace Sudoku
 			//Highlight matching numbers
 			if (HasNum(shownButtons[x, y]) && ((CellInfo)shownButtons[x, y].Tag).correct) // Wrong numbers are not highlighted.
 			{
-				int num = int.Parse(shownButtons[x, y].Content.ToString());
+				int num = game.board.GetNum(x, y);
 				for (int i = 0; i < 9; ++i)
 				{
 					for (int j = 0; j < 9; ++j)
 					{
-						if (HasNum(shownButtons[i, j]) && int.Parse(shownButtons[i, j].Content.ToString()) == num && GetCellInfo(shownButtons[i, j]).correct)
+						if (HasNum(shownButtons[i, j]) && game.board.GetNum(i, j) == num && GetCellInfo(shownButtons[i, j]).correct)
 						{
 							shownButtons[i, j].SetResourceReference(Control.BackgroundProperty, matching);
 						}
@@ -316,6 +327,7 @@ namespace Sudoku
 
 		public bool HasNum(Button b)
 		{
+			if (b.Content == null) return false;
 			return b.Content.GetType() != typeof(Grid) && b.Content.ToString() != "";
 		}
 
@@ -345,23 +357,23 @@ namespace Sudoku
 				{
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
-					shownButtons[x, y].Content = num;
+					shownButtons[x, y].Content = symbols[symbol][num];
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					unsolved.Remove(new Vector2(x, y));
 
 					//remove this number from notes in area
-					for (int i = 0; i < 3; ++i)
+					for (int i = 0; i < 9; ++i)
 					{
-						if (!HasNum(shownButtons[x, i])) { EraseNotes(x, i); }
+						if (!HasNum(shownButtons[x, i])) { ((TextBlock)GetGrid(shownButtons[x, i]).Children[num - 1]).Text = ""; }
 
-						if (!HasNum(shownButtons[i, y])) { EraseNotes(i, y); }
+						if (!HasNum(shownButtons[i, y])) { ((TextBlock)GetGrid(shownButtons[i, y]).Children[num - 1]).Text = ""; }
 					}
 
 					for (int bx = x - (x % 3); bx < x - (x % 3) + 3; ++bx)
 					{
 						for (int by = y - (y % 3); by < y - (y % 3) + 3; ++by)
 						{
-							if (!HasNum(shownButtons[x, y])) { EraseNotes(x, y); }
+							if (!HasNum(shownButtons[bx, by])) { ((TextBlock)GetGrid(shownButtons[bx, by]).Children[num - 1]).Text = ""; }
 						}
 					}
 
@@ -372,7 +384,8 @@ namespace Sudoku
 				{
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushWrongBackground");
-					shownButtons[x, y].Content = num;
+					shownButtons[x, y].Content = symbols[symbol][num];
+					game.board.SetNum(x, y, num);
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
 					Highlight(x, y, true);
@@ -400,7 +413,7 @@ namespace Sudoku
 			//{
 			TextBlock txt = (TextBlock)GetGrid(shownButtons[x, y]).Children[num - 1];
 			if (txt.Text != "") { txt.Text = ""; }
-			else { txt.Text = num.ToString(); }
+			else { txt.Text = symbols[symbol][num]; }
 			//}
 		}
 
@@ -467,7 +480,7 @@ namespace Sudoku
 		{
 			if (selectedButton != null && !GetCellInfo(selectedButton).correct && game.Mistakes < Game.maxMistakes)
 			{
-				int num = int.Parse((sender as Button).Content.ToString());
+				int num = int.Parse((sender as Button).Name.Replace("Keypad", ""));
 
 				AddNumber(GetCellInfo(selectedButton).x, GetCellInfo(selectedButton).y, num);
 			}
@@ -479,10 +492,33 @@ namespace Sudoku
 			{
 				Move move = moves.Pop();
 
-				shownButtons[move.x, move.y].Content = move.prev;
-				game.board.SetNum(move.x, move.y, move.prev.GetType() == typeof(int) ? (int)move.prev : 0);
-				GetCellInfo(shownButtons[move.x, move.y]).correct = false;
-				RemoveUsedUpNums();
+				if (move.prev.GetType() == typeof(Grid))
+				{
+					for (int k = 0; k < 9; ++k)
+					{
+						((TextBlock)((Grid)move.prev).Children[k]).Text =
+							((TextBlock)((Grid)move.prev).Children[k]).Text != "" ? symbols[symbol][k + 1] : "";
+					}
+
+					shownButtons[move.x, move.y].Content = move.prev;
+					game.board.SetNum(move.x, move.y, 0);
+				}
+				else
+				{
+					for(int i = 0; i < 3; i++)
+					{
+						for (int j = 1; j < 10; j++)
+						{
+							if (move.prev.ToString() == symbols[i][j])
+							{
+								shownButtons[move.x, move.y].Content = symbols[symbol][j];
+								game.board.SetNum(move.x, move.y, j);
+								GetCellInfo(shownButtons[move.x, move.y]).correct = false;
+								RemoveUsedUpNums();
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -525,7 +561,7 @@ namespace Sudoku
 				{
 					int num = game.board.GetNum(x, y);
 					if (GetGrid(shownButtons[x, y]) != null) { EraseNotes(x, y); }
-					shownButtons[x, y].Content = num > 0 ? num.ToString() : GetGrid(shownButtons[x, y]);
+					shownButtons[x, y].Content = num > 0 ? symbols[symbol][num] : GetGrid(shownButtons[x, y]);
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushBackground");
 					GetCellInfo(shownButtons[x, y]).correct = num > 0;
@@ -575,6 +611,35 @@ namespace Sudoku
 			if (started)
 			{
 				dispatcherTimer.Start();
+			}
+		
+			Keypad1.Content = symbols[symbol][1];
+			Keypad2.Content = symbols[symbol][2];
+			Keypad3.Content = symbols[symbol][3];
+			Keypad4.Content = symbols[symbol][4];
+			Keypad5.Content = symbols[symbol][5];
+			Keypad6.Content = symbols[symbol][6];
+			Keypad7.Content = symbols[symbol][7];
+			Keypad8.Content = symbols[symbol][8];
+			Keypad9.Content = symbols[symbol][9];
+
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					if(HasNum(shownButtons[i, j]))
+					{
+						shownButtons[i, j].Content = symbols[symbol][game.board.GetNum(i, j)];
+					}
+					else
+					{
+						for (int k = 0; k < 9; ++k)
+						{
+							((TextBlock)GetGrid(shownButtons[i, j]).Children[k]).Text = 
+								((TextBlock)GetGrid(shownButtons[i, j]).Children[k]).Text != "" ? symbols[symbol][k + 1] : "";
+						}
+					}
+				}
 			}
 		}
 

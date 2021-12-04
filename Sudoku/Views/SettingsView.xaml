@@ -38,32 +38,86 @@
 				  Margin="354,172,0,0" 
 				  VerticalAlignment="Top" 
 				  Width="120" 
-				  Background="Transparent">
+				  Background="{DynamicResource brushBackground}"
+				  BorderBrush="{DynamicResource brushBorder}"
+				  Foreground="{DynamicResource brushText}">
+			<ComboBox.ItemContainerStyle>
+				<Style TargetType="ComboBoxItem">
+					<Setter Property="BorderBrush" Value="{DynamicResource brushBackground}"/>
+					<Setter Property="Foreground" Value="{DynamicResource brushText}"/>
+					<Style.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="{DynamicResource brushSelectedBackground}" />
+						</Trigger>
+						<Trigger Property="IsSelected" Value="False">
+							<Setter Property="Background" Value="{DynamicResource brushBackground}" />
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ComboBox.ItemContainerStyle>
 			<ComboBoxItem x:Name="default"
 						  Content="Default"
 						  IsSelected="False" 
 						  Selected="default_Selected"/>
 			<ComboBoxItem x:Name="dark"
 						  Content="Dark"
-						  Selected="dark_Selected" />
+						  Selected="dark_Selected"/>
 			<ComboBoxItem x:Name="mocha"
 						  Content="Mocha"
-						  Selected="mocha_Selected" />
+						  Selected="mocha_Selected"/>
 			<ComboBoxItem x:Name="neon"
 						  Content="Neon"
-						  Selected="neon_Selected" />
+						  Selected="neon_Selected"/>
 			<ComboBoxItem x:Name="dream"
 						  Content="Dream"
-						  Selected="dream_Selected" />
+						  Selected="dream_Selected"/>
             <ComboBoxItem x:Name="coral"
 						  Content="Coral"
-						  Selected="coral_Selected" />
+						  Selected="coral_Selected"/>
             <ComboBoxItem x:Name="mint"
 						  Content="Mint"
-						  Selected="mint_Selected" />
-            <ComboBoxItem x:Name="phoniex"
-						  Content="Phoniex"
-						  Selected="phoniex_Selected" />
+						  Selected="mint_Selected"/>
+            <ComboBoxItem x:Name="phoenix"
+						  Content="Phoenix"
+						  Selected="phoenix_Selected"/>
         </ComboBox>
+		<TextBlock Text="Symbols: "
+				   Foreground="{DynamicResource brushText}"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Top"
+				   Margin="286,200,0,0" 
+				   FontSize="18"/>
+		<ComboBox HorizontalAlignment="Left" 
+				  Margin="365,200,0,0" 
+				  VerticalAlignment="Top" 
+				  Width="120" 
+				  Background="{DynamicResource brushBackground}"
+				  BorderBrush="{DynamicResource brushBorder}"
+				  Foreground="{DynamicResource brushText}">
+			<ComboBox.ItemContainerStyle>
+				<Style TargetType="ComboBoxItem">
+					<Setter Property="BorderBrush" Value="{DynamicResource brushBackground}"/>
+					<Setter Property="Foreground" Value="{DynamicResource brushText}"/>
+					<Style.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="{DynamicResource brushSelectedBackground}" />
+						</Trigger>
+						<Trigger Property="IsSelected" Value="False">
+							<Setter Property="Background" Value="{DynamicResource brushBackground}" />
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ComboBox.ItemContainerStyle>
+			<ComboBoxItem x:Name="numbers"
+						  Content="Numbers"
+						  IsSelected="True" 
+						  Selected="numbers_Selected"/>
+			<ComboBoxItem x:Name="letters"
+						  Content="Letters"
+						  Selected="letters_Selected"/>
+			<ComboBoxItem x:Name="shapes"
+						  Content="Shapes"
+						  Selected="shapes_Selected"/>
+		</ComboBox>
 	</Grid>
 </Page>
