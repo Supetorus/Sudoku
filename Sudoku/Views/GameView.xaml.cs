@@ -97,6 +97,7 @@ namespace Sudoku
 
 		public void NewGame(int difficulty)
 		{
+			unsolved.Clear();
 			game = new();
 			game.board = new Board(difficulty);
 			game.board.Generate();
@@ -161,6 +162,7 @@ namespace Sudoku
 
 		public void LoadGame()
 		{
+			unsolved.Clear();
 			game = FileIO.Load<Game>("Game.bin");
 			for (int x = 0; x < 9; x++)
 			{
@@ -394,7 +396,13 @@ namespace Sudoku
 			{
 				AddNote(x, y, num);
 			}
-			if (game.board.IsGameWon()) MessageBox.Show("Congratulations, you win!");
+			if (game.board.IsGameWon()) Win();
+		}
+
+		public void Win()
+		{
+			dispatcherTimer.Stop();
+			MessageBox.Show($"Congratulations, you win!\nYour time is {Timer.Text = (game.Time / 60 < 10 ? "0" : "") + game.Time / 60 + ":" + (game.Time < 10 ? "0" : "") + game.Time % 60}");
 		}
 
 		public void EraseNotes(int x, int y)
