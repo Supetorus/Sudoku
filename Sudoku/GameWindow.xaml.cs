@@ -21,7 +21,6 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			ViewManager.RegisterWindow(this);
-			//Background = Theme.selectedTheme.BackgroundColor;
 		}
 
 		internal void SetView(Page view)
@@ -56,6 +55,11 @@ namespace Sudoku
 		private void btnNewGame_Click(object sender, RoutedEventArgs e)
 		{
 			mainFrame.Content = ViewManager.NewGameView;
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			(ViewManager.GameView as GameView).SaveGame();
 		}
 	}
 }

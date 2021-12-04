@@ -9,9 +9,11 @@
 		Height="550"
 		Width="800"
 		Background="{DynamicResource brushBackground}"
-		WindowStartupLocation="CenterScreen">
+		WindowStartupLocation="CenterScreen"
+		Closing="Window_Closing">
 
 	<Grid>
+		
 		<Frame Name="mainFrame"
 			   Source="Views/HomeView.xaml"
 			   NavigationUIVisibility="Hidden" />

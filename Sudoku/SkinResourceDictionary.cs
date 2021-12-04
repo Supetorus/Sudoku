@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -127,7 +128,9 @@ namespace Sudoku
                     break;
             }
             if (val != null && base.Source != val)
-				Source = val;
+            {
+                Source = val;
+            }
         }
     }
 }

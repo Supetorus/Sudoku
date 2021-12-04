@@ -31,6 +31,17 @@
 				BorderThickness="1.5"
 				FontSize="24"
 				Margin="0, 0, 0, 25"/>
+		<Button x:Name="btnLoadGame"
+				Content="Load Game"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Top"
+				Click="btnLoadGame_Click"
+				Background="{DynamicResource brushBackground}" 
+				BorderBrush="{DynamicResource brushBorder}"
+				Foreground="{DynamicResource brushText}"
+				BorderThickness="1.5"
+				FontSize="24"
+				Margin="0, 0, 0, 25"/>
 		<Button x:Name="btnSettings"
 				Content="Settings"
 				HorizontalAlignment="Center"

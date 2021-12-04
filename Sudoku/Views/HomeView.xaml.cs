@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,16 @@ namespace Sudoku
 		private void btnSettings_Click(object sender, RoutedEventArgs e)
 		{
 			ViewManager.SetView(ViewManager.SettingsView);
+		}
+
+		private void btnLoadGame_Click(object sender, RoutedEventArgs e)
+		{
+			if (!File.Exists("Game.bin")) MessageBox.Show("No previous game exists.");
+			else
+			{
+				((GameView)ViewManager.GameView).LoadGame();
+				ViewManager.SetView(ViewManager.GameView);
+			}
 		}
 	}
 }

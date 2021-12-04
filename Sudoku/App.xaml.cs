@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +27,7 @@ namespace Sudoku
 
 	public partial class App : Application
 	{
-		public static Skin Skin { get; set; } = Skin.Mint;
+		public static Skin Skin { get; set; }
 
 		public void ChangeSkin(Skin newSkin)
 		{
@@ -39,6 +41,21 @@ namespace Sudoku
 				else
 					dict.Source = dict.Source;
 			}
+		}
+
+		private void Application_Startup(object sender, StartupEventArgs e)
+		{
+			if (File.Exists("Theme.txt"))
+			{
+				string theme = FileIO.LoadText("Theme.txt");
+				Enum.TryParse(theme, out Skin skin);
+				ChangeSkin(skin);
+			}
+		}
+
+		private async void Application_Exit(object sender, ExitEventArgs e)
+		{
+			await FileIO.SaveText(Skin.ToString(), "Theme.txt");
 		}
 	}
 }

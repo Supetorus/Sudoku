@@ -41,7 +41,7 @@
 				  Background="Transparent">
 			<ComboBoxItem x:Name="default"
 						  Content="Default"
-						  IsSelected="True" 
+						  IsSelected="False" 
 						  Selected="default_Selected"/>
 			<ComboBoxItem x:Name="dark"
 						  Content="Dark"

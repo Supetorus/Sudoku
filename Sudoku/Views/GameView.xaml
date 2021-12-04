@@ -43,7 +43,7 @@
 		</ComboBox>
 		<StackPanel VerticalAlignment="Center">
 			<TextBlock x:Name="txtHints"
-					   Text="3 Hints"
+					   Text="# Hints"
 					   HorizontalAlignment="Center"
 					   Foreground="{DynamicResource brushText}"
 					   FontSize="32"/>

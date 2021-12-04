@@ -3,20 +3,21 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:local="clr-namespace:Sudoku"
 			 xmlns:system="clr-namespace:System;assembly=System.Runtime"
-			 StartupUri="GameWindow.xaml">
+			 StartupUri="GameWindow.xaml"
+			 Startup="Application_Startup"
+			 Exit="Application_Exit">
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-                <local:SkinResourceDictionary DefaultSource="Styles/DefaultStyle.xaml"
+				<local:SkinResourceDictionary DefaultSource="Styles/DefaultStyle.xaml"
 											  DarkSource="Styles/DarkStyle.xaml"
 											  NeonSource="Styles/NeonStyle.xaml"
-                                              MochaSource="Styles/MochaStyle.xaml"
-                                              DreamSource="Styles/DreamStyle.xaml"
-                                              CoralSource="Styles/CoralStyle.xaml"
-                                              MintSource="Styles/MintStyle.xaml"
-                                              PhoniexSource="Styles/PhoniexStyle.xaml"
-                                              />
-            </ResourceDictionary.MergedDictionaries>
+											  MochaSource="Styles/MochaStyle.xaml"
+											  DreamSource="Styles/DreamStyle.xaml"
+											  CoralSource="Styles/CoralStyle.xaml"
+											  MintSource="Styles/MintStyle.xaml"
+											  PhoniexSource="Styles/PhoniexStyle.xaml" />
+			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

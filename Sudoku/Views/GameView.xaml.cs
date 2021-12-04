@@ -65,12 +65,8 @@ namespace Sudoku
 		Game game;
 
 		System.Windows.Threading.DispatcherTimer dispatcherTimer;
-		int time = 0;
 
 		List<Vector2> unsolved = new List<Vector2>();
-
-		int hintNum = 3;
-		int totalHints = 3;
 
 		bool notes = false;
 		bool hint = false;
@@ -87,6 +83,9 @@ namespace Sudoku
 			dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
 			dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+
+
+			game = FileIO.Load<Game>("Game.bin");
 		}
 
 		public void NewGame(int difficulty)
@@ -145,9 +144,86 @@ namespace Sudoku
 			RemoveUsedUpNums();
 
 			started = true;
-			time = 0;
+			game.Time = 0;
 			Timer.Text = "00:00";
 			dispatcherTimer.Start();
+			txtHints.Text = game.HintNum.ToString();
+		}
+
+		public void LoadGame()
+		{
+			game = FileIO.Load<Game>("Game.bin");
+			for (int x = 0; x < 9; x++)
+			{
+				for (int y = 0; y < 9; y++)
+				{
+					int num = game.board.GetNum(x, y);
+					shownButtons[x, y].Tag = new CellInfo(x, y, game.board.CheckNum(x, y, num));
+					shownButtons[x, y].Click += BoardClick;
+					if (game.board.GetUnsolvedNum(x, y) == num || num == 0)
+					{
+						// The number is in the original board so it gets original color. (or it's blank)
+						shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushText");
+						shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushBackground");
+					}
+					else if (game.board.GetCorrectNum(x, y) == num)
+					{
+						// The number is not in the original board but it is in the final board, so it
+						// gets correct color.
+						shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
+						shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
+					}
+					else
+					{
+						// The number is not correct.
+						shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
+						shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushWrongBackground");
+					}
+
+					if (num == 0)
+					{
+						unsolved.Add(new Vector2(x, y));
+
+						Grid notesGrid = new Grid();
+						notesGrid.VerticalAlignment = VerticalAlignment.Center;
+						notesGrid.HorizontalAlignment = HorizontalAlignment.Center;
+						notesGrid.Width = 33.33;
+						notesGrid.Height = 33.33;
+						notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+						notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+						notesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+						notesGrid.RowDefinitions.Add(new RowDefinition());
+						notesGrid.RowDefinitions.Add(new RowDefinition());
+						notesGrid.RowDefinitions.Add(new RowDefinition());
+						//notesGrid.ShowGridLines = true;
+
+						GetCellInfo(shownButtons[x, y]).grid = notesGrid;
+						shownButtons[x, y].Content = notesGrid;
+
+						for (int i = 0; i < 9; ++i)
+						{
+							TextBlock txt = new TextBlock();
+							txt.SetResourceReference(Control.ForegroundProperty, "brushRightText");
+							txt.FontSize = 10;
+							txt.VerticalAlignment = VerticalAlignment.Center;
+							txt.HorizontalAlignment = HorizontalAlignment.Center;
+							Grid.SetColumn(txt, (i) % 3);
+							Grid.SetRow(txt, (i) / 3);
+							GetGrid(shownButtons[x, y]).Children.Add(txt);
+						}
+					}
+					else
+					{
+						shownButtons[x, y].Content = num;
+					}
+				}
+			}
+			RemoveUsedUpNums();
+
+			started = true;
+			Timer.Text = (game.Time / 60 < 10 ? "0" : "") + game.Time / 60 + ":" + (game.Time < 10 ? "0" : "") + game.Time % 60;
+			dispatcherTimer.Start();
+			txtHints.Text = game.HintNum.ToString() + " Hints";
 		}
 
 		private void GenerateGrid()
@@ -220,7 +296,7 @@ namespace Sudoku
 			}
 
 			//Highlight matching numbers
-			if (HasNum(shownButtons[x, y]) && ((CellInfo)shownButtons[x, y].Tag).correct)
+			if (HasNum(shownButtons[x, y]) && ((CellInfo)shownButtons[x, y].Tag).correct) // Wrong numbers are not highlighted.
 			{
 				int num = int.Parse(shownButtons[x, y].Content.ToString());
 				for (int i = 0; i < 9; ++i)
@@ -263,6 +339,7 @@ namespace Sudoku
 			if (!notes || hint)
 			{
 				moves.Push(new Move(x, y, shownButtons[x, y].Content));
+				game.board.SetNum(x, y, num);
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
@@ -270,7 +347,6 @@ namespace Sudoku
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
 					shownButtons[x, y].Content = num;
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
-					game.board.SetNum(x, y, num);
 					unsolved.Remove(new Vector2(x, y));
 
 					//remove this number from notes in area
@@ -359,6 +435,7 @@ namespace Sudoku
 
 		public void Erase(object sender, RoutedEventArgs e)
 		{
+			// Correct numbers cannot be removed.
 			if (selectedButton != null && !GetCellInfo(selectedButton).correct)
 			{
 				RemoveUsedUpNums();
@@ -411,15 +488,15 @@ namespace Sudoku
 
 		private void Hint(object sender, RoutedEventArgs e)
 		{
-			if (hintNum > 0 && unsolved.Count > 0)
+			if (game.HintNum > 0 && unsolved.Count > 0)
 			{
 				hint = true;
 				int i = rng.Next(unsolved.Count - 1);
 				Vector2 v = unsolved[i];
 				AddNumber(v.x, v.y, game.board.GetCorrectNum(v.x, v.y));
-				--hintNum;
+				--game.HintNum;
 			}
-			txtHints.Text = hintNum + " Hints";
+			txtHints.Text = game.HintNum + " Hints";
 		}
 
 		private void Notes(object sender, RoutedEventArgs e)
@@ -455,10 +532,10 @@ namespace Sudoku
 				}
 			}
 			RemoveUsedUpNums();
-			hintNum = totalHints;
-			txtHints.Text = hintNum + " Hints";
+			game.HintNum = game.TotalHints;
+			txtHints.Text = game.HintNum + " Hints";
 
-			time = 0;
+			game.Time = 0;
 			Timer.Text = "00:00";
 		}
 
@@ -489,8 +566,8 @@ namespace Sudoku
 
 		private void dispatcherTimer_Tick(object sender, EventArgs e)
 		{
-			++time;
-			Timer.Text = (time / 60 < 10 ? "0" : "") + time / 60 + ":" + (time < 10 ? "0" : "") + time % 60;
+			++game.Time;
+			Timer.Text = (game.Time / 60 < 10 ? "0" : "") + game.Time / 60 + ":" + (game.Time < 10 ? "0" : "") + game.Time % 60;
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -504,6 +581,11 @@ namespace Sudoku
 		private void Page_Unloaded(object sender, RoutedEventArgs e)
 		{
 			dispatcherTimer.Stop();
+		}
+
+		public void SaveGame()
+		{
+			FileIO.Save("Game.bin", game);
 		}
 	}
 }

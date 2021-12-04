@@ -7,6 +7,7 @@ using System.Windows.Controls;
 
 namespace Sudoku
 {
+	[Serializable]
 	class Board
 	{
 		const int size = 9;
@@ -19,13 +20,16 @@ namespace Sudoku
 
 		int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-		Random r = new Random();
+		[NonSerialized] Random r = new Random();
 
 		public Board(int difficulty)
 		{
 			this.difficulty = difficulty;
 		}
 
+		/// <summary>
+		/// Generates a fresh board.
+		/// </summary>
 		public void Generate()
 		{
 			while (!FillGrid())
@@ -42,6 +46,12 @@ namespace Sudoku
 			CopyGrid(unsolved, current);
 		}
 
+		/// <summary>
+		/// Returns the number in the current board in the given location.
+		/// </summary>
+		/// <param name="x">Column, 0 based</param>
+		/// <param name="y">Row, 0 based</param>
+		/// <returns></returns>
 		public int GetNum(int x, int y)
 		{
 			return current[x, y];
@@ -51,6 +61,15 @@ namespace Sudoku
 		{
 			return solved[x, y];
 		}
+
+		/// <summary>
+		/// Returns the number in the given position of the initial, or unsolved board.
+		/// </summary>
+		/// <param name="x">Column, 0 based</param>
+		/// <param name="y">Row, 0 based</param>
+		/// <returns></returns>
+		public int GetUnsolvedNum(int x, int y)
+		{ return unsolved[x, y];}
 
 		void ClearGrid(int[,] grid)
 		{
@@ -177,6 +196,14 @@ namespace Sudoku
 			return CheckSafety(x, y, i, current);
 		}
 
+		/// <summary>
+		/// Checks whether i is viable for the position. Used for generating the board.
+		/// </summary>
+		/// <param name="x">Column, 0 based</param>
+		/// <param name="y">Row, 0 based</param>
+		/// <param name="i">The number to be checked</param>
+		/// <param name="grid">The grid to check in</param>
+		/// <returns></returns>
 		private bool CheckSafety(int x, int y, int i, int[,] grid)
 		{
 			//Check Row
