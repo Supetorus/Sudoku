@@ -363,6 +363,7 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
+					moves.Pop();
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
 					shownButtons[x, y].Content = symbols[symbol][num];
