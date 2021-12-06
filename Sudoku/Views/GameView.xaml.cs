@@ -357,6 +357,7 @@ namespace Sudoku
 		{
 			if (!notes || hint)
 			{
+				if(game.board.GetNum(x, y) == num) { return; }
 				moves.Push(new Move(x, y, shownButtons[x, y].Content));
 				game.board.SetNum(x, y, num);
 
