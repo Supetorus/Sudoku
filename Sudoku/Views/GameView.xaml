@@ -1,4 +1,5 @@
 ﻿<Page x:Class="Sudoku.GameView"
+	  x:Name="gamePage"
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -214,6 +215,7 @@
 				<Grid.RowDefinitions>
 					<RowDefinition />
 					<RowDefinition />
+					<RowDefinition />
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
@@ -267,16 +269,33 @@
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
 						FontSize="24" />
+				<Button Width="100"
+						Height="50"
+						Margin="25"
+						Grid.Row="2"
+						Grid.Column="0"
+						Content="Reset"
+						Click="Reset_Board"
+						Background="{DynamicResource brushBackground}" 
+						BorderBrush="{DynamicResource brushBorder}"
+						Foreground="{DynamicResource brushText}"
+						BorderThickness="1.5"
+						FontSize="24"/>
+				<Button Name="Pause"
+						Width="100"
+						Height="50"
+						Margin="25"
+						Grid.Row="2"
+						Grid.Column="1"
+						Content="Pause"
+						Click="Pause_Game"
+						Background="{DynamicResource brushBackground}" 
+						BorderBrush="{DynamicResource brushBorder}"
+						Foreground="{DynamicResource brushText}"
+						BorderThickness="1.5"
+						FontSize="24"/>
 			</Grid>
-			<Button Width="100"
-					Height="50"
-					Content="Reset"
-					Click="Reset_Board"
-					Background="{DynamicResource brushBackground}" 
-					BorderBrush="{DynamicResource brushBorder}"
-					Foreground="{DynamicResource brushText}"
-					BorderThickness="1.5"
-					FontSize="24"/>
+
 		</StackPanel>
 		<TextBlock Name="Timer"
 				   HorizontalAlignment="Center" 

@@ -73,6 +73,7 @@ namespace Sudoku
 		bool notes = false;
 		bool hint = false;
 		bool started = false;
+		bool paused = false;
 
 		Stack<Move> moves = new Stack<Move>();
 
@@ -493,6 +494,22 @@ namespace Sudoku
 
 				AddNumber(GetCellInfo(selectedButton).x, GetCellInfo(selectedButton).y, num);
 			}
+			else if(e.Key == Key.Escape)
+			{
+				//pause timer and hide grid
+				if (paused = !paused)
+				{
+					dispatcherTimer.Stop();
+					gridView.Visibility = Visibility.Hidden;
+					Pause.SetResourceReference(Control.BackgroundProperty, "brushSelectedBackground");
+				}
+				else
+				{
+					dispatcherTimer.Start();
+					gridView.Visibility = Visibility.Visible;
+					Pause.SetResourceReference(Control.BackgroundProperty, "brushBackground");
+				}
+			}
 		}
 
 		private void KeyPad(object sender, RoutedEventArgs e)
@@ -599,6 +616,23 @@ namespace Sudoku
 
 			game.Time = 0;
 			Timer.Text = "00:00";
+		}
+
+		private void Pause_Game(object sender, RoutedEventArgs e)
+		{
+			//pause timer and hide grid
+			if (paused = !paused)
+			{
+				dispatcherTimer.Stop();
+				gridView.Visibility = Visibility.Hidden;
+				Pause.SetResourceReference(Control.BackgroundProperty, "brushSelectedBackground");
+			}
+			else
+			{
+				dispatcherTimer.Start();
+				gridView.Visibility = Visibility.Visible;
+				Pause.SetResourceReference(Control.BackgroundProperty, "brushBackground");
+			}
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)
