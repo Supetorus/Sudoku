@@ -467,7 +467,7 @@ namespace Sudoku
 		public void Erase(object sender, RoutedEventArgs e)
 		{
 			// Correct numbers cannot be removed.
-			if (selectedButton != null && !GetCellInfo(selectedButton).correct)
+			if (selectedButton != null && !GetCellInfo(selectedButton).correct && !game.board.IsGameWon() && game.Mistakes < Game.maxMistakes)
 			{
 				RemoveUsedUpNums();
 				if (selectedButton.Content.GetType() == typeof(Grid))
@@ -506,7 +506,7 @@ namespace Sudoku
 
 		private void Undo(object sender, RoutedEventArgs e)
 		{
-			if (moves.Count > 0)
+			if (moves.Count > 0 && !game.board.IsGameWon() && game.Mistakes < Game.maxMistakes)
 			{
 				Move move = moves.Pop();
 
