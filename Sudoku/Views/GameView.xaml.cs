@@ -403,7 +403,17 @@ namespace Sudoku
 			{
 				AddNote(x, y, num);
 			}
-			if (game.board.IsGameWon()) MessageBox.Show("Congratulations, you win!");
+
+			if(game.Mistakes == Game.maxMistakes)
+			{
+				dispatcherTimer.Stop();
+				MessageBox.Show("Sorry, you've used up all your mistakes!");
+			}
+			else if (game.board.IsGameWon())
+			{
+				dispatcherTimer.Stop();
+				MessageBox.Show("Congratulations, you win!");
+			}
 		}
 
 		public void EraseNotes(int x, int y)

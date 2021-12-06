@@ -290,7 +290,15 @@ namespace Sudoku
 		public bool IsNumFull(int n)
 		{
 			int count = 0;
-			foreach (int num in current) if (num == n) count++;
+
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 9; j++)
+				{
+					if(current[i, j] == n && CheckNum(i, j, n)) { count++; }
+				}
+			}
+
 			return count == 9;
 		}
 	}
