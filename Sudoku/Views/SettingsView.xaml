@@ -85,7 +85,7 @@
 				   Foreground="{DynamicResource brushText}"
 				   HorizontalAlignment="Left"
 				   VerticalAlignment="Top"
-				   Margin="286,200,0,0" 
+				   Margin="286,201,0,0" 
 				   FontSize="18"/>
 		<ComboBox HorizontalAlignment="Left" 
 				  Margin="365,200,0,0" 
@@ -119,5 +119,12 @@
 						  Content="Shapes"
 						  Selected="shapes_Selected"/>
 		</ComboBox>
+		<TextBlock Text="Sounds: "
+				   Foreground="{DynamicResource brushText}"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Top"
+				   Margin="286,228,0,0" 
+				   FontSize="18"/>
+		<ToggleButton Margin="357,229,400,194" Content="On" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked" />
 	</Grid>
 </Page>

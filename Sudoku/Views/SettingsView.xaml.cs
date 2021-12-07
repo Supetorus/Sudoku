@@ -84,5 +84,15 @@ namespace Sudoku
 		{
 			GameView.symbol = 2;
 		}
+
+		private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+		{
+			//Turn sound on
+		}
+
+		private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
+		{
+			//Turn sound off
+		}
 	}
 }
