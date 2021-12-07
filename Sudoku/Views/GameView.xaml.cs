@@ -162,7 +162,7 @@ namespace Sudoku
 			game.ResetMistakes();
 			moves.Clear();
 			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
-			txtHints.Text = game.HintNum.ToString();
+			txtHints.Text = game.HintNum.ToString() + " Hints";
 			btnUndo.IsEnabled = true;
 			btnErase.IsEnabled = true;
 		}
@@ -480,6 +480,7 @@ namespace Sudoku
 				}
 				else
 				{
+					unsolved.Add(new Vector2(GetCellInfo(selectedButton).x, GetCellInfo(selectedButton).y));
 					selectedButton.Content = GetGrid(selectedButton);
 				}
 			}
