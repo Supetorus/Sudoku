@@ -159,6 +159,8 @@ namespace Sudoku
 			game.ResetMistakes();
 			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
 			txtHints.Text = game.HintNum.ToString();
+			btnUndo.IsEnabled = true;
+			btnErase.IsEnabled = true;
 		}
 
 		public void LoadGame()
@@ -340,11 +342,6 @@ namespace Sudoku
 			return ((CellInfo)b.Tag).grid;
 		}
 
-		public void Update()
-		{
-			// Updates every part of the view that needs to be updated
-		}
-
 		public void AddNumber(int x, int y, int num)
 		{
 			if (!notes || hint)
@@ -388,6 +385,13 @@ namespace Sudoku
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
 					Highlight(x, y, true);
+					if (game.Mistakes == Game.maxMistakes)
+					{
+						dispatcherTimer.Stop();
+						MessageBox.Show("You Lose!");
+						btnUndo.IsEnabled = false;
+						btnErase.IsEnabled = false;
+					}
 				}
 				RemoveUsedUpNums();
 			}
@@ -572,6 +576,8 @@ namespace Sudoku
 
 			game.Time = 0;
 			Timer.Text = "00:00";
+			btnUndo.IsEnabled = true;
+			btnErase.IsEnabled = true;
 		}
 
 		private void cmbxiHome_Selected(object sender, RoutedEventArgs e)

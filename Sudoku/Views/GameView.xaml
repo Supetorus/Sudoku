@@ -242,7 +242,8 @@
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
 						FontSize="24"/>
-				<Button Width="100"
+				<Button x:Name="btnUndo"
+						Width="100"
 						Height="50"
 						Margin="25"
 						Grid.Row="1"
@@ -254,7 +255,8 @@
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
 						FontSize="24" />
-				<Button Width="100"
+				<Button x:Name="btnErase"
+						Width="100"
 						Height="50"
 						Margin="25"
 						Grid.Row="1"
