@@ -480,7 +480,6 @@ namespace Sudoku
 				}
 				else
 				{
-					unsolved.Add(new Vector2(GetCellInfo(selectedButton).x, GetCellInfo(selectedButton).y));
 					selectedButton.Content = GetGrid(selectedButton);
 				}
 			}
