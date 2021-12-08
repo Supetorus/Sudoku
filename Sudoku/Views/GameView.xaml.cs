@@ -167,7 +167,7 @@ namespace Sudoku
 			game.ResetMistakes();
 			moves.Clear();
 			txtMistakes.Text = "0 / " + Game.maxMistakes + " Mistakes";
-			txtHints.Text = game.HintNum.ToString();
+			txtHints.Text = game.HintNum.ToString() + " Hints";
 			btnUndo.IsEnabled = true;
 			btnErase.IsEnabled = true;
 		}

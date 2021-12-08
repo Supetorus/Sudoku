@@ -42,7 +42,7 @@ namespace Sudoku
 
 		public static string LoadText(string filePath)
 		{
-			return System.IO.File.ReadAllText(filePath);
+			return File.ReadAllText(filePath);
 		}
 	}
 }
