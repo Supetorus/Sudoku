@@ -68,6 +68,8 @@ namespace Sudoku
 
 		System.Windows.Threading.DispatcherTimer dispatcherTimer;
 
+		MediaPlayer click1 = new MediaPlayer();
+
 		List<Vector2> unsolved = new List<Vector2>();
 
 		bool notes = false;
@@ -97,6 +99,9 @@ namespace Sudoku
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
 
 			game = FileIO.Load<Game>("Game.bin");
+
+			//click1.Open(new Uri("../../../Resources/Sounds/click1.mp3"));
+			click1.Open(new Uri(@"C:\Users\wlittle\OneDrive - Neumont College of Computer Science\Classes\2021_4_Fall_Quarter\PRO100 - Introductory Software Projects\Sudoku\Sudoku\Resources\Sounds\click1.mp3"));
 		}
 
 		public void NewGame(int difficulty)
@@ -279,6 +284,7 @@ namespace Sudoku
 
 		private void BoardClick(object sender, RoutedEventArgs e)
 		{
+			click1.Play();
 			if (selectedButton != null)
 			{
 				Highlight(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, false);

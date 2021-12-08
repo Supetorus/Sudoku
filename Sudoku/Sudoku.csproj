@@ -6,4 +6,33 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Sounds\click1.mp3" />
+    <None Remove="Resources\Sounds\click2.mp3" />
+    <None Remove="Resources\Sounds\click3.mp3" />
+    <None Remove="Resources\Sounds\zapsplat_technology_computer_mouse_single_click_003_63276.mp3" />
+    <None Remove="Resources\Sounds\zapsplat_technology_studio_speaker_active_power_switch_click_002_68874.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Sounds\click1.mp3" />
+    <Resource Include="Resources\Sounds\click2.mp3" />
+    <Resource Include="Resources\Sounds\click3.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
