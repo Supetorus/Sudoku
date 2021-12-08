@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -68,7 +69,9 @@ namespace Sudoku
 
 		System.Windows.Threading.DispatcherTimer dispatcherTimer;
 
-		MediaPlayer click1 = new MediaPlayer();
+		SoundPlayer click1 = new SoundPlayer(Properties.Resources.click1);
+		SoundPlayer click2 = new SoundPlayer(Properties.Resources.click2);
+		SoundPlayer click3 = new SoundPlayer(Properties.Resources.click3);
 
 		List<Vector2> unsolved = new List<Vector2>();
 
@@ -99,9 +102,6 @@ namespace Sudoku
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
 
 			game = FileIO.Load<Game>("Game.bin");
-
-			//click1.Open(new Uri("../../../Resources/Sounds/click1.mp3"));
-			click1.Open(new Uri(@"C:\Users\wlittle\OneDrive - Neumont College of Computer Science\Classes\2021_4_Fall_Quarter\PRO100 - Introductory Software Projects\Sudoku\Sudoku\Resources\Sounds\click1.mp3"));
 		}
 
 		public void NewGame(int difficulty)
