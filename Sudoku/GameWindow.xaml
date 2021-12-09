@@ -19,7 +19,7 @@
 			   NavigationUIVisibility="Hidden" />
 		
 		<!-- Temporary navigation buttons for quick debugging -->
-		<StackPanel FlowDirection="LeftToRight"
+		<!--<StackPanel FlowDirection="LeftToRight"
 					Orientation="Horizontal"
 					HorizontalAlignment="Center"
 					Height="20"
@@ -36,6 +36,6 @@
 			<Button Name="btnNewGame"
 					Content="New Game"
 					Click="btnNewGame_Click" />
-		</StackPanel>
+		</StackPanel>-->
 	</Grid>
 </Window>
