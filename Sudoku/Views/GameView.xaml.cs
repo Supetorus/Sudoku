@@ -72,6 +72,7 @@ namespace Sudoku
 		SoundPlayer click1 = new SoundPlayer(Properties.Resources.click1);
 		SoundPlayer click2 = new SoundPlayer(Properties.Resources.click2);
 		SoundPlayer click3 = new SoundPlayer(Properties.Resources.click3);
+		SoundPlayer note = new SoundPlayer(Properties.Resources.note);
 
 		List<Vector2> unsolved = new List<Vector2>();
 
@@ -367,6 +368,7 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
+					click2.Play();
 					moves.Pop();
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
@@ -395,6 +397,7 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
+					click3.Play();
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushWrongBackground");
 					shownButtons[x, y].Content = symbols[symbol][num];
@@ -436,6 +439,7 @@ namespace Sudoku
 		{
 			//if (board.CheckSafety(x, y, num))
 			//{
+			note.Play();
 			TextBlock txt = (TextBlock)GetGrid(shownButtons[x, y]).Children[num - 1];
 			if (txt.Text != "") { txt.Text = ""; }
 			else { txt.Text = symbols[symbol][num]; }
