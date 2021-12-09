@@ -17,6 +17,8 @@ namespace Sudoku
 		public int TotalHints = 3;
 		public int Time { get; set; } = 0;
 
+		public static bool sound = true;
+
 		public void IncrementMistakes()
 		{
 			Mistakes++;

@@ -125,6 +125,11 @@
 				   VerticalAlignment="Top"
 				   Margin="286,228,0,0" 
 				   FontSize="18"/>
-		<ToggleButton Margin="357,229,400,194" Content="On" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked" />
+		<ToggleButton Name="soundToggle"
+					  Margin="357,229,400,260" 
+					  Content="On" 
+					  Checked="ToggleButton_Checked" 
+					  Unchecked="ToggleButton_Unchecked" 
+					  IsChecked="True"/>
 	</Grid>
 </Page>

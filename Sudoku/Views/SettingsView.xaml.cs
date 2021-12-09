@@ -87,12 +87,14 @@ namespace Sudoku
 
 		private void ToggleButton_Checked(object sender, RoutedEventArgs e)
 		{
-			//Turn sound on
+			soundToggle.Content = "On";
+			Game.sound = true;
 		}
 
 		private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
 		{
-			//Turn sound off
+			soundToggle.Content = "Off";
+			Game.sound = false;
 		}
 	}
 }

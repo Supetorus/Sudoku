@@ -285,7 +285,7 @@ namespace Sudoku
 
 		private void BoardClick(object sender, RoutedEventArgs e)
 		{
-			click1.Play();
+			if (Game.sound) { click1.Play(); }
 			if (selectedButton != null)
 			{
 				Highlight(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, false);
@@ -368,7 +368,7 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					click2.Play();
+					if (Game.sound) { click2.Play(); }
 					moves.Pop();
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
@@ -397,7 +397,7 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					click3.Play();
+					if (Game.sound) { click3.Play(); }
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushWrongBackground");
 					shownButtons[x, y].Content = symbols[symbol][num];
@@ -439,7 +439,7 @@ namespace Sudoku
 		{
 			//if (board.CheckSafety(x, y, num))
 			//{
-			note.Play();
+			if (Game.sound) { note.Play(); }
 			TextBlock txt = (TextBlock)GetGrid(shownButtons[x, y]).Children[num - 1];
 			if (txt.Text != "") { txt.Text = ""; }
 			else { txt.Text = symbols[symbol][num]; }
