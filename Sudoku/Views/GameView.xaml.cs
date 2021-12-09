@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Sudoku
 {
@@ -102,7 +103,8 @@ namespace Sudoku
 			dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
 			dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
 
-			game = FileIO.Load<Game>("Game.bin");
+			if (File.Exists("Game.bin")) game = FileIO.Load<Game>("Game.bin");
+			else game = new Game();
 		}
 
 		public void NewGame(int difficulty)
