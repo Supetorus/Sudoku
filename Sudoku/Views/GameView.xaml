@@ -6,7 +6,7 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:local="clr-namespace:Sudoku"
 	  mc:Ignorable="d"
-	  d:DesignHeight="450"
+	  d:DesignHeight="550"
 	  d:DesignWidth="800"
 	  Title="GameView"
 	  KeyDown="Window_KeyDown"
@@ -22,7 +22,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="50*" />
 			<ColumnDefinition Width="27*" />
-			<ColumnDefinition Width="23*"/>
+			<ColumnDefinition Width="23*" />
 		</Grid.ColumnDefinitions>
 		<!-- The new game button -->
 		<ComboBox x:Name="cmbxNav"
@@ -35,14 +35,20 @@
 				  Foreground="{DynamicResource brushText}">
 			<ComboBox.ItemContainerStyle>
 				<Style TargetType="ComboBoxItem">
-					<Setter Property="BorderBrush" Value="{DynamicResource brushBackground}"/>
-					<Setter Property="Foreground" Value="{DynamicResource brushText}"/>
+					<Setter Property="BorderBrush"
+							Value="{DynamicResource brushBackground}" />
+					<Setter Property="Foreground"
+							Value="{DynamicResource brushText}" />
 					<Style.Triggers>
-						<Trigger Property="IsSelected" Value="True">
-							<Setter Property="Background" Value="{DynamicResource brushSelectedBackground}" />
+						<Trigger Property="IsSelected"
+								 Value="True">
+							<Setter Property="Background"
+									Value="{DynamicResource brushSelectedBackground}" />
 						</Trigger>
-						<Trigger Property="IsSelected" Value="False">
-							<Setter Property="Background" Value="{DynamicResource brushBackground}" />
+						<Trigger Property="IsSelected"
+								 Value="False">
+							<Setter Property="Background"
+									Value="{DynamicResource brushBackground}" />
 						</Trigger>
 					</Style.Triggers>
 				</Style>
@@ -60,12 +66,14 @@
 						  Content="New Game"
 						  Selected="cmbxiNewGame_Selected" />
 		</ComboBox>
-		<StackPanel VerticalAlignment="Center">
+		<StackPanel VerticalAlignment="Center"
+					HorizontalAlignment="Right"
+					Margin="0, 0, 50, 0">
 			<TextBlock x:Name="txtHints"
 					   Text="# Hints"
 					   HorizontalAlignment="Center"
 					   Foreground="{DynamicResource brushText}"
-					   FontSize="32"/>
+					   FontSize="32" />
 			<!-- The sudoku board -->
 			<Grid Name="gridView"
 				  Width="300"
@@ -98,11 +106,21 @@
 					   Text="0 / 0 Mistakes"
 					   HorizontalAlignment="Center"
 					   FontSize="24"
-					   Foreground="{DynamicResource brushWrongText}"/>
+					   Foreground="{DynamicResource brushWrongText}" />
+			<TextBlock Name="Timer"
+					   HorizontalAlignment="Center"
+					   TextWrapping="Wrap"
+					   Text="00:00"
+					   VerticalAlignment="Top"
+					   Foreground="{DynamicResource brushText}"
+					   FontSize="32" />
 		</StackPanel>
 		<!-- StackPanel used to organize the right panel -->
 		<StackPanel Grid.Column="1"
-					VerticalAlignment="Center" Grid.ColumnSpan="2">
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Grid.ColumnSpan="2"
+					Margin="50, 0, 0, 0">
 			<!-- The keypad -->
 			<Grid x:Name="gridKeypad"
 				  ShowGridLines="False"
@@ -124,7 +142,7 @@
 						Name="Keypad1"
 						Content="1"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -134,7 +152,7 @@
 						Name="Keypad2"
 						Content="2"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -144,7 +162,7 @@
 						Name="Keypad3"
 						Content="3"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -154,7 +172,7 @@
 						Name="Keypad4"
 						Content="4"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -164,7 +182,7 @@
 						Name="Keypad5"
 						Content="5"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -174,7 +192,7 @@
 						Name="Keypad6"
 						Content="6"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -184,7 +202,7 @@
 						Name="Keypad7"
 						Content="7"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -194,7 +212,7 @@
 						Name="Keypad8"
 						Content="8"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -204,7 +222,7 @@
 						Name="Keypad9"
 						Content="9"
 						FontSize="30"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -228,11 +246,11 @@
 						Grid.Column="0"
 						Content="Note"
 						Click="Notes"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
-						FontSize="24"/>
+						FontSize="24" />
 				<Button Width="100"
 						Height="50"
 						Margin="10"
@@ -240,11 +258,11 @@
 						Grid.Column="1"
 						Content="Hint"
 						Click="Hint"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
-						FontSize="24"/>
+						FontSize="24" />
 				<Button x:Name="btnUndo"
 						Width="100"
 						Height="50"
@@ -253,7 +271,7 @@
 						Grid.Column="0"
 						Content="Undo"
 						Click="Undo"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -266,7 +284,7 @@
 						Grid.Column="1"
 						Content="Erase"
 						Click="Erase"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
@@ -278,11 +296,11 @@
 						Grid.Column="0"
 						Content="Reset"
 						Click="Reset_Board"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
-						FontSize="24"/>
+						FontSize="24" />
 				<Button Name="Pause"
 						Width="100"
 						Height="50"
@@ -291,21 +309,13 @@
 						Grid.Column="1"
 						Content="Pause"
 						Click="Pause_Game"
-						Background="{DynamicResource brushBackground}" 
+						Background="{DynamicResource brushBackground}"
 						BorderBrush="{DynamicResource brushBorder}"
 						Foreground="{DynamicResource brushText}"
 						BorderThickness="1.5"
-						FontSize="24"/>
+						FontSize="24" />
 			</Grid>
 
 		</StackPanel>
-		<TextBlock Name="Timer"
-				   HorizontalAlignment="Center" 
-				   Margin="0,450,0,0" 
-				   TextWrapping="Wrap" 
-				   Text="00:00" 
-				   VerticalAlignment="Top"
-				   Foreground="{DynamicResource brushText}"
-				   FontSize="32"/>
 	</Grid>
 </Page>
