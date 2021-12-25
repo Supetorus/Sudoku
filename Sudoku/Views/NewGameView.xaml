@@ -9,17 +9,49 @@
 	  d:DesignWidth="800"
 	  Title="NewGameView">
 
-	<StackPanel>
-		<TextBlock Text="New Game"
+	<StackPanel
+		VerticalAlignment="Center"
+		HorizontalAlignment="Center">
+		<Grid Width="300"
+			  Margin="0, 0, 0, 25">
+			<Button x:Name="btnBack"
+					Margin="10, 0, 0, 0"
+					Content="←"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Center"
+					Width="30"
+					Background="{DynamicResource brushBackground}"
+					BorderBrush="{DynamicResource brushBorder}"
+					Foreground="{DynamicResource brushText}"
+					BorderThickness="1.5"
+					FontSize="24"
+					Click="Back_Click" />
+			<TextBlock Text="New Game"
+					   Foreground="{DynamicResource brushText}"
+					   FontSize="32"
+					   HorizontalAlignment="center"
+					   VerticalAlignment="top"
+					   Margin="0" />
+		</Grid>
+		<TextBlock Text="Select Your Difficulty"
+				   HorizontalAlignment="Center"
 				   Foreground="{DynamicResource brushText}"
 				   FontSize="32"
-				   HorizontalAlignment="center"
-				   VerticalAlignment="top"
-				   Margin="50" />
-		<TextBlock Text="Select Your Difficulty!"
-				   HorizontalAlignment="Center"
-                   Foreground="{DynamicResource brushText}"
-				   FontSize="32"/>
+				   Margin="0, 0, 0, 25"/>
+		<Grid HorizontalAlignment="Center"
+			  Width="300">
+			<TextBlock Text="Easy"
+					   FontSize="24"
+					   Foreground="{DynamicResource brushText}" />
+			<TextBlock Text="Medium"
+					   FontSize="24"
+					   HorizontalAlignment="Center"
+					   Foreground="{DynamicResource brushText}" />
+			<TextBlock Text="Hard"
+					   FontSize="24"
+					   HorizontalAlignment="Right"
+					   Foreground="{DynamicResource brushText}" />
+		</Grid>
 		<Slider x:Name="sldrDifficulty"
 				AutoToolTipPlacement="TopLeft"
 				Maximum="3"
@@ -30,16 +62,16 @@
 				HorizontalAlignment="Center"
 				VerticalAlignment="Top"
 				Margin="10"
-				Width="300" 
-				IsSnapToTickEnabled="True"/>
+				Width="300"
+				IsSnapToTickEnabled="True" />
 		<Button x:Name="btnNewGame"
 				Content="New Game"
 				Click="btnNewGame_Click"
 				HorizontalAlignment="Center"
-				Background="{DynamicResource brushBackground}" 
+				Background="{DynamicResource brushBackground}"
 				BorderBrush="{DynamicResource brushBorder}"
 				Foreground="{DynamicResource brushText}"
 				BorderThickness="1.5"
-				FontSize="24"/>
+				FontSize="24" />
 	</StackPanel>
 </Page>

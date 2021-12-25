@@ -30,5 +30,10 @@ namespace Sudoku
 			((GameView)ViewManager.GameView).NewGame((int)sldrDifficulty.Value);
 			ViewManager.SetView(ViewManager.GameView);
 		}
+
+		private void Back_Click(object sender, RoutedEventArgs e)
+		{
+			ViewManager.Back();
+		}
 	}
 }
