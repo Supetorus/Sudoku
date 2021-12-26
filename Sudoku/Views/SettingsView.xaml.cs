@@ -23,6 +23,9 @@ namespace Sudoku
 		public SettingsView()
 		{
 			InitializeComponent();
+			cmbxTheme.SelectedIndex = (int) App.settings.Skin;
+			soundToggle.Content = App.settings.SoundsOn ? "On" : "Off";
+			cmbxSymbols.SelectedIndex = (int) App.settings.Symbol;
 		}
 
 		private void neon_Selected(object sender, RoutedEventArgs e)
@@ -72,29 +75,42 @@ namespace Sudoku
 
 		private void numbers_Selected(object sender, RoutedEventArgs e)
 		{
-			GameView.symbol = 0;
+			App.settings.Symbol = 0;
 		}
 
 		private void letters_Selected(object sender, RoutedEventArgs e)
 		{
-			GameView.symbol = 1;
+			App.settings.Symbol = 1;
 		}
 
 		private void shapes_Selected(object sender, RoutedEventArgs e)
 		{
-			GameView.symbol = 2;
+			App.settings.Symbol = 2;
 		}
 
-		private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+		private void Sound_Checked(object sender, RoutedEventArgs e)
 		{
 			soundToggle.Content = "On";
-			Game.sound = true;
+			//Game.sound = true;
+			App.settings.SoundsOn = true;
 		}
 
-		private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
+		private void Sound_Unchecked(object sender, RoutedEventArgs e)
 		{
 			soundToggle.Content = "Off";
-			Game.sound = false;
+			//Game.sound = false;
+			App.settings.SoundsOn = false;
+		}
+
+		private void Mistakes_Checked(object sender, RoutedEventArgs e)
+		{
+			mistakesToggle.Content = "On";
+		}
+
+		private void Mistakes_Unchecked(object sender, RoutedEventArgs e)
+		{
+			mistakesToggle.Content = "Off";
+
 		}
 	}
 }

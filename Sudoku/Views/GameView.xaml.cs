@@ -84,7 +84,7 @@ namespace Sudoku
 
 		Stack<Move> moves = new Stack<Move>();
 
-		public static int symbol = 0;
+		//public static int symbol = 0;
 
 		string[][] symbols =
 		{
@@ -157,7 +157,7 @@ namespace Sudoku
 					}
 					else
 					{
-						shownButtons[x, y].Content = symbols[symbol][num];
+						shownButtons[x, y].Content = symbols[App.settings.Symbol][num];
 					}
 				}
 			}
@@ -287,7 +287,7 @@ namespace Sudoku
 
 		private void BoardClick(object sender, RoutedEventArgs e)
 		{
-			if (Game.sound) { click1.Play(); }
+			if (App.settings.SoundsOn) { click1.Play(); }
 			if (selectedButton != null)
 			{
 				Highlight(((CellInfo)selectedButton.Tag).x, ((CellInfo)selectedButton.Tag).y, false);
@@ -370,11 +370,11 @@ namespace Sudoku
 
 				if (game.board.CheckNum(x, y, num)) // It's the right number
 				{
-					if (Game.sound) { click2.Play(); }
+					if (App.settings.SoundsOn) { click2.Play(); }
 					moves.Pop();
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushRightText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushRightBackground");
-					shownButtons[x, y].Content = symbols[symbol][num];
+					shownButtons[x, y].Content = symbols[App.settings.Symbol][num];
 					((CellInfo)shownButtons[x, y].Tag).correct = true;
 					unsolved.Remove(new Vector2(x, y));
 
@@ -399,10 +399,10 @@ namespace Sudoku
 				}
 				else // It's the wrong number
 				{
-					if (Game.sound) { click3.Play(); }
+					if (App.settings.SoundsOn) { click3.Play(); }
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushWrongBackground");
-					shownButtons[x, y].Content = symbols[symbol][num];
+					shownButtons[x, y].Content = symbols[App.settings.Symbol][num];
 					game.board.SetNum(x, y, num);
 					game.IncrementMistakes();
 					txtMistakes.Text = game.Mistakes + " / " + Game.maxMistakes + " Mistakes";
@@ -441,10 +441,10 @@ namespace Sudoku
 		{
 			//if (board.CheckSafety(x, y, num))
 			//{
-			if (Game.sound) { note.Play(); }
+			if (App.settings.SoundsOn) { note.Play(); }
 			TextBlock txt = (TextBlock)GetGrid(shownButtons[x, y]).Children[num - 1];
 			if (txt.Text != "") { txt.Text = ""; }
-			else { txt.Text = symbols[symbol][num]; }
+			else { txt.Text = symbols[App.settings.Symbol][num]; }
 			//}
 		}
 
@@ -544,7 +544,7 @@ namespace Sudoku
 					for (int k = 0; k < 9; ++k)
 					{
 						((TextBlock)((Grid)move.prev).Children[k]).Text =
-							((TextBlock)((Grid)move.prev).Children[k]).Text != "" ? symbols[symbol][k + 1] : "";
+							((TextBlock)((Grid)move.prev).Children[k]).Text != "" ? symbols[App.settings.Symbol][k + 1] : "";
 					}
 
 					GetCellInfo(shownButtons[move.x, move.y]).correct = false;
@@ -561,7 +561,7 @@ namespace Sudoku
 						{
 							if (move.prev.ToString() == symbols[i][j])
 							{
-								shownButtons[move.x, move.y].Content = symbols[symbol][j];
+								shownButtons[move.x, move.y].Content = symbols[App.settings.Symbol][j];
 								game.board.SetNum(move.x, move.y, j);
 								GetCellInfo(shownButtons[move.x, move.y]).correct = false;
 								shownButtons[move.x, move.y].SetResourceReference(Control.ForegroundProperty, "brushWrongText");
@@ -615,7 +615,7 @@ namespace Sudoku
 				{
 					int num = game.board.GetNum(x, y);
 					if (GetGrid(shownButtons[x, y]) != null) { EraseNotes(x, y); unsolved.Add(new Vector2(x, y)); }
-					shownButtons[x, y].Content = num > 0 ? symbols[symbol][num] : GetGrid(shownButtons[x, y]);
+					shownButtons[x, y].Content = num > 0 ? symbols[App.settings.Symbol][num] : GetGrid(shownButtons[x, y]);
 					shownButtons[x, y].SetResourceReference(Control.ForegroundProperty, "brushText");
 					shownButtons[x, y].SetResourceReference(Control.BackgroundProperty, "brushBackground");
 					GetCellInfo(shownButtons[x, y]).correct = num > 0;
@@ -686,15 +686,15 @@ namespace Sudoku
 				dispatcherTimer.Start();
 			}
 		
-			Keypad1.Content = symbols[symbol][1];
-			Keypad2.Content = symbols[symbol][2];
-			Keypad3.Content = symbols[symbol][3];
-			Keypad4.Content = symbols[symbol][4];
-			Keypad5.Content = symbols[symbol][5];
-			Keypad6.Content = symbols[symbol][6];
-			Keypad7.Content = symbols[symbol][7];
-			Keypad8.Content = symbols[symbol][8];
-			Keypad9.Content = symbols[symbol][9];
+			Keypad1.Content = symbols[App.settings.Symbol][1];
+			Keypad2.Content = symbols[App.settings.Symbol][2];
+			Keypad3.Content = symbols[App.settings.Symbol][3];
+			Keypad4.Content = symbols[App.settings.Symbol][4];
+			Keypad5.Content = symbols[App.settings.Symbol][5];
+			Keypad6.Content = symbols[App.settings.Symbol][6];
+			Keypad7.Content = symbols[App.settings.Symbol][7];
+			Keypad8.Content = symbols[App.settings.Symbol][8];
+			Keypad9.Content = symbols[App.settings.Symbol][9];
 
 			for (int i = 0; i < 9; i++)
 			{
@@ -702,14 +702,14 @@ namespace Sudoku
 				{
 					if(HasNum(shownButtons[i, j]))
 					{
-						shownButtons[i, j].Content = symbols[symbol][game.board.GetNum(i, j)];
+						shownButtons[i, j].Content = symbols[App.settings.Symbol][game.board.GetNum(i, j)];
 					}
 					else
 					{
 						for (int k = 0; k < 9; ++k)
 						{
 							((TextBlock)GetGrid(shownButtons[i, j]).Children[k]).Text = 
-								((TextBlock)GetGrid(shownButtons[i, j]).Children[k]).Text != "" ? symbols[symbol][k + 1] : "";
+								((TextBlock)GetGrid(shownButtons[i, j]).Children[k]).Text != "" ? symbols[App.settings.Symbol][k + 1] : "";
 						}
 					}
 				}

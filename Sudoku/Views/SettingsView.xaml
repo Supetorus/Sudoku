@@ -9,170 +9,189 @@
 	  d:DesignWidth="800"
 	  Title="SettingsView">
 
-	<Grid>
+	<Grid HorizontalAlignment="Center"
+		  VerticalAlignment="Center"
+		  Width="200"
+		  Height="228">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="63*" />
+			<ColumnDefinition Width="37*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition MinHeight="40" />
+			<RowDefinition MinHeight="40" />
+			<RowDefinition MinHeight="40" />
+			<RowDefinition MinHeight="40" />
+		</Grid.RowDefinitions>
 
-		<Grid Width="300"
-			  Height="280">
-			
-			<Grid HorizontalAlignment="Center"
+		<Button x:Name="btnBack"
+				Content="←"
+				Margin="10,0,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Width="30"
+				Background="{DynamicResource brushBackground}"
+				BorderBrush="{DynamicResource brushBorder}"
+				Foreground="{DynamicResource brushText}"
+				BorderThickness="1.5"
+				FontSize="24"
+				Click="Back_Click"
+				Height="37" />
+		<TextBlock Text="Settings"
+				   Grid.Row="0"
+				   Grid.Column="0"
+				   Grid.ColumnSpan="2"
+				   Foreground="{DynamicResource brushText}"
+				   FontSize="32"
+				   HorizontalAlignment="Right"
+				   VerticalAlignment="Top"
+				   Margin="0, 0, 30, 0"
+				   Height="43"
+				   Width="114" />
+
+		<TextBlock Text="Theme: "
+				   Grid.Row="1"
+				   Grid.Column="0"
+				   Foreground="{DynamicResource brushText}"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Center"
+				   FontSize="18"
+				   Height="24"
+				   Width="63" />
+		<ComboBox x:Name="cmbxTheme"
+				  Grid.Row="1"
+				  Grid.Column="1"
 				  VerticalAlignment="Center"
-				  Width="200"
-				  Height="170">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition />
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition />
-					<RowDefinition MinHeight="40" />
-					<RowDefinition MinHeight="40" />
-					<RowDefinition MinHeight="40" />
-				</Grid.RowDefinitions>
-				<Button x:Name="btnBack"
-						Margin="10, 0, 0, 0"
-						Content="←"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Center"
-						Width="30"
-						Background="{DynamicResource brushBackground}"
-						BorderBrush="{DynamicResource brushBorder}"
-						Foreground="{DynamicResource brushText}"
-						BorderThickness="1.5"
-						FontSize="24"
-						Click="Back_Click" />
-				<TextBlock Text="Settings"
-						   Grid.Row="0"
-						   Grid.Column="0"
-						   Grid.ColumnSpan="2"
-						   Foreground="{DynamicResource brushText}"
-						   FontSize="32"
-						   HorizontalAlignment="Right"
-						   VerticalAlignment="Top"
-						   Margin="0, 0, 30, 0" />
-
-
-
-				<TextBlock Text="Theme: "
-						   Grid.Row="1"
-						   Grid.Column="0"
-						   Foreground="{DynamicResource brushText}"
-						   HorizontalAlignment="Left"
-						   VerticalAlignment="Center"
-						   FontSize="18" />
-				<ComboBox Grid.Row="1"
-						  Grid.Column="1"
-						  HorizontalAlignment="Stretch"
-						  VerticalAlignment="Center"
-						  Background="{DynamicResource brushBackground}"
-						  BorderBrush="{DynamicResource brushBorder}"
-						  Foreground="{DynamicResource brushText}">
-					<ComboBox.ItemContainerStyle>
-						<Style TargetType="ComboBoxItem">
-							<Setter Property="BorderBrush"
+				  Background="{DynamicResource brushBackground}"
+				  BorderBrush="{DynamicResource brushBorder}"
+				  Foreground="{DynamicResource brushText}"
+				  Height="22">
+			<ComboBox.ItemContainerStyle>
+				<Style TargetType="ComboBoxItem">
+					<Setter Property="BorderBrush"
+							Value="{DynamicResource brushBackground}" />
+					<Setter Property="Foreground"
+							Value="{DynamicResource brushText}" />
+					<Style.Triggers>
+						<Trigger Property="IsSelected"
+								 Value="True">
+							<Setter Property="Background"
+									Value="{DynamicResource brushSelectedBackground}" />
+						</Trigger>
+						<Trigger Property="IsSelected"
+								 Value="False">
+							<Setter Property="Background"
 									Value="{DynamicResource brushBackground}" />
-							<Setter Property="Foreground"
-									Value="{DynamicResource brushText}" />
-							<Style.Triggers>
-								<Trigger Property="IsSelected"
-										 Value="True">
-									<Setter Property="Background"
-											Value="{DynamicResource brushSelectedBackground}" />
-								</Trigger>
-								<Trigger Property="IsSelected"
-										 Value="False">
-									<Setter Property="Background"
-											Value="{DynamicResource brushBackground}" />
-								</Trigger>
-							</Style.Triggers>
-						</Style>
-					</ComboBox.ItemContainerStyle>
-					<ComboBoxItem x:Name="default"
-								  Content="Default"
-								  IsSelected="False"
-								  Selected="default_Selected" />
-					<ComboBoxItem x:Name="dark"
-								  Content="Dark"
-								  Selected="dark_Selected" />
-					<ComboBoxItem x:Name="mocha"
-								  Content="Mocha"
-								  Selected="mocha_Selected" />
-					<ComboBoxItem x:Name="neon"
-								  Content="Neon"
-								  Selected="neon_Selected" />
-					<ComboBoxItem x:Name="dream"
-								  Content="Dream"
-								  Selected="dream_Selected" />
-					<ComboBoxItem x:Name="coral"
-								  Content="Coral"
-								  Selected="coral_Selected" />
-					<ComboBoxItem x:Name="mint"
-								  Content="Mint"
-								  Selected="mint_Selected" />
-					<ComboBoxItem x:Name="phoenix"
-								  Content="Phoenix"
-								  Selected="phoenix_Selected" />
-				</ComboBox>
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ComboBox.ItemContainerStyle>
+			<ComboBoxItem x:Name="default"
+						  Content="Default"
+						  IsSelected="False"
+						  Selected="default_Selected" />
+			<ComboBoxItem x:Name="dark"
+						  Content="Dark"
+						  Selected="dark_Selected" />
+			<ComboBoxItem x:Name="neon"
+						  Content="Neon"
+						  Selected="neon_Selected" />
+			<ComboBoxItem x:Name="mocha"
+						  Content="Mocha"
+						  Selected="mocha_Selected" />
+			<ComboBoxItem x:Name="dream"
+						  Content="Dream"
+						  Selected="dream_Selected" />
+			<ComboBoxItem x:Name="coral"
+						  Content="Coral"
+						  Selected="coral_Selected" />
+			<ComboBoxItem x:Name="mint"
+						  Content="Mint"
+						  Selected="mint_Selected" />
+			<ComboBoxItem x:Name="phoenix"
+						  Content="Phoenix"
+						  Selected="phoenix_Selected" />
+		</ComboBox>
 
-				<TextBlock Text="Symbols:"
-						   Grid.Row="2"
-						   Grid.Column="0"
-						   Foreground="{DynamicResource brushText}"
-						   VerticalAlignment="Center"
-						   FontSize="18" />
-				<ComboBox Grid.Row="2"
-						  Grid.Column="1"
-						  HorizontalAlignment="Stretch"
-						  VerticalAlignment="Center"
-						  Background="{DynamicResource brushBackground}"
-						  BorderBrush="{DynamicResource brushBorder}"
-						  Foreground="{DynamicResource brushText}">
-					<ComboBox.ItemContainerStyle>
-						<Style TargetType="ComboBoxItem">
-							<Setter Property="BorderBrush"
+		<TextBlock Text="Symbols:"
+				   Grid.Row="2"
+				   Grid.Column="0"
+				   Foreground="{DynamicResource brushText}"
+				   VerticalAlignment="Center"
+				   FontSize="18"
+				   Height="24" />
+		<ComboBox x:Name="cmbxSymbols"
+				  Grid.Row="2"
+				  Grid.Column="1"
+				  VerticalAlignment="Center"
+				  Background="{DynamicResource brushBackground}"
+				  BorderBrush="{DynamicResource brushBorder}"
+				  Foreground="{DynamicResource brushText}"
+				  Height="22">
+			<ComboBox.ItemContainerStyle>
+				<Style TargetType="ComboBoxItem">
+					<Setter Property="BorderBrush"
+							Value="{DynamicResource brushBackground}" />
+					<Setter Property="Foreground"
+							Value="{DynamicResource brushText}" />
+					<Style.Triggers>
+						<Trigger Property="IsSelected"
+								 Value="True">
+							<Setter Property="Background"
+									Value="{DynamicResource brushSelectedBackground}" />
+						</Trigger>
+						<Trigger Property="IsSelected"
+								 Value="False">
+							<Setter Property="Background"
 									Value="{DynamicResource brushBackground}" />
-							<Setter Property="Foreground"
-									Value="{DynamicResource brushText}" />
-							<Style.Triggers>
-								<Trigger Property="IsSelected"
-										 Value="True">
-									<Setter Property="Background"
-											Value="{DynamicResource brushSelectedBackground}" />
-								</Trigger>
-								<Trigger Property="IsSelected"
-										 Value="False">
-									<Setter Property="Background"
-											Value="{DynamicResource brushBackground}" />
-								</Trigger>
-							</Style.Triggers>
-						</Style>
-					</ComboBox.ItemContainerStyle>
-					<ComboBoxItem x:Name="numbers"
-								  Content="Numbers"
-								  IsSelected="True"
-								  Selected="numbers_Selected" />
-					<ComboBoxItem x:Name="letters"
-								  Content="Letters"
-								  Selected="letters_Selected" />
-					<ComboBoxItem x:Name="shapes"
-								  Content="Shapes"
-								  Selected="shapes_Selected" />
-				</ComboBox>
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ComboBox.ItemContainerStyle>
+			<ComboBoxItem x:Name="numbers"
+						  Content="Numbers"
+						  Selected="numbers_Selected" />
+			<ComboBoxItem x:Name="letters"
+						  Content="Letters"
+						  Selected="letters_Selected" />
+			<ComboBoxItem x:Name="shapes"
+						  Content="Shapes"
+						  Selected="shapes_Selected" />
+		</ComboBox>
 
-				<TextBlock Text="Sounds: "
-						   Grid.Row="3"
-						   Grid.Column="0"
-						   VerticalAlignment="Center"
-						   Foreground="{DynamicResource brushText}"
-						   FontSize="18" />
-				<ToggleButton Name="soundToggle"
-							  Grid.Row="3"
-							  Grid.Column="1"
-							  Content="On"
-							  VerticalAlignment="Center"
-							  Checked="ToggleButton_Checked"
-							  Unchecked="ToggleButton_Unchecked"
-							  IsChecked="True" />
-			</Grid>
-		</Grid>
+		<TextBlock Text="Sounds: "
+				   Grid.Row="3"
+				   Grid.Column="0"
+				   VerticalAlignment="Center"
+				   Foreground="{DynamicResource brushText}"
+				   FontSize="18"
+				   Height="24" />
+		<ToggleButton Name="soundToggle"
+					  Grid.Row="3"
+					  Grid.Column="1"
+					  Content="On"
+					  VerticalAlignment="Center"
+					  Checked="Sound_Checked"
+					  Unchecked="Sound_Unchecked"
+					  IsChecked="True"
+					  Height="20" />
+
+		<TextBlock Text="Show Mistakes: "
+				   Grid.Row="4"
+				   Grid.Column="0"
+				   VerticalAlignment="Center"
+				   Foreground="{DynamicResource brushText}"
+				   FontSize="18"
+				   Height="24" />
+		<ToggleButton Name="mistakesToggle"
+					  Grid.Row="4"
+					  Grid.Column="1"
+					  Content="On"
+					  VerticalAlignment="Center"
+					  Checked="Mistakes_Checked"
+					  Unchecked="Mistakes_Unchecked"
+					  IsChecked="True"
+					  Height="20" />
 	</Grid>
 </Page>

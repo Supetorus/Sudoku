@@ -4,7 +4,6 @@
 			 xmlns:local="clr-namespace:Sudoku"
 			 xmlns:system="clr-namespace:System;assembly=System.Runtime"
 			 StartupUri="GameWindow.xaml"
-			 Startup="Application_Startup"
 			 Exit="Application_Exit">
 	<Application.Resources>
 		<ResourceDictionary>
