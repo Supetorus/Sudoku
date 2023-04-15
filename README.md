@@ -15,3 +15,7 @@ To download and play:
 6. Open the Sudoku folder and run Sudoku.exe
 7. Play and enjoy.
 8. Give feedback. If you have a github profile you can leave feedback here by going to "Discussion" or "Issues" for bugs. If you do not have a github account you can leave feedback [here](https://docs.google.com/document/d/1XvGcY1mrMQw6zBR03wzjw1vZXoXMbrpvDMcu5PgYVJg/edit?usp=sharing)
+
+![Game](/Screenshots/Game.png)
+![Mint](/Screenshots/Mint.png)
+![Dream](/Screenshots/Dream.png)
