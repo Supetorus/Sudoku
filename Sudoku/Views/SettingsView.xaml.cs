@@ -24,8 +24,9 @@ namespace Sudoku
 		{
 			InitializeComponent();
 			cmbxTheme.SelectedIndex = (int) App.settings.Skin;
-			soundToggle.Content = App.settings.SoundsOn ? "On" : "Off";
 			cmbxSymbols.SelectedIndex = (int) App.settings.Symbol;
+			soundToggle.Content = App.settings.SoundsOn ? "On" : "Off";
+			mistakesToggle.Content = App.settings.CheckMistakes ? "On" : "Off";
 		}
 
 		private void neon_Selected(object sender, RoutedEventArgs e)

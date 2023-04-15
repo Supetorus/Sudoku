@@ -368,7 +368,7 @@ namespace Sudoku
 				moves.Push(new Move(x, y, shownButtons[x, y].Content));
 				game.board.SetNum(x, y, num);
 
-				if (game.board.CheckNum(x, y, num)) // It's the right number
+				if (game.board.CheckNum(x, y, num))// || !App.settings.CheckMistakes) // It's the right number
 				{
 					if (App.settings.SoundsOn) { click2.Play(); }
 					moves.Pop();
